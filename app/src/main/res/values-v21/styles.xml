@@ -7,8 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
     <style name="StyleBtnLogin">
-        <item name="android:background">@drawable/selector_btn_login</item>
+        <item name="android:background">@drawable/ripple_btn_login</item>
     </style>
 </resources>

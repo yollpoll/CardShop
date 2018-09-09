@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cardshop.cardshop.Base.BaseFragment;
+import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.MainContract;
 import com.cardshop.cardshop.R;
 
@@ -69,6 +70,11 @@ public class MainFragment extends BaseFragment implements MainContract.MainView 
                 presenter.refresh();
                 break;
         }
+    }
+
+    @Override
+    public BasePresenter createPresenter() {
+        return this.presenter;
     }
 
     @Override

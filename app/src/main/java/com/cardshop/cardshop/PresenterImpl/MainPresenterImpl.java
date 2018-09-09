@@ -2,7 +2,7 @@ package com.cardshop.cardshop.PresenterImpl;
 
 import com.cardshop.cardshop.Contract.MainContract;
 
-public class MainPresenterImpl implements MainContract.MainPresenter {
+public class MainPresenterImpl extends MainContract.MainPresenter {
     private MainContract.MainView mView;
     private String initContent = "";
 
