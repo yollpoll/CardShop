@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 
 import com.cardshop.cardshop.Base.SimpleActivity;
-import com.cardshop.cardshop.PresenterImpl.RegisterPresenterImpl;
+import com.cardshop.cardshop.PresenterImpl.ForgetPasswordPresenterImpl;
 import com.cardshop.cardshop.R;
-import com.cardshop.cardshop.View.Fragment.RegisterFragment;
+import com.cardshop.cardshop.View.Fragment.ForgetPasswordFragment;
 
-public class RegisterActivity extends SimpleActivity {
-    public static void gotoRegisterActivity(Context context) {
-        Intent intent = new Intent(context, RegisterActivity.class);
+public class ForgetPasswordActivity extends SimpleActivity {
+    public static void gotoForgetPasswordActivity(Context context) {
+        Intent intent = new Intent(context, ForgetPasswordActivity.class);
         context.startActivity(intent);
     }
 
@@ -19,11 +19,11 @@ public class RegisterActivity extends SimpleActivity {
     protected void initData() {
         super.initData();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        RegisterFragment fragment = (RegisterFragment) fragmentManager.findFragmentByTag(FRAGMENT_TAG);
+        ForgetPasswordFragment fragment = (ForgetPasswordFragment) fragmentManager.findFragmentByTag(FRAGMENT_TAG);
         if (fragment == null) {
-            fragment = RegisterFragment.newInstance();
+            fragment = ForgetPasswordFragment.newInstance();
             fragmentManager.beginTransaction().add(R.id.rl_root, fragment, FRAGMENT_TAG).commit();
         }
-        new RegisterPresenterImpl(fragment);
+        new ForgetPasswordPresenterImpl(fragment);
     }
 }

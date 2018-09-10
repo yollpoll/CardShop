@@ -16,6 +16,7 @@ import com.cardshop.cardshop.Base.BaseFragment;
 import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.LoginContract;
 import com.cardshop.cardshop.R;
+import com.cardshop.cardshop.View.Activity.ForgetPasswordActivity;
 import com.cardshop.cardshop.View.Activity.RegisterActivity;
 import com.cardshop.framework.Utils.ToastUtils;
 
@@ -107,6 +108,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
                         edtPassword.getText().toString());
                 break;
             case R.id.tv_forgetpswd:
+                ForgetPasswordActivity.gotoForgetPasswordActivity(getActivity());
                 break;
             case R.id.tv_register:
                 RegisterActivity.gotoRegisterActivity(getActivity());

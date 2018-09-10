@@ -29,6 +29,8 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rootView = view;
+        initView(view);
+        initData();
     }
 
     @Override
@@ -75,5 +77,22 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         return rootView.findViewById(R.id.view_status);
     }
 
+    protected void setNoStatusBar() {
+        mImmersionBar
+                .transparentBar()
+                .fitsSystemWindows(false)
+                .init();
+    }
+
     public abstract P createPresenter();
+
+//    protected void showSnackerToast(String content) {
+//        if (null == rootView)
+//            return;
+//        ToastUtils.SnackerShowShort(rootView, content);
+//    }
+//
+//    protected void showToast(String content) {
+//        ToastUtils.showShort(content);
+//    }
 }

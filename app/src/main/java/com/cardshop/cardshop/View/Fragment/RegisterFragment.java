@@ -3,16 +3,23 @@ package com.cardshop.cardshop.View.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.cardshop.cardshop.Base.BaseFragment;
 import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.RegisterContract;
 import com.cardshop.cardshop.R;
+import com.cardshop.framework.Utils.ToastUtils;
 
 public class RegisterFragment extends BaseFragment implements RegisterContract.IView {
+    private TextInputEditText edtPhone, edtPsd, edtConfirmPsd, edtVertifyCode;
+    private TextView tvVertifyCode;
+    private Button btnRegister;
     private RegisterContract.IPresenter presenter;
 
     public static RegisterFragment newInstance() {
@@ -36,29 +43,71 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.I
         return inflater.inflate(R.layout.fragment_register, container, false);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
-        initData();
-    }
 
     @Override
     protected void initView(View view) {
         super.initView(view);
+        edtPhone = view.findViewById(R.id.edt_phone);
+        edtPsd = view.findViewById(R.id.edt_password);
+        edtConfirmPsd = view.findViewById(R.id.edt_confirm_password);
+        edtVertifyCode = view.findViewById(R.id.edt_vertify_code);
+        tvVertifyCode = view.findViewById(R.id.tv_vertify_code);
+        btnRegister = view.findViewById(R.id.btn_register);
+
+        tvVertifyCode.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
         super.initData();
-        View status = getStatusView();
-        if (null != status) {
-            mImmersionBar
-                    .transparentBar()
-                    .fitsSystemWindows(false)
-                    .statusBarView(status)
-                    .init();
-        }
+        setNoStatusBar();
         setTitle("注册");
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()) {
+            case R.id.tv_vertify_code:
+                getVertifyCode();
+                break;
+            case R.id.btn_register:
+                regietser();
+                break;
+        }
+    }
+
+    private void getVertifyCode() {
+        if (presenter.checkPhone(edtPhone.getText().toString())) {
+            presenter.getVertifyCode(edtPhone.getText().toString());
+        } else {
+            ToastUtils.SnackerShowShort(rootView, "请输入手机号");
+        }
+    }
+
+    private void regietser() {
+        String phone = edtPhone.getText().toString();
+        String psd = edtPsd.getText().toString();
+        String psdConfirm = edtConfirmPsd.getText().toString();
+        String vertifyCode = edtVertifyCode.getText().toString();
+
+        if (!presenter.checkPhone(phone)) {
+            ToastUtils.SnackerShowShort(rootView, "请输入手机号");
+            return;
+        } else if (!presenter.checkPsd(psd)) {
+            ToastUtils.SnackerShowShort(rootView, "请输入密码");
+            return;
+        } else if (!presenter.checkConfirmPsd(psdConfirm)) {
+            ToastUtils.SnackerShowShort(rootView, "请输入确认密码");
+            return;
+        } else if (!presenter.checkVertifyCode(vertifyCode)) {
+            ToastUtils.SnackerShowShort(rootView, "请输入验证码");
+            return;
+        } else if (!presenter.vertifyPsd(psd, psdConfirm)) {
+            ToastUtils.SnackerShowShort(rootView, "两次输入的密码不同");
+            return;
+        }
+        presenter.register(phone, psd, psdConfirm, vertifyCode);
     }
 }

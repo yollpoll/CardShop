@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.Activity.RegisterActivity"/>
+        <activity android:name=".View.Activity.RegisterActivity" />
+        <activity android:name=".View.Activity.ForgetPasswordActivity"></activity>
     </application>
 
 </manifest>
