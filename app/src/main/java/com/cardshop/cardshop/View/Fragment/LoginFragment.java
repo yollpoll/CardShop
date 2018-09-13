@@ -17,8 +17,8 @@ import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.LoginContract;
 import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Activity.ForgetPasswordActivity;
+import com.cardshop.cardshop.View.Activity.MainActivity;
 import com.cardshop.cardshop.View.Activity.RegisterActivity;
-import com.cardshop.framework.Utils.ToastUtils;
 
 public class LoginFragment extends BaseFragment implements LoginContract.IView {
     private LoginContract.IPresenter presenter;
@@ -127,13 +127,20 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
     }
 
     @Override
+    public void initLoginPhone(String phone) {
+        edtUsername.setText(phone);
+    }
+
+    @Override
     public void showPassword(boolean isShow) {
 
     }
 
     @Override
     public void onLoginResult(boolean result, String message) {
-        ToastUtils.showShort(message);
+        showSnackerToast(message);
+        if (result)
+            MainActivity.gotoMainActivity(getActivity());
     }
 
 
@@ -141,6 +148,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
     public void setPresenter(LoginContract.IPresenter presenter) {
         this.presenter = presenter;
     }
+
 
     private void checkNull() {
         presenter.checkNull(edtUsername.getText().toString(),

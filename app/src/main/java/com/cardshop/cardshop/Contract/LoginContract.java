@@ -16,5 +16,7 @@ public interface LoginContract {
         void onLoginResult(boolean result, String message);
 
         void setBtnLoginEnable(boolean enable);
+        void initLoginPhone(String phone);
+
     }
 }

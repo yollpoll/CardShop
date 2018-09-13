@@ -36,4 +36,7 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    public ImmersionBar getmImmersionBar() {
+        return this.mImmersionBar;
+    }
 }

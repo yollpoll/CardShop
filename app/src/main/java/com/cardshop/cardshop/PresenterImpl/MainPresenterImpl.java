@@ -12,14 +12,8 @@ public class MainPresenterImpl extends MainContract.MainPresenter {
         mView.setPresenter(this);
     }
 
-    @Override
-    public void refresh() {
-        initContent = "这是新的内容";
-        mView.refreshTxt(initContent);
-    }
 
     @Override
     public void start() {
-        mView.refreshTxt(initContent);
     }
 }

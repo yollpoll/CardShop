@@ -14,7 +14,6 @@ import com.cardshop.cardshop.Base.BaseFragment;
 import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.RegisterContract;
 import com.cardshop.cardshop.R;
-import com.cardshop.framework.Utils.ToastUtils;
 
 public class RegisterFragment extends BaseFragment implements RegisterContract.IView {
     private TextInputEditText edtPhone, edtPsd, edtConfirmPsd, edtVertifyCode;
@@ -78,11 +77,21 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.I
         }
     }
 
+    @Override
+    public void showSendVertifyCode(String result) {
+        showSnackerToast(result);
+    }
+
+//    @Override
+//    public void showToast(String content) {
+//        showSnackerToast(content);
+//    }
+
     private void getVertifyCode() {
         if (presenter.checkPhone(edtPhone.getText().toString())) {
             presenter.getVertifyCode(edtPhone.getText().toString());
         } else {
-            ToastUtils.SnackerShowShort(rootView, "请输入手机号");
+            showSnackerToast("请输入手机号");
         }
     }
 
@@ -91,23 +100,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.I
         String psd = edtPsd.getText().toString();
         String psdConfirm = edtConfirmPsd.getText().toString();
         String vertifyCode = edtVertifyCode.getText().toString();
-
-        if (!presenter.checkPhone(phone)) {
-            ToastUtils.SnackerShowShort(rootView, "请输入手机号");
-            return;
-        } else if (!presenter.checkPsd(psd)) {
-            ToastUtils.SnackerShowShort(rootView, "请输入密码");
-            return;
-        } else if (!presenter.checkConfirmPsd(psdConfirm)) {
-            ToastUtils.SnackerShowShort(rootView, "请输入确认密码");
-            return;
-        } else if (!presenter.checkVertifyCode(vertifyCode)) {
-            ToastUtils.SnackerShowShort(rootView, "请输入验证码");
-            return;
-        } else if (!presenter.vertifyPsd(psd, psdConfirm)) {
-            ToastUtils.SnackerShowShort(rootView, "两次输入的密码不同");
-            return;
-        }
-        presenter.register(phone, psd, psdConfirm, vertifyCode);
+        presenter.checkRegisterInput(phone, psd, psdConfirm, vertifyCode);
     }
+
 }

@@ -5,9 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cardshop.cardshop.R;
+import com.cardshop.framework.Utils.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 
 public abstract class BaseFragment<V, P extends BasePresenter<V>>
@@ -20,7 +22,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mImmersionBar = ImmersionBar.with(this);
+        this.mImmersionBar = ((BaseActivity) getActivity()).getmImmersionBar();
         mPresenter = createPresenter();
         mPresenter.attach((V) this);
     }
@@ -35,7 +37,11 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()) {
+            case R.id.iv_head_left:
+                goBack();
+                break;
+        }
     }
 
     @Override
@@ -47,12 +53,13 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     public void onDestroy() {
         super.onDestroy();
         mPresenter.detach();
-        if (mImmersionBar != null)
-            mImmersionBar.destroy();
+//        if (mImmersionBar != null)
+//            mImmersionBar.destroy();
 
     }
 
     protected void initData() {
+        mPresenter.start();
     }
 
     protected void initView(View view) {
@@ -86,13 +93,27 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
 
     public abstract P createPresenter();
 
-//    protected void showSnackerToast(String content) {
-//        if (null == rootView)
-//            return;
-//        ToastUtils.SnackerShowShort(rootView, content);
-//    }
-//
-//    protected void showToast(String content) {
-//        ToastUtils.showShort(content);
-//    }
+    public void showSnackerToast(String content) {
+        if (null == rootView)
+            return;
+        ToastUtils.SnackerShowShort(rootView, content);
+    }
+
+    public void showToast(String content) {
+        ToastUtils.showShort(content);
+    }
+
+    public void showBack() {
+        if (null == rootView)
+            return;
+        ImageView ivBack = rootView.findViewById(R.id.iv_head_left);
+        ivBack.setVisibility(View.VISIBLE);
+        ivBack.setOnClickListener(this);
+    }
+
+    public void goBack() {
+        if (null != getActivity())
+            getActivity().finish();
+    }
+
 }

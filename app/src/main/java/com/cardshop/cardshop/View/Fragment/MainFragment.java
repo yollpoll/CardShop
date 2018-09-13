@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.cardshop.cardshop.Base.BaseFragment;
 import com.cardshop.cardshop.Base.BasePresenter;
@@ -18,9 +16,6 @@ public class MainFragment extends BaseFragment implements MainContract.MainView 
     private static final String ARG_PARAM1 = "param1";
 
 
-    private String param1;
-    private TextView tvContent;
-    private Button btnOk;
     private MainContract.MainPresenter presenter;
 
     public static MainFragment newInstance(String param1) {
@@ -47,39 +42,24 @@ public class MainFragment extends BaseFragment implements MainContract.MainView 
     @Override
     protected void initData() {
         super.initData();
-        if (getArguments() != null) {
-            param1 = getArguments().getString(ARG_PARAM1);
-        }
-        presenter.start();
+        setNoStatusBar();
     }
 
     @Override
     protected void initView(View view) {
         super.initView(view);
-        tvContent = view.findViewById(R.id.tv_content);
-        btnOk=view.findViewById(R.id.btn_ok);
-
-        btnOk.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()){
-            case R.id.btn_ok:
-                presenter.refresh();
-                break;
         }
     }
 
     @Override
     public BasePresenter createPresenter() {
         return this.presenter;
-    }
-
-    @Override
-    public void refreshTxt(String content) {
-        tvContent.setText(content);
     }
 
     @Override

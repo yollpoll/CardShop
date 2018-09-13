@@ -1,5 +1,7 @@
 package com.cardshop.cardshop.View.Activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
@@ -10,6 +12,12 @@ import com.cardshop.cardshop.View.Fragment.MainFragment;
 
 public class MainActivity extends BaseActivity {
     public static final String FRAGMENT_TAG = "fragment_tag";
+
+    public static void gotoMainActivity(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +38,7 @@ public class MainActivity extends BaseActivity {
         }
 
         //初始化presenter
-        new MainPresenterImpl(fragment,"这是旧的内容2");
+        new MainPresenterImpl(fragment, "这是旧的内容2");
 
     }
 }

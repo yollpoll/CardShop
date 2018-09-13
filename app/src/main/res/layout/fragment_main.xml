@@ -4,16 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_content"
-        android:text="内容1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/btn_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ok" />
+    <com.cardshop.cardshop.Widget.CycleGalleryViewPager
+        android:id="@+id/cpager_banner"
+        android:layout_width="match_parent"
+        android:background="@color/black"
+        android:layout_height="200dp" />
 </LinearLayout>

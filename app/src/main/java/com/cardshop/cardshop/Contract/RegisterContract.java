@@ -12,17 +12,19 @@ public interface RegisterContract {
 
         public abstract boolean checkPhone(String phone);
 
-        public abstract boolean checkPsd(String psd);
-
-        public abstract boolean checkConfirmPsd(String psd);
-
-        public abstract boolean checkVertifyCode(String vertifyCode);
-
-        public abstract boolean vertifyPsd(String psd, String confirmPsd);
+        public abstract void checkRegisterInput(String phone, String password,
+                                           String confirmPassword, String vertifyCode);
+//        public abstract boolean checkPsd(String psd);
+//
+//        public abstract boolean checkConfirmPsd(String psd);
+//
+//        public abstract boolean checkVertifyCode(String vertifyCode);
+//
+//        public abstract boolean vertifyPsd(String psd, String confirmPsd);
 
     }
 
     interface IView extends IBaseView<IPresenter> {
-
+        void showSendVertifyCode(String result);
     }
 }
