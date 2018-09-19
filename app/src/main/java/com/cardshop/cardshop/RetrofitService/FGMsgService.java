@@ -12,4 +12,5 @@ public interface FGMsgService {
     Call<FGMsgVertifyModule> sendMsg(@Query("Account") String account, @Query("Pwd") String pwd
             , @Query("Content") String content, @Query("Mobile") String mobile, @Query("TemplateId") String templateId
             , @Query("SignId") String signId);
+
 }

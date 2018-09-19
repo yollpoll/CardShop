@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_root"
+        android:background="#f7f7f7">
+
+        <ImageView
+            android:id="@+id/iv_goods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/icon_mobile_home"
+            android:layout_margin="10dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_goods"
+            android:background="@color/white"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="京东实体购物卡"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_name"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginTop="8dp"
+                android:text="¥80"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_price"
+                android:layout_alignTop="@+id/tv_price"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/tv_price"
+                android:background="@drawable/shape_discount"
+                android:gravity="center"
+                android:text="0.8折"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tv_seller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tv_price"
+                android:layout_below="@+id/tv_price"
+                android:layout_marginTop="10dp"
+                android:text="xxxx 出售" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_price"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_buy"
+                android:paddingBottom="2dp"
+                android:paddingLeft="11dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="抢购"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

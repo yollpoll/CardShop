@@ -10,4 +10,18 @@
     <style name="StyleBtnLogin">
         <item name="android:background">@drawable/ripple_btn_login</item>
     </style>
+    <style name="MainTabButton">
+        <item name="android:textSize">10dip</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@drawable/tab_select_color</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:paddingBottom">2.0dip</item>
+        <item name="android:paddingLeft">0dp</item>
+    </style>
+    <style name="WhiteBgRipple">
+        <item name="android:background">@drawable/ripple_white_bg</item>
+    </style>
 </resources>

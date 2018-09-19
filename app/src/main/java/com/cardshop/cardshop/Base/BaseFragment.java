@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.Base;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     protected ImmersionBar mImmersionBar;
     protected P mPresenter;
     protected View rootView;
+    protected ProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     protected void initView(View view) {
     }
 
-    protected void setTitle(String content) {
+    public void setTitle(String content) {
         if (null == rootView)
             return;
         TextView tvTitle = rootView.findViewById(R.id.tv_title);
@@ -84,7 +86,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         return rootView.findViewById(R.id.view_status);
     }
 
-    protected void setNoStatusBar() {
+    public void setNoStatusBar() {
         mImmersionBar
                 .transparentBar()
                 .fitsSystemWindows(false)
@@ -114,6 +116,22 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     public void goBack() {
         if (null != getActivity())
             getActivity().finish();
+    }
+
+    public void showLoading(String title, String message) {
+        if (null == mProgressDialog)
+            mProgressDialog = new ProgressDialog(getActivity());//1.创建一个ProgressDialog的实例
+        mProgressDialog.setTitle(title);//2.设置标题
+        mProgressDialog.setMessage(message);//3.设置显示内容
+        mProgressDialog.setCancelable(false);//4.设置可否用back键关闭对话框
+        mProgressDialog.show();//5.将ProgessDialog显示出来
+
+    }
+
+    public void hideLoading() {
+        if (null == mProgressDialog)
+            return;
+        mProgressDialog.dismiss();
     }
 
 }

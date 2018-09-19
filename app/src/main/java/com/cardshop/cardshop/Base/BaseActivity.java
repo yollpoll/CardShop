@@ -3,10 +3,11 @@ package com.cardshop.cardshop.Base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.gyf.barlibrary.ImmersionBar;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements View.OnClickListener{
     protected ImmersionBar mImmersionBar;
     public static final String FRAGMENT_TAG = "fragment_tag";
 
@@ -38,5 +39,10 @@ public class BaseActivity extends AppCompatActivity {
 
     public ImmersionBar getmImmersionBar() {
         return this.mImmersionBar;
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

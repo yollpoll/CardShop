@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".View.Activity.RegisterActivity" />
         <activity android:name=".View.Activity.ForgetPasswordActivity"></activity>
+        <activity android:name=".View.Activity.GoodsDetailActivity" />
     </application>
 
 </manifest>

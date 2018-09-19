@@ -12,6 +12,14 @@ import retrofit2.Retrofit;
 public class UserModule extends BaseModule {
     private String token;
     private String mid;
+    private String user_name;
+    private String user_pic;
+    private String user_phone;
+    private String available_predeposit;
+    private String card_num;
+    private String weixin_nickname;
+    private String qq_nickname;
+
 
     public String getToken() {
         return token;
@@ -35,6 +43,62 @@ public class UserModule extends BaseModule {
 
     public static UserModule getLocalUser() {
         return SPUtiles.getUser();
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public String getUser_pic() {
+        return user_pic;
+    }
+
+    public void setUser_pic(String user_pic) {
+        this.user_pic = user_pic;
+    }
+
+    public String getUser_phone() {
+        return user_phone;
+    }
+
+    public void setUser_phone(String user_phone) {
+        this.user_phone = user_phone;
+    }
+
+    public String getAvailable_predeposit() {
+        return available_predeposit;
+    }
+
+    public void setAvailable_predeposit(String available_predeposit) {
+        this.available_predeposit = available_predeposit;
+    }
+
+    public String getCard_num() {
+        return card_num;
+    }
+
+    public void setCard_num(String card_num) {
+        this.card_num = card_num;
+    }
+
+    public String getWeixin_nickname() {
+        return weixin_nickname;
+    }
+
+    public void setWeixin_nickname(String weixin_nickname) {
+        this.weixin_nickname = weixin_nickname;
+    }
+
+    public String getQq_nickname() {
+        return qq_nickname;
+    }
+
+    public void setQq_nickname(String qq_nickname) {
+        this.qq_nickname = qq_nickname;
     }
 
     public static void login(String userName, String password, Callback<UserModule> callback) {

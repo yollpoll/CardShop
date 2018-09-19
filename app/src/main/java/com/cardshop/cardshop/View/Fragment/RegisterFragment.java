@@ -82,10 +82,16 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.I
         showSnackerToast(result);
     }
 
-//    @Override
-//    public void showToast(String content) {
-//        showSnackerToast(content);
-//    }
+    @Override
+    public void registerResult(boolean result, String content) {
+        if (!result) {
+            showSnackerToast(content);
+        } else {
+            showToast(content);
+            getActivity().finish();
+        }
+    }
+
 
     private void getVertifyCode() {
         if (presenter.checkPhone(edtPhone.getText().toString())) {

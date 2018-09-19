@@ -6,10 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.cardshop.cardshop.Base.BaseFragment;
@@ -26,6 +30,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
     private Button btnLogin;
     private TextInputEditText edtUsername, edtPassword;
     private TextView tvForgetPassword, tvRegister;
+    private CheckBox checkShowPassword;
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
@@ -38,29 +43,10 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
-        initData();
-    }
 
     @Override
     protected void initData() {
         super.initData();
-        presenter.start();
-    }
-
-    @Override
-    protected void initView(View view) {
-        super.initView(view);
-        btnLogin = view.findViewById(R.id.btn_login);
-        edtUsername = view.findViewById(R.id.edt_phone);
-        edtPassword = view.findViewById(R.id.edt_password);
-        tvForgetPassword = view.findViewById(R.id.tv_forgetpswd);
-        tvRegister = view.findViewById(R.id.tv_register);
-
-
         edtPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -94,6 +80,30 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
                 checkNull();
             }
         });
+        checkShowPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    edtPassword.setSelection(edtPassword.getText().toString().length());
+                } else {
+                    edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    edtPassword.setSelection(edtPassword.getText().toString().length());
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void initView(View view) {
+        super.initView(view);
+        btnLogin = view.findViewById(R.id.btn_login);
+        edtUsername = view.findViewById(R.id.edt_phone);
+        edtPassword = view.findViewById(R.id.edt_password);
+        tvForgetPassword = view.findViewById(R.id.tv_forgetpswd);
+        tvRegister = view.findViewById(R.id.tv_register);
+        checkShowPassword = view.findViewById(R.id.check_password);
+
         tvForgetPassword.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
@@ -139,8 +149,10 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
     @Override
     public void onLoginResult(boolean result, String message) {
         showSnackerToast(message);
-        if (result)
+        if (result) {
             MainActivity.gotoMainActivity(getActivity());
+            getActivity().finish();
+        }
     }
 
 

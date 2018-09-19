@@ -9,5 +9,14 @@ public interface IBaseView<T extends BasePresenter> {
 
     void goBack();
 
+    void setTitle(String title);
+
     void showBack();
+
+    void showLoading(String title, String message);
+
+    void hideLoading();
+
+    void setNoStatusBar();
+
 }

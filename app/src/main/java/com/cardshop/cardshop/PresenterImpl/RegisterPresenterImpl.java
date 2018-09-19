@@ -2,11 +2,11 @@ package com.cardshop.cardshop.PresenterImpl;
 
 import android.text.TextUtils;
 
-import com.cardshop.cardshop.Base.BaseApplication;
 import com.cardshop.cardshop.Contract.RegisterContract;
-import com.cardshop.cardshop.Module.FGMsgVertifyModule;
+import com.cardshop.cardshop.Http.ResponseData;
+import com.cardshop.cardshop.Module.MsgCodeModule;
+import com.cardshop.cardshop.Module.RegisterModule;
 import com.cardshop.cardshop.Utils.VertifyUtils;
-import com.cardshop.framework.Utils.ToastUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,32 +28,62 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
 
     @Override
     public void getVertifyCode(String phone) {
-        FGMsgVertifyModule.getModule(BaseApplication.FG_ACCOUNT, BaseApplication.FG_PSD, VertifyUtils.createVertifyCode(),
-                phone, BaseApplication.FG_TemplateId, BaseApplication.FG_SignId, new Callback<FGMsgVertifyModule>() {
-                    @Override
-                    public void onResponse(Call<FGMsgVertifyModule> call, Response<FGMsgVertifyModule> response) {
-                        if (FGMsgVertifyModule.ifSuccess(response.body())) {
-                            mView.showSendVertifyCode("发送成功");
-                        } else {
-                            mView.showSendVertifyCode(response.body().getMessage());
-                        }
-                    }
+//        FGMsgVertifyModule.getModule(BaseApplication.FG_ACCOUNT, BaseApplication.FG_PSD, VertifyUtils.createVertifyCode(),
+//                phone, BaseApplication.FG_TemplateId, BaseApplication.FG_SignId, new Callback<FGMsgVertifyModule>() {
+//                    @Override
+//                    public void onResponse(Call<FGMsgVertifyModule> call, Response<FGMsgVertifyModule> response) {
+//                        if (FGMsgVertifyModule.ifSuccess(response.body())) {
+//                            mView.showSendVertifyCode("发送成功");
+//                        } else {
+//                            mView.showSendVertifyCode(response.body().getMessage());
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<FGMsgVertifyModule> call, Throwable t) {
+//
+//                    }
+//                });
+        mView.showLoading("发送验证码", "验证码发送中");
+        MsgCodeModule.getMsgCode(phone, new Callback<ResponseData<MsgCodeModule>>() {
+            @Override
+            public void onResponse(Call<ResponseData<MsgCodeModule>> call, Response<ResponseData<MsgCodeModule>> response) {
+                mView.hideLoading();
+            }
 
-                    @Override
-                    public void onFailure(Call<FGMsgVertifyModule> call, Throwable t) {
-
-                    }
-                });
+            @Override
+            public void onFailure(Call<ResponseData<MsgCodeModule>> call, Throwable t) {
+                mView.hideLoading();
+            }
+        });
     }
 
     @Override
     public void register(String phone, String password, String confirmPassword, String vertifyCode) {
-        if (checkVertifyCode(vertifyCode)) {
-            ToastUtils.showShort("注册" + password + " " + confirmPassword + " " + vertifyCode);
+        mView.showLoading("注册中", "正在注册");
+        RegisterModule.register(phone, password, vertifyCode, new Callback<ResponseData<RegisterModule>>() {
+            @Override
+            public void onResponse(Call<ResponseData<RegisterModule>> call, Response<ResponseData<RegisterModule>> response) {
+                mView.hideLoading();
+                switch (response.body().getDatas().getCode()) {
+                    case RegisterModule.CODE_REGISETERED:
+                        mView.registerResult(false, "该手机已注册");
+                        break;
+                    case RegisterModule.CODE_VERTIFY_FAILED:
+                        mView.registerResult(false, "验证码错误");
+                        break;
+                    default:
+                        mView.registerResult(true, "注册成功");
+                        break;
+                }
+            }
 
-        } else {
-            mView.showToast("验证码错误");
-        }
+            @Override
+            public void onFailure(Call<ResponseData<RegisterModule>> call, Throwable t) {
+                mView.hideLoading();
+                mView.showSnackerToast("访问失败");
+            }
+        });
     }
 
     @Override
