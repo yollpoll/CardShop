@@ -154,6 +154,8 @@ public class MainFragment extends BaseFragment implements MainContract.MainView 
 
     @Override
     public void initGoods() {
+        listTitles.clear();
+        lisFragment.clear();
         for (int i = 0; i < 4; i++) {
             GoodsPagerFragment goodsPagerFragment = GoodsPagerFragment.newInstance(i);
             lisFragment.add(goodsPagerFragment);

@@ -12,9 +12,13 @@ import android.widget.RadioButton;
 import com.cardshop.cardshop.Base.BaseActivity;
 import com.cardshop.cardshop.PresenterImpl.FoundPresenterImpl;
 import com.cardshop.cardshop.PresenterImpl.MainPresenterImpl;
+import com.cardshop.cardshop.PresenterImpl.MinePresenterImpl;
+import com.cardshop.cardshop.PresenterImpl.OrderPresenterImpl;
 import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Fragment.FoundFragment;
 import com.cardshop.cardshop.View.Fragment.MainFragment;
+import com.cardshop.cardshop.View.Fragment.MineFragment;
+import com.cardshop.cardshop.View.Fragment.OrderFragment;
 
 public class MainActivity extends BaseActivity {
     public static final String FRAGMENT_TAG = "fragment_tag";
@@ -23,6 +27,8 @@ public class MainActivity extends BaseActivity {
     private FragmentManager fragmentManager;
     private MainFragment mainFragment;
     private FoundFragment foundFragment;
+    private OrderFragment orderFragment;
+    private MineFragment mineFragment;
     FragmentTransaction transaction;
 
     public static void gotoMainActivity(Context context) {
@@ -59,8 +65,12 @@ public class MainActivity extends BaseActivity {
         transaction = fragmentManager.beginTransaction();
         mainFragment = MainFragment.newInstance();
         foundFragment = FoundFragment.newInstance();
+        orderFragment=OrderFragment.newInstance();
+        mineFragment=MineFragment.newInstance();
         new MainPresenterImpl(mainFragment);
         new FoundPresenterImpl(foundFragment);
+        new OrderPresenterImpl(orderFragment);
+        new MinePresenterImpl(mineFragment);
 //        initFragments();
         loadFragment(mainFragment);
     }
@@ -75,6 +85,12 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.rb_found:
                 loadFragment(foundFragment);
+                break;
+            case R.id.rb_order:
+                loadFragment(orderFragment);
+                break;
+            case R.id.rb_mine:
+                loadFragment(mineFragment);
                 break;
         }
     }

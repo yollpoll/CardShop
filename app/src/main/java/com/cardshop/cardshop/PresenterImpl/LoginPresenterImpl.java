@@ -21,7 +21,7 @@ public class LoginPresenterImpl extends LoginContract.IPresenter<LoginContract.I
 
     @Override
     public void login(final String userName, String password) {
-        mView.showLoading("登录中","正在登陆，请稍等...");
+        mView.showLoading("登录中", "正在登陆，请稍等...");
         UserModule.login(userName, password, new Callback<UserModule>() {
             @Override
             public void onResponse(Call<UserModule> call, Response<UserModule> response) {
@@ -32,6 +32,7 @@ public class LoginPresenterImpl extends LoginContract.IPresenter<LoginContract.I
                     UserModule.save(response.body());
                     SPUtiles.saveToken(response.body().getToken());
                     SPUtiles.saveLoginPhone(userName);
+                    UserModule.saveToLocal(response.body());
                     mView.onLoginResult(true, "登录成功");
                 }
             }

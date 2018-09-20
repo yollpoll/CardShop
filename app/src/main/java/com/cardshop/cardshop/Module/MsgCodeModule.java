@@ -16,4 +16,5 @@ public class MsgCodeModule extends BaseModule {
         Call<ResponseData<MsgCodeModule>> call = service.sendMsg(phone);
         call.enqueue(callback);
     }
+
 }

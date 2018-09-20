@@ -107,4 +107,12 @@ public class UserModule extends BaseModule {
         Call<UserModule> userModuleClass = service.login(userName, password);
         userModuleClass.enqueue(callback);
     }
+
+    public static void saveToLocal(UserModule userModule) {
+        SPUtiles.saveUser(userModule);
+    }
+
+    public static UserModule getCurrentUser() {
+        return null != SPUtiles.getUser() ? SPUtiles.getUser() : new UserModule();
+    }
 }

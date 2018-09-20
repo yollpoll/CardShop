@@ -24,4 +24,8 @@
     <style name="WhiteBgRipple">
         <item name="android:background">@drawable/ripple_white_bg</item>
     </style>
+    <style name="MineItem" parent="WhiteBgRipple">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+    </style>
 </resources>

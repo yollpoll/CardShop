@@ -21,6 +21,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     protected View rootView;
     protected ProgressDialog mProgressDialog;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

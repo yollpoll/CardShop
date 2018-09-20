@@ -16,8 +16,8 @@ public class SPUtiles {
 
 
     public static String getSPKey(String key) {
-        if (null != getUser())
-            return getUser().getMid() + key;
+        if (null != getLoginPhone())
+            return getLoginPhone() + key;
         return key;
     }
 
@@ -30,7 +30,7 @@ public class SPUtiles {
     }
 
     public static UserModule getUser() {
-        String json = SharePreferencesUtils.getString(USER);
+        String json = SharePreferencesUtils.getString(getSPKey(USER));
         Gson gson = new Gson();
         UserModule userBean = gson.fromJson(json, UserModule.class);
         return userBean;
@@ -44,8 +44,9 @@ public class SPUtiles {
         } else {
             json = "";
         }
-        SharePreferencesUtils.putString(USER, json);
+        SharePreferencesUtils.putString(getSPKey(USER), json);
     }
+
 
     public static String getToken() {
         return SharePreferencesUtils.getString(TOKEN);

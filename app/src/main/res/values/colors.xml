@@ -13,4 +13,5 @@
     <color name="black">#000000</color>
     <color name="colorDiscountBg">#FFEAD9</color>
     <color name="background">#F5F5F5</color>
+    <color name="order_tab_selector">#B3FFFFFF</color>
 </resources>
