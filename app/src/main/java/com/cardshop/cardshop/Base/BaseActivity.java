@@ -2,12 +2,14 @@ package com.cardshop.cardshop.Base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.cardshop.cardshop.R;
 import com.gyf.barlibrary.ImmersionBar;
 
-public class BaseActivity extends AppCompatActivity implements View.OnClickListener{
+public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
     protected ImmersionBar mImmersionBar;
     public static final String FRAGMENT_TAG = "fragment_tag";
 
@@ -44,5 +46,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
+    }
+
+    protected BaseFragment loadBaseFragment(BaseFragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().add(R.id.rl_root, fragment, FRAGMENT_TAG).commit();
+        return fragment;
     }
 }

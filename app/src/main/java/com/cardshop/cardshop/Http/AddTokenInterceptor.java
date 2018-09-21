@@ -61,16 +61,33 @@ public class AddTokenInterceptor implements Interceptor {
      * @return
      */
     private Request addParam(Request oldRequest) {
-        oldRequest.body();
-        HttpUrl.Builder builder = oldRequest.url()
-                .newBuilder()
-                .setEncodedQueryParameter("token", SPUtiles.getToken());
 
+        // 添加新的参数
+        HttpUrl.Builder authorizedUrlBuilder = oldRequest.url()
+                .newBuilder()
+                .scheme(oldRequest.url().scheme())
+                .host(oldRequest.url().host())
+                .addQueryParameter("token", SPUtiles.getToken());
+
+
+        // 新的请求
         Request newRequest = oldRequest.newBuilder()
-                .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .method(oldRequest.method(), oldRequest.body())
-                .url(builder.build())
+                .url(authorizedUrlBuilder.build())
                 .build();
+//
+//        Log.d("spq","token>>>"+SPUtiles.getToken());
+//        oldRequest.body();
+//        HttpUrl.Builder builder = oldRequest.url()
+//                .newBuilder()
+//                .addQueryParameter("token",SPUtiles.getToken());
+//
+//
+//        Request newRequest = oldRequest.newBuilder()
+//                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+//                .method(oldRequest.method(), oldRequest.body())
+//                .url(builder.build())
+//                .build();
 
         return newRequest;
     }

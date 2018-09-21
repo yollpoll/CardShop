@@ -19,4 +19,8 @@ public interface IBaseView<T extends BasePresenter> {
 
     void setNoStatusBar();
 
+    void showProgressbar();
+
+    void hideProgressbar();
+
 }

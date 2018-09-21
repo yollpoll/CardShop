@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cardshop.cardshop.R;
@@ -20,6 +21,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     protected P mPresenter;
     protected View rootView;
     protected ProgressDialog mProgressDialog;
+    protected ProgressBar mProgressBar;
 
 
     @Override
@@ -75,6 +77,15 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         if (null == tvTitle)
             return;
         tvTitle.setText(content);
+    }
+
+    public void setHeadRightIv(int id, View.OnClickListener onClickListener) {
+        if (null == rootView)
+            return;
+        ImageView ivHead = rootView.findViewById(R.id.iv_head_right);
+        ivHead.setVisibility(View.VISIBLE);
+        ivHead.setImageResource(id);
+        ivHead.setOnClickListener(onClickListener);
     }
 
     /**
@@ -133,6 +144,21 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         if (null == mProgressDialog)
             return;
         mProgressDialog.dismiss();
+    }
+
+    public void showProgressbar() {
+        if (null == mProgressBar) {
+            if (null == rootView)
+                return;
+            mProgressBar = rootView.findViewById(R.id.progressBar);
+        }
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressbar() {
+        if (null == mProgressBar)
+            return;
+        mProgressBar.setVisibility(View.GONE);
     }
 
 }

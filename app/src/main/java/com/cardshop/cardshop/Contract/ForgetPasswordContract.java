@@ -7,10 +7,9 @@ public interface ForgetPasswordContract {
     abstract class Presenter<V> extends BasePresenter<V> {
         public abstract void getVertifyCode(String phone);
 
-        public abstract boolean checkVertifyCode(String code);
 
         public abstract void checkInput(String phone, String vertifyCode, String psw, String cinfirmPsw);
-        public abstract void forgetPassword(String phone,String psw);
+        public abstract void forgetPassword(String phone,String vertifyCode,String psw);
     }
 
     interface IView extends IBaseView<Presenter> {

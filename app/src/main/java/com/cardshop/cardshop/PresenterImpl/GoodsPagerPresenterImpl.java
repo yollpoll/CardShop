@@ -12,6 +12,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContract.IView> {
+    public static final int STATUS_MOBILE = 0;
+    public static final int STATUS_UNICOM = 1;
+    public static final int STATUS_TELCOM = 2;
+    public static final int STATUS_JD = 3;
+
     private GoodsContract.IView mView;
 
     private List<GoodsModule.Entity> list = new ArrayList<>();
@@ -38,7 +43,7 @@ public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContr
                 if (response.body().isSuccess()) {
                     //操作成功
                     list.clear();
-                    list.addAll(response.body().getDatas().getMobile());
+                    setData(response.body().getDatas());
                     mView.refresh();
                 } else {
                     mView.showSnackerToast("获取商品失败");
@@ -50,5 +55,22 @@ public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContr
                 mView.showSnackerToast("获取商品失败");
             }
         });
+    }
+
+    private void setData(GoodsModule goodsModule) {
+        switch (status) {
+            case STATUS_MOBILE:
+                list.addAll(goodsModule.getMobile());
+                break;
+            case STATUS_UNICOM:
+                list.addAll(goodsModule.getUnicom());
+                break;
+            case STATUS_TELCOM:
+                list.addAll(goodsModule.getTelcom());
+                break;
+            case STATUS_JD:
+                list.addAll(goodsModule.getJd());
+                break;
+        }
     }
 }

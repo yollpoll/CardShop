@@ -2,10 +2,9 @@ package com.cardshop.cardshop.PresenterImpl;
 
 import android.text.TextUtils;
 
-import com.cardshop.cardshop.Base.BaseApplication;
 import com.cardshop.cardshop.Contract.ForgetPasswordContract;
-import com.cardshop.cardshop.Module.FGMsgVertifyModule;
-import com.cardshop.cardshop.Utils.VertifyUtils;
+import com.cardshop.cardshop.Http.ResponseData;
+import com.cardshop.cardshop.Module.UserModule;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,28 +26,25 @@ public class ForgetPasswordPresenterImpl extends ForgetPasswordContract.Presente
 
     @Override
     public void getVertifyCode(String phone) {
-        FGMsgVertifyModule.getModule(BaseApplication.FG_ACCOUNT, BaseApplication.FG_PSD, VertifyUtils.createVertifyCode(),
-                phone, BaseApplication.FG_TemplateId, BaseApplication.FG_SignId, new Callback<FGMsgVertifyModule>() {
-                    @Override
-                    public void onResponse(Call<FGMsgVertifyModule> call, Response<FGMsgVertifyModule> response) {
-                        if (FGMsgVertifyModule.ifSuccess(response.body())) {
-                            mView.showSnackerToast("发送成功");
-                        } else {
-                            mView.showSnackerToast(response.body().getMessage());
-                        }
-                    }
+        UserModule.getMsgCode(phone, new Callback<ResponseData<UserModule>>() {
+            @Override
+            public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
+                mView.hideLoading();
+                if ("1".equals(response.body().getDatas().getCode())) {
+                    mView.showSnackerToast("发送成功");
+                } else {
+                    mView.showSnackerToast("发送失败");
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<FGMsgVertifyModule> call, Throwable t) {
-
-                    }
-                });
+            @Override
+            public void onFailure(Call<ResponseData<UserModule>> call, Throwable t) {
+                mView.hideLoading();
+                mView.showSnackerToast("发送失败");
+            }
+        });
     }
 
-    @Override
-    public boolean checkVertifyCode(String code) {
-        return code.equals(VertifyUtils.vertifyCode);
-    }
 
     @Override
     public void checkInput(String phone, String vertifyCode, String psw, String confirmPsw) {
@@ -62,16 +58,39 @@ public class ForgetPasswordPresenterImpl extends ForgetPasswordContract.Presente
             mView.showSnackerToast("请输入确认密码");
         } else if (!psw.equals(confirmPsw)) {
             mView.showSnackerToast("两次输入密码不同");
-        } else if (!checkVertifyCode(vertifyCode)) {
-            mView.showSnackerToast("验证码错误");
         } else {
-            forgetPassword(phone, psw);
+            forgetPassword(phone, vertifyCode, psw);
         }
 
     }
 
     @Override
-    public void forgetPassword(String phone, String psw) {
-        mView.showSnackerToast("修改密码成功");
+    public void forgetPassword(String phone, String vertifyCode, String psw) {
+        mView.showLoading("修改密码", "修改密码中，请稍等");
+        UserModule.changePassword(phone, vertifyCode, psw, new Callback<ResponseData<UserModule>>() {
+            @Override
+            public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
+                mView.hideLoading();
+                if (null != response.body().getDatas()) {
+                    if ("0".equals(response.body().getDatas().getCode())) {
+                        mView.showSnackerToast("验证码超时");
+                    } else if ("1".equals(response.body().getDatas().getCode())) {
+                        mView.showSnackerToast("验证码不正确");
+                    } else if ("2".equals(response.body().getDatas().getCode())) {
+                        mView.showSnackerToast("密码修改成功");
+                        mView.goBack();
+                    }
+                } else {
+                    mView.showSnackerToast("修改失败");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData<UserModule>> call, Throwable t) {
+                mView.hideLoading();
+                mView.showSnackerToast("修改失败");
+            }
+        });
     }
 }

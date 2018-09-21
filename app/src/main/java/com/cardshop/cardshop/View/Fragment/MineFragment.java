@@ -16,6 +16,7 @@ import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.MineContract;
 import com.cardshop.cardshop.Module.UserModule;
 import com.cardshop.cardshop.R;
+import com.cardshop.cardshop.View.Activity.AddressChooseActivity;
 import com.cardshop.framework.Utils.ImageUtils;
 import com.cardshop.framework.Utils.ScreenUtils;
 
@@ -105,5 +106,15 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
         tvBalance.setText(userData.getAvailable_predeposit());
         tvCard.setText(userData.getCard_num());
         ImageUtils.loadCycleImage(userData.getUser_pic(), ivAvatar, getActivity());
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()) {
+            case R.id.rl_address:
+                AddressChooseActivity.gotoAddressChooseActivity(getActivity());
+                break;
+        }
     }
 }

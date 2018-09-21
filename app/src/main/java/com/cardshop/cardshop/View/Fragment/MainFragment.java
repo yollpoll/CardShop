@@ -159,7 +159,7 @@ public class MainFragment extends BaseFragment implements MainContract.MainView 
         for (int i = 0; i < 4; i++) {
             GoodsPagerFragment goodsPagerFragment = GoodsPagerFragment.newInstance(i);
             lisFragment.add(goodsPagerFragment);
-            new GoodsPagerPresenterImpl(goodsPagerFragment, 0);
+            new GoodsPagerPresenterImpl(goodsPagerFragment, i);
         }
         listTitles.add("移动卡");
         listTitles.add("联通卡");

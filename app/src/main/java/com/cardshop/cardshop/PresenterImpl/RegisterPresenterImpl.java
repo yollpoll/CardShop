@@ -4,8 +4,7 @@ import android.text.TextUtils;
 
 import com.cardshop.cardshop.Contract.RegisterContract;
 import com.cardshop.cardshop.Http.ResponseData;
-import com.cardshop.cardshop.Module.MsgCodeModule;
-import com.cardshop.cardshop.Module.RegisterModule;
+import com.cardshop.cardshop.Module.UserModule;
 import com.cardshop.cardshop.Utils.VertifyUtils;
 
 import retrofit2.Call;
@@ -45,15 +44,21 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
 //                    }
 //                });
         mView.showLoading("发送验证码", "验证码发送中");
-        MsgCodeModule.getMsgCode(phone, new Callback<ResponseData<MsgCodeModule>>() {
+        UserModule.getMsgCode(phone, new Callback<ResponseData<UserModule>>() {
             @Override
-            public void onResponse(Call<ResponseData<MsgCodeModule>> call, Response<ResponseData<MsgCodeModule>> response) {
+            public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
                 mView.hideLoading();
+                if ("1".equals(response.body().getDatas().getCode())) {
+                    mView.showSnackerToast("发送成功");
+                } else {
+                    mView.showSnackerToast("发送失败");
+                }
             }
 
             @Override
-            public void onFailure(Call<ResponseData<MsgCodeModule>> call, Throwable t) {
+            public void onFailure(Call<ResponseData<UserModule>> call, Throwable t) {
                 mView.hideLoading();
+                mView.showSnackerToast("发送失败");
             }
         });
     }
@@ -61,15 +66,15 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
     @Override
     public void register(String phone, String password, String confirmPassword, String vertifyCode) {
         mView.showLoading("注册中", "正在注册");
-        RegisterModule.register(phone, password, vertifyCode, new Callback<ResponseData<RegisterModule>>() {
+        UserModule.register(phone, password, vertifyCode, new Callback<ResponseData<UserModule>>() {
             @Override
-            public void onResponse(Call<ResponseData<RegisterModule>> call, Response<ResponseData<RegisterModule>> response) {
+            public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
                 mView.hideLoading();
                 switch (response.body().getDatas().getCode()) {
-                    case RegisterModule.CODE_REGISETERED:
+                    case UserModule.CODE_REGISETERED:
                         mView.registerResult(false, "该手机已注册");
                         break;
-                    case RegisterModule.CODE_VERTIFY_FAILED:
+                    case UserModule.CODE_VERTIFY_FAILED:
                         mView.registerResult(false, "验证码错误");
                         break;
                     default:
@@ -79,7 +84,7 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
             }
 
             @Override
-            public void onFailure(Call<ResponseData<RegisterModule>> call, Throwable t) {
+            public void onFailure(Call<ResponseData<UserModule>> call, Throwable t) {
                 mView.hideLoading();
                 mView.showSnackerToast("访问失败");
             }

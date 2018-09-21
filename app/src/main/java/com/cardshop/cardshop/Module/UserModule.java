@@ -2,7 +2,8 @@ package com.cardshop.cardshop.Module;
 
 import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Http.HttpTools;
-import com.cardshop.cardshop.RetrofitService.LoginService;
+import com.cardshop.cardshop.Http.ResponseData;
+import com.cardshop.cardshop.RetrofitService.UserService;
 import com.cardshop.cardshop.Utils.SPUtiles;
 
 import retrofit2.Call;
@@ -10,6 +11,8 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 
 public class UserModule extends BaseModule {
+    public static final String CODE_VERTIFY_FAILED = "2";
+    public static final String CODE_REGISETERED = "1";
     private String token;
     private String mid;
     private String user_name;
@@ -103,9 +106,29 @@ public class UserModule extends BaseModule {
 
     public static void login(String userName, String password, Callback<UserModule> callback) {
         Retrofit retrofit = HttpTools.getInstance().getRetrofit();
-        LoginService service = retrofit.create(LoginService.class);
+        UserService service = retrofit.create(UserService.class);
         Call<UserModule> userModuleClass = service.login(userName, password);
         userModuleClass.enqueue(callback);
+    }
+
+    public static void changePassword(String phone, String vertifyCode, String password, Callback<ResponseData<UserModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+        Call<ResponseData<UserModule>> call = service.changePassword(phone, vertifyCode, password);
+        call.enqueue(callback);
+    }
+
+    public static void register(String phone, String password, String captcha, Callback<ResponseData<UserModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+        Call<ResponseData<UserModule>> call = service.register(phone, password, captcha);
+        call.enqueue(callback);
+    }
+    public static void getMsgCode(String phone, Callback<ResponseData<UserModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+        Call<ResponseData<UserModule>> call = service.sendMsg(phone);
+        call.enqueue(callback);
     }
 
     public static void saveToLocal(UserModule userModule) {

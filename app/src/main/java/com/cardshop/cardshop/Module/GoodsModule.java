@@ -13,6 +13,33 @@ import retrofit2.Retrofit;
 
 public class GoodsModule extends BaseModule {
     private List<Entity> mobile;
+    private List<Entity> unicom;
+    private List<Entity> telcom;
+    private List<Entity> jd;
+
+    public List<Entity> getUnicom() {
+        return unicom;
+    }
+
+    public void setUnicom(List<Entity> unicom) {
+        this.unicom = unicom;
+    }
+
+    public List<Entity> getTelcom() {
+        return telcom;
+    }
+
+    public void setTelcom(List<Entity> telcom) {
+        this.telcom = telcom;
+    }
+
+    public List<Entity> getJd() {
+        return jd;
+    }
+
+    public void setJd(List<Entity> jd) {
+        this.jd = jd;
+    }
 
     public List<Entity> getMobile() {
         return mobile;

@@ -10,6 +10,8 @@ public class API {
     public static final String BANNER = "mobile/index.php?act=goods&op=get_banner";
     public static final String ANNOUNCEMENT = "mobile/index.php?act=goods&op=get_home_notice";
     public static final String GOODS = "mobile/index.php?act=goods&op=home_goods";
-    public static final String VERTIFY_CODE="mobile/index.php?act=auto_register_login&op=app_send_code";
-    public static final String REGISTER="mobile/index.php?act=auto_register_login&op=app_register";
+    public static final String VERTIFY_CODE = "mobile/index.php?act=auto_register_login&op=app_send_code";
+    public static final String REGISTER = "mobile/index.php?act=auto_register_login&op=app_register";
+    public static final String CHANGE_PASSWORD = "mobile/index.php?act=auto_register_login&op=app_update_pwd";
+    public static final String ADDRESS = "mobile/index.php?act=goods&op=address_infos";
 }
