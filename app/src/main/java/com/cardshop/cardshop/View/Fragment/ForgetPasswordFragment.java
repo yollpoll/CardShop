@@ -62,7 +62,6 @@ public class ForgetPasswordFragment extends BaseFragment implements ForgetPasswo
     protected void initData() {
         super.initData();
         setNoStatusBar();
-        setTitle("忘记密码");
     }
 
     @Override

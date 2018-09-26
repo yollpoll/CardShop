@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title" />
+
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/shape_gesture_password_tip"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="10dp"
+        android:text="请输入手势密码"
+        android:textColor="@color/colorPrimary" />
+    <com.cardshop.cardshop.Widget.GesturePasswodLayout
+        android:id="@+id/gesture_password"
+        app:gesture_view_color="@color/colorPrimary"
+        app:line_color="@color/colorPrimary"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/white"/>
+</LinearLayout>

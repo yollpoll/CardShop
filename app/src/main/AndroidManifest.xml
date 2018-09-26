@@ -24,6 +24,13 @@
         <activity android:name=".View.Activity.ForgetPasswordActivity"></activity>
         <activity android:name=".View.Activity.GoodsDetailActivity" />
         <activity android:name=".View.Activity.AddressChooseActivity" />
+        <activity android:name=".View.Activity.SettingActivity" />
+        <activity android:name=".View.Activity.BalanceActivity" />
+        <activity android:name=".View.Activity.CardActivity" />
+        <activity android:name=".View.Activity.PersonalMsgActivity" />
+        <activity android:name=".View.Activity.SetPayPasswordActivity"/>
+        <activity android:name=".View.Activity.SetPayPassword2Activity"/>
+        <activity android:name=".View.Activity.GestureActivity"/>
     </application>
 
 </manifest>

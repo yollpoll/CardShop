@@ -1,11 +1,18 @@
 package com.cardshop.cardshop.Base;
 
+import android.content.Context;
+
 import java.lang.ref.WeakReference;
 
 public abstract class BasePresenter<V> implements IBasePresenter {
+
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void start(Context context) {
     }
 
     private WeakReference<V> weakRefView;

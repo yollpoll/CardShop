@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PasswordKeyboardView">
+        <attr name="pkvDeleteDrawable" format="reference" />
+        <attr name="pkvDeleteBackgroundColor" format="color|reference" />
+    </declare-styleable>
+    <declare-styleable name="GesturePasswodLayout">
+        <attr name="line_color" format="color"></attr>
+        <attr name="vertical_number" format="integer"></attr>
+        <attr name="horizontal_number" format="integer"></attr>
+        <attr name="gesture_view_color" format="color"></attr>
+    </declare-styleable>
+</resources>

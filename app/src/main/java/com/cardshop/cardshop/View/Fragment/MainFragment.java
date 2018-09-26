@@ -79,7 +79,7 @@ public class MainFragment extends BaseFragment implements MainContract.MainView 
                 return tvAnnouncement;
             }
         });
-
+        goodsPager.setOffscreenPageLimit(4);
     }
 
 

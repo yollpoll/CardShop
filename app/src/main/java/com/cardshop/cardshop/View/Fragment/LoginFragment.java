@@ -118,7 +118,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
                         edtPassword.getText().toString());
                 break;
             case R.id.tv_forgetpswd:
-                ForgetPasswordActivity.gotoForgetPasswordActivity(getActivity());
+                ForgetPasswordActivity.gotoForgetPasswordActivity(getActivity(),"忘记密码");
                 break;
             case R.id.tv_register:
                 RegisterActivity.gotoRegisterActivity(getActivity());

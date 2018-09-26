@@ -12,9 +12,11 @@ import retrofit2.Response;
 
 public class ForgetPasswordPresenterImpl extends ForgetPasswordContract.Presenter {
     private ForgetPasswordContract.IView mView;
+    private String title;
 
-    public ForgetPasswordPresenterImpl(ForgetPasswordContract.IView mView) {
+    public ForgetPasswordPresenterImpl(ForgetPasswordContract.IView mView, String title) {
         this.mView = mView;
+        this.title = title;
         mView.setPresenter(this);
     }
 
@@ -22,6 +24,7 @@ public class ForgetPasswordPresenterImpl extends ForgetPasswordContract.Presente
     public void start() {
         super.start();
         mView.showBack();
+        mView.setTitle(title);
     }
 
     @Override

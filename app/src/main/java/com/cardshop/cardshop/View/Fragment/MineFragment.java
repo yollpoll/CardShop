@@ -17,6 +17,10 @@ import com.cardshop.cardshop.Contract.MineContract;
 import com.cardshop.cardshop.Module.UserModule;
 import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Activity.AddressChooseActivity;
+import com.cardshop.cardshop.View.Activity.BalanceActivity;
+import com.cardshop.cardshop.View.Activity.CardActivity;
+import com.cardshop.cardshop.View.Activity.PersonalMsgActivity;
+import com.cardshop.cardshop.View.Activity.SettingActivity;
 import com.cardshop.framework.Utils.ImageUtils;
 import com.cardshop.framework.Utils.ScreenUtils;
 
@@ -79,6 +83,7 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
         rlRealMsg.setOnClickListener(this);
         rlService.setOnClickListener(this);
         rlHelp.setOnClickListener(this);
+        ivAvatar.setOnClickListener(this);
 
     }
 
@@ -114,6 +119,18 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
         switch (view.getId()) {
             case R.id.rl_address:
                 AddressChooseActivity.gotoAddressChooseActivity(getActivity());
+                break;
+            case R.id.iv_setting:
+                SettingActivity.gotoSettingActivity(getActivity());
+                break;
+            case R.id.rl_balance:
+                BalanceActivity.gotoBalanceActivity(getActivity());
+                break;
+            case R.id.rl_card:
+                CardActivity.gotoCardActivity(getActivity());
+                break;
+            case R.id.iv_avater:
+                PersonalMsgActivity.gotoPersonalMsgActivity(getActivity());
                 break;
         }
     }

@@ -65,6 +65,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
 
     protected void initData() {
         mPresenter.start();
+        mPresenter.start(getActivity());
     }
 
     protected void initView(View view) {
@@ -88,15 +89,15 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         ivHead.setOnClickListener(onClickListener);
     }
 
-    /**
-     * 注意，这个方法并不是返回实际statusview
-     * 而是返回title中一个高度为0的控件
-     */
-    protected View getStatusView() {
+    public void setHeadRightText(String content, View.OnClickListener onClickListener) {
         if (null == rootView)
-            return null;
-        return rootView.findViewById(R.id.view_status);
+            return;
+        TextView tvHeadRight = rootView.findViewById(R.id.tv_head_right);
+        tvHeadRight.setOnClickListener(onClickListener);
+        tvHeadRight.setText(content);
+        tvHeadRight.setVisibility(View.GONE);
     }
+
 
     public void setNoStatusBar() {
         mImmersionBar
