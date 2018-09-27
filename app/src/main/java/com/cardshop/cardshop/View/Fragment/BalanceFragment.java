@@ -12,6 +12,9 @@ import com.cardshop.cardshop.Base.BaseFragment;
 import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.BalanceContract;
 import com.cardshop.cardshop.R;
+import com.cardshop.cardshop.View.Activity.BalanceDetailActivity;
+import com.cardshop.cardshop.View.Activity.RechargeActivity;
+import com.cardshop.cardshop.View.Activity.WithdrawActivity;
 
 public class BalanceFragment extends BaseFragment implements BalanceContract.IView {
     private TextView tvRecharge, tvGetMoney, tvBalance;
@@ -62,11 +65,14 @@ public class BalanceFragment extends BaseFragment implements BalanceContract.IVi
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
-            case R.id.iv_head_right:
+            case R.id.tv_head_right:
+                BalanceDetailActivity.gotoBalanceDetailActivity(getActivity());
                 break;
             case R.id.tv_recharge:
+                RechargeActivity.gotoRechargeActivity(getActivity());
                 break;
             case R.id.tv_get_money:
+                WithdrawActivity.gotoWithDrawActivity(getActivity());
                 break;
         }
     }

@@ -95,7 +95,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         TextView tvHeadRight = rootView.findViewById(R.id.tv_head_right);
         tvHeadRight.setOnClickListener(onClickListener);
         tvHeadRight.setText(content);
-        tvHeadRight.setVisibility(View.GONE);
+        tvHeadRight.setVisibility(View.VISIBLE);
     }
 
 

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:text="充值金额" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_rmb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="¥"
+            android:textSize="18sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_toRightOf="@+id/tv_rmb"
+            android:background="@color/white"
+            android:gravity="left|center_vertical"
+            android:inputType="number"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:text="1000"
+            android:textSize="36sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorLine" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLine" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:text="请选择支付方式" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorLine" />
+
+    <RadioGroup
+        android:id="@+id/rg_buy"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_wechatpay"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:checked="true"
+            android:drawableLeft="@mipmap/icon_wechat_pay"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="微信" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/colorLine" />
+
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_alipay"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@mipmap/icon_alipay"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="支付宝" />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLine" />
+
+    <Button
+        android:id="@+id/btn_ok"
+        style="@style/RechargeBg"
+        android:layout_width="295dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:text="确认"
+        android:textColor="@color/white" />
+</LinearLayout>

@@ -23,6 +23,8 @@ import com.cardshop.cardshop.View.Activity.PersonalMsgActivity;
 import com.cardshop.cardshop.View.Activity.SettingActivity;
 import com.cardshop.framework.Utils.ImageUtils;
 import com.cardshop.framework.Utils.ScreenUtils;
+import com.qiyukf.unicorn.api.ConsultSource;
+import com.qiyukf.unicorn.api.Unicorn;
 
 public class MineFragment extends BaseFragment implements MineContract.IView {
     public static final float ALL_OFFSET = 470;
@@ -114,6 +116,11 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
     }
 
     @Override
+    public void gotoService(String title, ConsultSource source) {
+        Unicorn.openServiceActivity(getActivity(), title, source);
+    }
+
+    @Override
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
@@ -131,6 +138,9 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
                 break;
             case R.id.iv_avater:
                 PersonalMsgActivity.gotoPersonalMsgActivity(getActivity());
+                break;
+            case R.id.rl_service:
+                presenter.gotoCustomerService();
                 break;
         }
     }
