@@ -7,9 +7,9 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        app:elevation="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/transparent"
-        android:layout_height="wrap_content">
+        app:elevation="0dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing"
@@ -91,39 +91,46 @@
                 android:layout_toRightOf="@+id/line"
                 android:inAnimation="@anim/push_up_in"
                 android:outAnimation="@anim/push_up_out" />
+
             <View
                 android:layout_width="match_parent"
-                android:layout_alignParentBottom="true"
                 android:layout_height="0.5dp"
-                android:background="@color/colorLine"
-                />
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorLine" />
         </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
         android:background="@color/white"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_height="match_parent">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_goods"
-            app:tabSelectedTextColor="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:tabSelectedTextColor="@color/colorPrimary" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_alignParentTop="true"
-            android:background="@color/colorLine"
-            />
+            android:background="@color/colorLine" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager_goods"
-            android:layout_below="@+id/tab_goods"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            android:layout_below="@+id/tab_goods" />
+
+        <ProgressBar
+            android:id="@+id/progress_goods_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp" />
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

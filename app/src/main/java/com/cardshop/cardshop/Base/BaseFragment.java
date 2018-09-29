@@ -58,6 +58,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     public void onDestroy() {
         super.onDestroy();
         mPresenter.detach();
+        mPresenter.stop();
 //        if (mImmersionBar != null)
 //            mImmersionBar.destroy();
 
@@ -153,7 +154,8 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
                 return;
             mProgressBar = rootView.findViewById(R.id.progressBar);
         }
-        mProgressBar.setVisibility(View.VISIBLE);
+        if (null != mPresenter)
+            mProgressBar.setVisibility(View.VISIBLE);
     }
 
     public void hideProgressbar() {

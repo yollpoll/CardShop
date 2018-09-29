@@ -6,4 +6,6 @@ public interface IBasePresenter {
     void start();
 
     void start(Context context);
+
+    void stop();
 }

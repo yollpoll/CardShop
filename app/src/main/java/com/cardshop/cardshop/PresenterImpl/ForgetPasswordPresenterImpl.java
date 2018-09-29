@@ -2,6 +2,7 @@ package com.cardshop.cardshop.PresenterImpl;
 
 import android.text.TextUtils;
 
+import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Contract.ForgetPasswordContract;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.UserModule;
@@ -29,19 +30,20 @@ public class ForgetPasswordPresenterImpl extends ForgetPasswordContract.Presente
 
     @Override
     public void getVertifyCode(String phone) {
-        UserModule.getMsgCode(phone, new Callback<ResponseData<UserModule>>() {
+        UserModule.getMsgCode(phone, new Callback<ResponseData<BaseModule>>() {
             @Override
-            public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
+            public void onResponse(Call<ResponseData<BaseModule>> call, Response<ResponseData<BaseModule>> response) {
                 mView.hideLoading();
-                if ("1".equals(response.body().getDatas().getCode())) {
-                    mView.showSnackerToast("发送成功");
-                } else {
-                    mView.showSnackerToast("发送失败");
-                }
+                mView.showSnackerToast(response.body().getMsg());
+//                if (response.body().isSuccess()) {
+//                    mView.showSnackerToast("发送成功");
+//                } else {
+//                    mView.showSnackerToast("发送失败");
+//                }
             }
 
             @Override
-            public void onFailure(Call<ResponseData<UserModule>> call, Throwable t) {
+            public void onFailure(Call<ResponseData<BaseModule>> call, Throwable t) {
                 mView.hideLoading();
                 mView.showSnackerToast("发送失败");
             }
@@ -74,18 +76,26 @@ public class ForgetPasswordPresenterImpl extends ForgetPasswordContract.Presente
             @Override
             public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
                 mView.hideLoading();
-                if (null != response.body().getDatas()) {
-                    if ("0".equals(response.body().getDatas().getCode())) {
-                        mView.showSnackerToast("验证码超时");
-                    } else if ("1".equals(response.body().getDatas().getCode())) {
-                        mView.showSnackerToast("验证码不正确");
-                    } else if ("2".equals(response.body().getDatas().getCode())) {
-                        mView.showSnackerToast("密码修改成功");
+                if (null != response.body()) {
+                    mView.showToast(response.body().getMsg());
+                    if (response.body().isSuccess()) {
                         mView.goBack();
                     }
                 } else {
                     mView.showSnackerToast("修改失败");
                 }
+//                if (null != response.body().getData()) {
+//                    if ("0".equals(response.body().getCode())) {
+//                        mView.showSnackerToast("验证码超时");
+//                    } else if ("1".equals(response.body().getCode())) {
+//                        mView.showSnackerToast("验证码不正确");
+//                    } else if ("2".equals(response.body().getCode())) {
+//                        mView.showSnackerToast("密码修改成功");
+//                        mView.goBack();
+//                    }
+//                } else {
+//                    mView.showSnackerToast("修改失败");
+//                }
 
             }
 

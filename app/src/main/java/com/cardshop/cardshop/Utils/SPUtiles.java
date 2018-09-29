@@ -10,7 +10,7 @@ import com.google.gson.Gson;
  */
 
 public class SPUtiles {
-    public static final String TOKEN = "token";
+//    public static final String TOKEN = "token";
     public static final String USER = "user";
     public static final String LOGIN_PHONE = "login_phone";
     public static final String GESTURE = "gesture";
@@ -27,7 +27,7 @@ public class SPUtiles {
     //user不为空的情况下
     public static String getIdKey(String key) {
         if (null != getUser())
-            return getUser().getMid() + key;
+            return getUser().getMember().getMemberId() + key;
         return key;
     }
 
@@ -74,12 +74,12 @@ public class SPUtiles {
     }
 
 
-    public static String getToken() {
-        return SharePreferencesUtils.getString(TOKEN);
-    }
-
-    public static void saveToken(String token) {
-        SharePreferencesUtils.putString(TOKEN, token);
-    }
+//    public static String getToken() {
+//        return SharePreferencesUtils.getString(TOKEN);
+//    }
+//
+//    public static void saveToken(String token) {
+//        SharePreferencesUtils.putString(TOKEN, token);
+//    }
 
 }

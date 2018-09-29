@@ -108,11 +108,11 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
 
     @Override
     public void setUserData(UserModule userData) {
-        tvUserName.setText(userData.getUser_name());
-        tvPhone.setText(userData.getUser_phone());
-        tvBalance.setText(userData.getAvailable_predeposit());
-        tvCard.setText(userData.getCard_num());
-        ImageUtils.loadCycleImage(userData.getUser_pic(), ivAvatar, getActivity());
+        tvUserName.setText(userData.getMember().getMemberName());
+        tvPhone.setText(userData.getMember().getMemberMobile());
+        tvBalance.setText(userData.getMember().getAvailableRcBalance()+"");
+        tvCard.setText(userData.getCardNum()+"");
+        ImageUtils.loadCycleImage(userData.getMember().getMemberAvatar(), ivAvatar, getActivity());
     }
 
     @Override

@@ -33,9 +33,11 @@
         <activity android:name=".View.Activity.GestureActivity" />
         <activity android:name=".View.Activity.RechargeActivity" />
         <activity android:name=".View.Activity.WithdrawActivity" />
-        <activity android:name=".View.Activity.ChooseCardWithdrawActivity"/>
-        <activity android:name=".View.Activity.BalanceDetailActivity"/>
-        <activity android:name=".View.Activity.ChangeUserNameActivity"/>
+        <activity android:name=".View.Activity.ChooseCardWithdrawActivity" />
+        <activity android:name=".View.Activity.BalanceDetailActivity" />
+        <activity android:name=".View.Activity.ChangeUserNameActivity" />
+        <activity android:name=".View.Activity.InputNewPhoneActivity" />
+        <activity android:name=".View.Activity.ChangePhoneActivity" />
     </application>
 
 </manifest>

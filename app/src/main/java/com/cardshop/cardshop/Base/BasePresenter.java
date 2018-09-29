@@ -15,6 +15,11 @@ public abstract class BasePresenter<V> implements IBasePresenter {
     public void start(Context context) {
     }
 
+    @Override
+    public void stop() {
+
+    }
+
     private WeakReference<V> weakRefView;
 
     public void attach(V view) {

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -24,6 +25,7 @@ import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.MainContract;
 import com.cardshop.cardshop.Listener.AppBarStateChangeListener;
 import com.cardshop.cardshop.Listener.OnItemClickListener;
+import com.cardshop.cardshop.Module.GoodsTypeModule;
 import com.cardshop.cardshop.PresenterImpl.GoodsPagerPresenterImpl;
 import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.Widget.CycleGalleryViewPager;
@@ -43,6 +45,7 @@ public class MainFragment extends BaseFragment implements MainContract.MainView 
     //announcement
     private TextSwitcher tsAnnouncement;
     //Goods
+    private ProgressBar progressBarGoods;
     private ViewPager goodsPager;
     private FragmentPagerAdapter goodsAdapter;
     private List<Fragment> lisFragment = new ArrayList<>();
@@ -86,6 +89,7 @@ public class MainFragment extends BaseFragment implements MainContract.MainView 
     @Override
     protected void initView(View view) {
         super.initView(view);
+        progressBarGoods = view.findViewById(R.id.progress_goods_pager);
         ctbLayout = view.findViewById(R.id.collapsing);
         tvTitle = view.findViewById(R.id.tv_title);
         appBarLayout = view.findViewById(R.id.app_bar);
@@ -153,21 +157,27 @@ public class MainFragment extends BaseFragment implements MainContract.MainView 
     }
 
     @Override
-    public void initGoods() {
+    public void initGoods(List<GoodsTypeModule> list) {
         listTitles.clear();
         lisFragment.clear();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < list.size(); i++) {
+            listTitles.add(list.get(i).getGcName());
             GoodsPagerFragment goodsPagerFragment = GoodsPagerFragment.newInstance(i);
             lisFragment.add(goodsPagerFragment);
-            new GoodsPagerPresenterImpl(goodsPagerFragment, i);
+            new GoodsPagerPresenterImpl(goodsPagerFragment, list.get(i).getGcName());
         }
-        listTitles.add("移动卡");
-        listTitles.add("联通卡");
-        listTitles.add("电信卡");
-        listTitles.add("京东卡");
         goodsAdapter = new FragmentPagerAdapter(getChildFragmentManager(), lisFragment, listTitles);
         goodsPager.setAdapter(goodsAdapter);
         mTabLayout.setupWithViewPager(goodsPager);
+    }
+
+    @Override
+    public void setGoodsProgressBarShow(boolean show) {
+        if (show) {
+            progressBarGoods.setVisibility(View.VISIBLE);
+        } else {
+            progressBarGoods.setVisibility(View.GONE);
+        }
     }
 
 }

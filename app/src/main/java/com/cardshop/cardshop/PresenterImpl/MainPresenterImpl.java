@@ -5,6 +5,7 @@ import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Listener.OnRxScrollListener;
 import com.cardshop.cardshop.Module.AnnouncementModule;
 import com.cardshop.cardshop.Module.BannerModule;
+import com.cardshop.cardshop.Module.GoodsTypeModule;
 import com.cardshop.cardshop.Utils.RxUtils;
 
 import java.util.ArrayList;
@@ -32,9 +33,9 @@ public class MainPresenterImpl extends MainContract.MainPresenter<MainContract.M
     @Override
     public void start() {
         mView.initBanner(listBanner, null);
-        mView.initGoods();
-        getBannerData();
-        getAnnounceMentData();
+        getGoodsType();
+//        getBannerData();
+//        getAnnounceMentData();
     }
 
     @Override
@@ -44,6 +45,25 @@ public class MainPresenterImpl extends MainContract.MainPresenter<MainContract.M
         stopScollBanner();
     }
 
+    private void getGoodsType() {
+        mView.setGoodsProgressBarShow(true);
+        GoodsTypeModule.getGoodsType(new Callback<ResponseData<List<GoodsTypeModule>>>() {
+            @Override
+            public void onResponse(Call<ResponseData<List<GoodsTypeModule>>> call, Response<ResponseData<List<GoodsTypeModule>>> response) {
+                if (null != response.body()) {
+                    if (response.body().isSuccess()) {
+                        mView.initGoods(response.body().getData());
+                        mView.setGoodsProgressBarShow(false);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData<List<GoodsTypeModule>>> call, Throwable t) {
+
+            }
+        });
+    }
 
     @Override
     public void getBannerData() {
@@ -52,7 +72,7 @@ public class MainPresenterImpl extends MainContract.MainPresenter<MainContract.M
             public void onResponse(Call<ResponseData<BannerModule>> call, Response<ResponseData<BannerModule>> response) {
                 if (response.body().isSuccess()) {
                     listBanner.clear();
-                    listBanner.addAll(response.body().getDatas().getBanner());
+                    listBanner.addAll(response.body().getData().getBanner());
                     mView.refreshBanner();
                     startScrollBanner();
                 }
@@ -87,7 +107,7 @@ public class MainPresenterImpl extends MainContract.MainPresenter<MainContract.M
             @Override
             public void onResponse(Call<ResponseData<AnnouncementModule>> call, Response<ResponseData<AnnouncementModule>> response) {
                 listAnnouncement.clear();
-                listAnnouncement.addAll(response.body().getDatas().getHome_notice());
+                listAnnouncement.addAll(response.body().getData().getHome_notice());
                 startScrollAnnouncement();
             }
 

@@ -2,6 +2,7 @@ package com.cardshop.cardshop.PresenterImpl;
 
 import android.text.TextUtils;
 
+import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Contract.RegisterContract;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.UserModule;
@@ -13,6 +14,7 @@ import retrofit2.Response;
 
 public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterContract.IView> {
     private RegisterContract.IView mView;
+    private String openId = "";
 
     public RegisterPresenterImpl(RegisterContract.IView mView) {
         this.mView = mView;
@@ -44,11 +46,11 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
 //                    }
 //                });
         mView.showLoading("发送验证码", "验证码发送中");
-        UserModule.getMsgCode(phone, new Callback<ResponseData<UserModule>>() {
+        UserModule.getMsgCode(phone, new Callback<ResponseData<BaseModule>>() {
             @Override
-            public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
+            public void onResponse(Call<ResponseData<BaseModule>> call, Response<ResponseData<BaseModule>> response) {
                 mView.hideLoading();
-                if ("1".equals(response.body().getDatas().getCode())) {
+                if (response.body().isSuccess()) {
                     mView.showSnackerToast("发送成功");
                 } else {
                     mView.showSnackerToast("发送失败");
@@ -56,7 +58,7 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
             }
 
             @Override
-            public void onFailure(Call<ResponseData<UserModule>> call, Throwable t) {
+            public void onFailure(Call<ResponseData<BaseModule>> call, Throwable t) {
                 mView.hideLoading();
                 mView.showSnackerToast("发送失败");
             }
@@ -66,20 +68,14 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
     @Override
     public void register(String phone, String password, String confirmPassword, String vertifyCode) {
         mView.showLoading("注册中", "正在注册");
-        UserModule.register(phone, password, vertifyCode, new Callback<ResponseData<UserModule>>() {
+        UserModule.register(phone, password, vertifyCode, openId, new Callback<ResponseData<UserModule>>() {
             @Override
             public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
                 mView.hideLoading();
-                switch (response.body().getDatas().getCode()) {
-                    case UserModule.CODE_REGISETERED:
-                        mView.registerResult(false, "该手机已注册");
-                        break;
-                    case UserModule.CODE_VERTIFY_FAILED:
-                        mView.registerResult(false, "验证码错误");
-                        break;
-                    default:
-                        mView.registerResult(true, "注册成功");
-                        break;
+                if (response.body().isSuccess()) {
+                    mView.registerResult(true, response.body().getMsg());
+                } else {
+                    mView.registerResult(false, response.body().getMsg());
                 }
             }
 

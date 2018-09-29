@@ -42,7 +42,7 @@ public class MinePresenterImpl extends MineContract.IPresenter<MineContract.IVie
     private void initQiyu() {
         YSFOptions ysfOptions = new YSFOptions();
         UICustomization uiCustomization = new UICustomization();
-        uiCustomization.rightAvatar = UserModule.getCurrentUser().getUser_pic();
+        uiCustomization.rightAvatar = UserModule.getCurrentUser().getMember().getMemberAvatar();
         uiCustomization.titleBackgroundResId = R.drawable.shape_title;
         uiCustomization.titleCenter=true;
         uiCustomization.titleBarStyle=0;

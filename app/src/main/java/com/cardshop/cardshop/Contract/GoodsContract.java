@@ -9,11 +9,15 @@ import java.util.List;
 public interface GoodsContract {
     abstract class IPresenter<V> extends BasePresenter<V> {
         public abstract void refreshData();
+
+        public abstract void loadMore();
     }
 
     interface IView extends IBaseView<GoodsContract.IPresenter> {
-        void initGoods(List<GoodsModule.Entity> list);
+        void initGoods(List<GoodsModule> list);
 
         void refresh();
+
+        void loadMore(int position,int count);
     }
 }

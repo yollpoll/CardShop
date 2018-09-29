@@ -3,6 +3,7 @@ package com.cardshop.cardshop.Contract;
 import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Base.IBaseView;
 import com.cardshop.cardshop.Listener.OnItemClickListener;
+import com.cardshop.cardshop.Module.GoodsTypeModule;
 
 import java.util.List;
 
@@ -22,8 +23,6 @@ public interface MainContract {
 
         public abstract void getGoodsData();
 
-
-
     }
 
     interface MainView extends IBaseView<MainPresenter> {
@@ -35,6 +34,8 @@ public interface MainContract {
 
         void setPageCount(int count);
 
-        void initGoods();
+        void initGoods(List<GoodsTypeModule> list);
+
+        void setGoodsProgressBarShow(boolean show);
     }
 }

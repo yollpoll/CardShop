@@ -18,59 +18,81 @@ public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContr
     public static final int STATUS_JD = 3;
 
     private GoodsContract.IView mView;
+    private int pageNum = 0;
 
-    private List<GoodsModule.Entity> list = new ArrayList<>();
-    private int status;
+    private List<GoodsModule> list = new ArrayList<>();
+    private String gcName;
+    private boolean isRefresh = true;
 
     @Override
     public void start() {
         super.start();
         mView.initGoods(list);
+        mView.showProgressbar();
         refreshData();
     }
 
-    public GoodsPagerPresenterImpl(GoodsContract.IView mView, int code) {
+    public GoodsPagerPresenterImpl(GoodsContract.IView mView, String gcName) {
         this.mView = mView;
-        this.status = code;
+        this.gcName = gcName;
         mView.setPresenter(this);
     }
 
     @Override
     public void refreshData() {
-        GoodsModule.getGoods(status, new Callback<ResponseData<GoodsModule>>() {
+        isRefresh = true;
+        pageNum = 0;
+        getData();
+    }
+
+    @Override
+    public void loadMore() {
+        pageNum++;
+        getData();
+    }
+
+    private void getData() {
+        GoodsModule.getGoods(gcName, pageNum + "", new Callback<ResponseData<List<GoodsModule>>>() {
             @Override
-            public void onResponse(Call<ResponseData<GoodsModule>> call, Response<ResponseData<GoodsModule>> response) {
-                if (response.body().isSuccess()) {
-                    //操作成功
-                    list.clear();
-                    setData(response.body().getDatas());
-                    mView.refresh();
-                } else {
-                    mView.showSnackerToast("获取商品失败");
+            public void onResponse(Call<ResponseData<List<GoodsModule>>> call, Response<ResponseData<List<GoodsModule>>> response) {
+                mView.hideProgressbar();
+                int loadMorePosition = list.size();
+                if (null != response.body()) {
+                    if (response.body().isSuccess()) {
+                        if (isRefresh)
+                            list.clear();
+                        list.addAll(response.body().getData());
+                        if (isRefresh) {
+                            mView.refresh();
+                        } else {
+                            mView.loadMore(loadMorePosition, response.body().getData().size());
+                        }
+                        isRefresh = false;
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseData<GoodsModule>> call, Throwable t) {
-                mView.showSnackerToast("获取商品失败");
+            public void onFailure(Call<ResponseData<List<GoodsModule>>> call, Throwable t) {
+                isRefresh = false;
             }
         });
     }
 
-    private void setData(GoodsModule goodsModule) {
-        switch (status) {
-            case STATUS_MOBILE:
-                list.addAll(goodsModule.getMobile());
-                break;
-            case STATUS_UNICOM:
-                list.addAll(goodsModule.getUnicom());
-                break;
-            case STATUS_TELCOM:
-                list.addAll(goodsModule.getTelcom());
-                break;
-            case STATUS_JD:
-                list.addAll(goodsModule.getJd());
-                break;
-        }
-    }
+//    private void setData(GoodsModule goodsModule) {
+//        switch (status) {
+//            case STATUS_MOBILE:
+//                list.addAll(goodsModule.getMobile());
+//                break;
+//            case STATUS_UNICOM:
+//                list.addAll(goodsModule.getUnicom());
+//                break;
+//            case STATUS_TELCOM:
+//                list.addAll(goodsModule.getTelcom());
+//                break;
+//            case STATUS_JD:
+//                list.addAll(goodsModule.getJd());
+//                break;
+//        }
+//    }
 }

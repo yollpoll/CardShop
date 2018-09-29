@@ -5,17 +5,13 @@ package com.cardshop.cardshop.Http;
  */
 
 public class ResponseData<T extends Object> {
+    public static final int SUCCESS = 0;
+    public static final int FAILED = -1;
+
     private int code;
-    private String message;
-    private T datas;
+    private String msg;
+    private T data;
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public int getCode() {
         return code;
@@ -25,15 +21,23 @@ public class ResponseData<T extends Object> {
         this.code = code;
     }
 
-    public T getDatas() {
-        return datas;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setDatas(T datas) {
-        datas = datas;
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 
     public boolean isSuccess() {
-        return 200 == code;
+        return SUCCESS == code;
     }
 }

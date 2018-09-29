@@ -17,6 +17,7 @@ import com.cardshop.cardshop.Contract.PersonalContract;
 import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.Utils.DialogUtils;
 import com.cardshop.cardshop.View.Activity.ChangeUserNameActivity;
+import com.cardshop.cardshop.View.Activity.InputNewPhoneActivity;
 import com.cardshop.cardshop.Widget.PasswordEditLayout;
 import com.cardshop.framework.Utils.ImageUtils;
 
@@ -100,7 +101,7 @@ public class PersonalMsgFragment extends BaseFragment implements PersonalContrac
     @Override
     public void getVertifyPswResult(boolean result) {
         if (result) {
-            showSnackerToast("验证密码成功");
+            InputNewPhoneActivity.gotoInputNewActivity(getActivity());
         } else {
             showSnackerToast("验证密码失败");
         }
