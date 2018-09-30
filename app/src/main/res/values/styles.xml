@@ -36,4 +36,5 @@
     <style name="GetMoneyBg">
         <item name="android:background">@drawable/shape_get_money</item>
     </style>
+    <style name="StyleWhiteRipple"></style>
 </resources>

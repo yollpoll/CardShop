@@ -38,6 +38,8 @@
         <activity android:name=".View.Activity.ChangeUserNameActivity" />
         <activity android:name=".View.Activity.InputNewPhoneActivity" />
         <activity android:name=".View.Activity.ChangePhoneActivity" />
+        <activity android:name=".View.Activity.AddCardActivity" />
+        <activity android:name=".View.Activity.AddCardVertifyActivity"/>
     </application>
 
 </manifest>

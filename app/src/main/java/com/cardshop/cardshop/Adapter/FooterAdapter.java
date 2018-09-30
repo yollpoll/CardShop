@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -20,6 +21,7 @@ public abstract class FooterAdapter<DATA extends List, VH extends RecyclerView.V
     public DATA data;
     private int mFooterStatus = 0;//0隐藏，1加载中，2没有更多
     private Object objectFooter;
+    private Context mContext;
 
     public FooterAdapter(DATA data) {
         this.data = data;
@@ -52,6 +54,7 @@ public abstract class FooterAdapter<DATA extends List, VH extends RecyclerView.V
 
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+        mContext = parent.getContext();
         switch (viewType) {
             case TYPE_CONTENT:
                 return onCreateContentViewHolder(parent, viewType);
@@ -72,11 +75,15 @@ public abstract class FooterAdapter<DATA extends List, VH extends RecyclerView.V
         }
     }
 
+    protected Context getContext() {
+        return mContext;
+    }
+
     public void setNomore() {
         if (mFooterStatus != 2) {
             mFooterStatus = 2;
             data.add(objectFooter);
-            notifyItemInserted(data.size()-1);
+            notifyItemInserted(data.size() - 1);
         }
     }
 
