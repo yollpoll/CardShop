@@ -17,6 +17,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

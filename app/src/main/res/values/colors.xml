@@ -15,4 +15,5 @@
     <color name="background">#F5F5F5</color>
     <color name="order_tab_selector">#B3FFFFFF</color>
     <color name="gesture_gray">#CCCCCC</color>
+    <color name="color_red">#FF5858</color>
 </resources>

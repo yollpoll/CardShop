@@ -8,6 +8,10 @@ public interface LoginContract {
         public abstract void login(String userName, String password);
 
         public abstract void checkNull(String userName, String password);
+
+        public abstract void loginViaWx();
+
+        public abstract void onLoginViaWx();
     }
 
     interface IView extends IBaseView<IPresenter> {
@@ -16,6 +20,7 @@ public interface LoginContract {
         void onLoginResult(boolean result, String message);
 
         void setBtnLoginEnable(boolean enable);
+
         void initLoginPhone(String phone);
 
     }

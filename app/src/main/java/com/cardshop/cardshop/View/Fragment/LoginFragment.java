@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cardshop.cardshop.Base.BaseFragment;
@@ -31,6 +32,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
     private TextInputEditText edtUsername, edtPassword;
     private TextView tvForgetPassword, tvRegister;
     private CheckBox checkShowPassword;
+    private ImageView ivWechat;
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
@@ -103,7 +105,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
         tvForgetPassword = view.findViewById(R.id.tv_forgetpswd);
         tvRegister = view.findViewById(R.id.tv_register);
         checkShowPassword = view.findViewById(R.id.check_password);
+        ivWechat = view.findViewById(R.id.iv_wechat);
 
+        ivWechat.setOnClickListener(this);
         tvForgetPassword.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
@@ -118,10 +122,13 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
                         edtPassword.getText().toString());
                 break;
             case R.id.tv_forgetpswd:
-                ForgetPasswordActivity.gotoForgetPasswordActivity(getActivity(),"忘记密码");
+                ForgetPasswordActivity.gotoForgetPasswordActivity(getActivity(), "忘记密码");
                 break;
             case R.id.tv_register:
                 RegisterActivity.gotoRegisterActivity(getActivity());
+                break;
+            case R.id.iv_wechat:
+                presenter.loginViaWx();
                 break;
         }
     }
@@ -148,10 +155,13 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
 
     @Override
     public void onLoginResult(boolean result, String message) {
-        showSnackerToast(message);
         if (result) {
             MainActivity.gotoMainActivity(getActivity());
             getActivity().finish();
+            showToast(message);
+        } else {
+            showSnackerToast(message);
+
         }
     }
 
@@ -161,6 +171,12 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
         this.presenter = presenter;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.onLoginViaWx();
+    }
 
     private void checkNull() {
         presenter.checkNull(edtUsername.getText().toString(),

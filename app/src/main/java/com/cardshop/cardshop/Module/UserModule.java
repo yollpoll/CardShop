@@ -29,6 +29,14 @@ public class UserModule extends BaseModule {
         userModuleClass.enqueue(callback);
     }
 
+    public static void authLogin(String openId, String nickName, String avatar, String authType
+            , Callback<ResponseData<UserModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+        Call<ResponseData<UserModule>> call = service.authLogin(openId, nickName, avatar, authType);
+        call.enqueue(callback);
+    }
+
     public static void changePassword(String phone, String smsCode, String password, Callback<ResponseData<UserModule>> callback) {
         Retrofit retrofit = HttpTools.getInstance().getRetrofit();
         UserService service = retrofit.create(UserService.class);
@@ -48,6 +56,14 @@ public class UserModule extends BaseModule {
         UserService service = retrofit.create(UserService.class);
         Call<ResponseData<BaseModule>> call = service.sendMsg(phone);
         call.enqueue(callback);
+    }
+
+    public static void vertifySms(String phone, String sms, Callback<ResponseData<BaseModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+        Call<ResponseData<BaseModule>> call = service.vertifySms(phone, sms);
+        call.enqueue(callback);
+
     }
 
     public static void saveToLocal(UserModule userModule) {

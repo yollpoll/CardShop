@@ -1,6 +1,7 @@
 package com.cardshop.cardshop.Base;
 
 import android.content.Context;
+import android.content.Intent;
 
 import java.lang.ref.WeakReference;
 
@@ -40,5 +41,10 @@ public abstract class BasePresenter<V> implements IBasePresenter {
     protected boolean isAttach() {
         return weakRefView != null &&
                 weakRefView.get() != null;
+    }
+
+    @Override
+    public void onReturnResult(int requestCode, int resultCode, Intent data) {
+
     }
 }

@@ -1,5 +1,7 @@
 package com.cardshop.cardshop.Base;
 
+import android.content.Intent;
+
 public interface IBaseView<T extends BasePresenter> {
     void setPresenter(T presenter);
 
@@ -22,5 +24,8 @@ public interface IBaseView<T extends BasePresenter> {
     void showProgressbar();
 
     void hideProgressbar();
+
+    void onReturnResult(int requestCode, int resultCode, Intent data);
+
 
 }

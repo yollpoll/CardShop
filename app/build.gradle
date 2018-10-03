@@ -18,6 +18,17 @@ android {
     }
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
+    signingConfigs {
+        debug {
+            storeFile file("C:\\Android\\workspace\\CardShop\\cardshop.jks")//keystore的路径
+            storePassword "11111111"
+            keyAlias "cardshop"
+            keyPassword "11111111"
+        }
+        debug {
+        }
+    }
+
 }
 
 dependencies {
@@ -39,4 +50,5 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.qiyukf.unicorn:unicorn:4.4.0'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }

@@ -73,7 +73,7 @@ public class PasswordEditLayout extends LinearLayout {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.d("spq","keyCode>>>>>>>>"+keyCode);
+        Log.d("spq", "keyCode>>>>>>>>" + keyCode);
         inputPassword(keyCode - KEY_OFFSET);
         return super.onKeyDown(keyCode, event);
     }
@@ -139,5 +139,17 @@ public class PasswordEditLayout extends LinearLayout {
         psw = "";
         inputSite = 0;
         postInvalidate();
+    }
+
+    public boolean checkInput() {
+        if (psw.length() == PSWNUM) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String getPsw() {
+        return psw;
     }
 }

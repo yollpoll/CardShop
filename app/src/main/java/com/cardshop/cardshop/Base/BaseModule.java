@@ -1,6 +1,8 @@
 package com.cardshop.cardshop.Base;
 
-public abstract class BaseModule {
+import java.io.Serializable;
+
+public abstract class BaseModule implements Serializable {
 //    protected String code = "";
 //
 //    public String getCode() {

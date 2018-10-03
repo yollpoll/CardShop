@@ -2,10 +2,14 @@ package com.cardshop.cardshop.PresenterImpl;
 
 import android.text.TextUtils;
 
+import com.cardshop.cardshop.Base.BaseApplication;
 import com.cardshop.cardshop.Contract.LoginContract;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.UserModule;
+import com.cardshop.cardshop.Module.WxUserInfoModule;
 import com.cardshop.cardshop.Utils.SPUtiles;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,17 +30,18 @@ public class LoginPresenterImpl extends LoginContract.IPresenter<LoginContract.I
         UserModule.login(userName, password, new Callback<ResponseData<UserModule>>() {
             @Override
             public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
-                mView.hideLoading();
-                if (null != response.body()) {
-                    mView.showSnackerToast(response.body().getMsg());
-                    if (response.body().isSuccess()) {
-                        SPUtiles.saveLoginPhone(userName);
-                        UserModule.saveToLocal(response.body().getData());
-                        mView.onLoginResult(true, response.body().getMsg());
-                    } else {
-                        mView.onLoginResult(false, response.body().getMsg());
-                    }
-                }
+//                mView.hideLoading();
+//                if (null != response.body()) {
+//                    mView.showSnackerToast(response.body().getMsg());
+//                    if (response.body().isSuccess()) {
+//                        SPUtiles.saveLoginPhone(userName);
+//                        UserModule.saveToLocal(response.body().getData());
+//                        mView.onLoginResult(true, response.body().getMsg());
+//                    } else {
+//                        mView.onLoginResult(false, response.body().getMsg());
+//                    }
+//                }
+                afterLogin(response);
 //                if ("1".equals(response.body().getCode())) {
 //                    mView.onLoginResult(false, "用户名密码错误");
 //                } else {
@@ -64,7 +69,53 @@ public class LoginPresenterImpl extends LoginContract.IPresenter<LoginContract.I
     }
 
     @Override
+    public void loginViaWx() {
+        // send oauth request
+        IWXAPI api = ((BaseApplication) BaseApplication.getInstance()).getIwxapi();
+        if (null == api)
+            return;
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "wechat_sdk_demo_test";
+        api.sendReq(req);
+    }
+
+    @Override
+    public void onLoginViaWx() {
+        if (!SPUtiles.isLoginViaWx())
+            return;
+        final WxUserInfoModule wxUserInfoModule = WxUserInfoModule.getLocalUserInfo();
+        mView.showLoading("登录中", "正在登陆，请稍等...");
+        UserModule.authLogin(wxUserInfoModule.getOpenid(), wxUserInfoModule.getNickname(), wxUserInfoModule.getHeadimgurl(),
+                "1", new Callback<ResponseData<UserModule>>() {
+                    @Override
+                    public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
+                        afterLogin(response);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseData<UserModule>> call, Throwable t) {
+                        mView.hideLoading();
+                        mView.onLoginResult(false, t.getMessage());
+                    }
+                });
+        SPUtiles.saveIsLoginViaWx(false);
+    }
+
+    @Override
     public void start() {
         mView.initLoginPhone(SPUtiles.getLoginPhone());
+    }
+
+    private void afterLogin(Response<ResponseData<UserModule>> response) {
+        mView.hideLoading();
+//        mView.showSnackerToast(response.body().getMsg());
+        if (response.body().isSuccess()) {
+            SPUtiles.saveLoginPhone(response.body().getData().getMember().getMemberMobile());
+            UserModule.saveToLocal(response.body().getData());
+            mView.onLoginResult(true, response.body().getMsg());
+        } else {
+            mView.onLoginResult(false, response.body().getMsg());
+        }
     }
 }

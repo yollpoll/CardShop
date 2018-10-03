@@ -1,6 +1,6 @@
 package com.cardshop.cardshop.View.Activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 
 import com.cardshop.cardshop.Base.SimpleActivity;
@@ -10,17 +10,19 @@ import com.cardshop.cardshop.PresenterImpl.AddCardVertifyPresenterImpl;
 import com.cardshop.cardshop.View.Fragment.AddCardVertifyFragment;
 
 public class AddCardVertifyActivity extends SimpleActivity {
+
+
     private String name, code, identity, phone, bank;
 
-    public static void gotoAddCardVertifyActivity(Context context, String name, String code,
-                                                  String identity, String phone, String bank) {
+    public static void gotoAddCardVertifyActivity(Activity context, String name, String code,
+                                                  String identity, String phone, String bank, int requestCode) {
         Intent intent = new Intent(context, AddCardVertifyActivity.class);
         intent.putExtra("name", name);
         intent.putExtra("code", code);
         intent.putExtra("identity", identity);
         intent.putExtra("phone", phone);
         intent.putExtra("bank", bank);
-        context.startActivity(intent);
+        context.startActivityForResult(intent, requestCode);
     }
 
     @Override

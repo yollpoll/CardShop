@@ -1,6 +1,7 @@
 package com.cardshop.cardshop.Base;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -164,4 +165,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         mProgressBar.setVisibility(View.GONE);
     }
 
+   public void onReturnResult(int requestCode, int resultCode, Intent data) {
+
+    }
 }

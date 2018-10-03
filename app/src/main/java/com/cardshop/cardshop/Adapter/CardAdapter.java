@@ -8,7 +8,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cardshop.cardshop.Base.BaseViewHolder;
-import com.cardshop.cardshop.Listener.OnItemClickListener;
 import com.cardshop.cardshop.Module.CardModule;
 import com.cardshop.cardshop.R;
 
@@ -39,7 +38,7 @@ public class CardAdapter extends BaseFooterAdapter<List<CardModule>> {
         viewHolder.rlRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.onClick(view, position);
+                onItemClickListener.onClick(list.get(position));
             }
         });
         Drawable drawable = null;
@@ -82,4 +81,7 @@ public class CardAdapter extends BaseFooterAdapter<List<CardModule>> {
         }
     }
 
+    public interface OnItemClickListener {
+        void onClick(CardModule cardModule);
+    }
 }

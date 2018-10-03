@@ -1,5 +1,7 @@
 package com.cardshop.cardshop.View.Activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +12,11 @@ import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Fragment.LoginFragment;
 
 public class LoginActivity extends BaseActivity {
+    public static void gotoLoginActivity(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.View.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Activity.AddCardVertifyActivity;
 
 public class AddCardFragment extends BaseFragment implements AddCardContract.IView {
+    public static final int REQUEST_VERTIFY_SMS = 1;
     private AddCardContract.Presenter presenter;
 
     private EditText edtName, edtCode, edtIdentity, edtPhone, edtBank;
@@ -75,6 +77,17 @@ public class AddCardFragment extends BaseFragment implements AddCardContract.IVi
 
     @Override
     public void gotoNext(String name, String code, String identity, String phone, String bank) {
-        AddCardVertifyActivity.gotoAddCardVertifyActivity(getActivity(),name,code,identity,phone,bank);
+        AddCardVertifyActivity.gotoAddCardVertifyActivity(getActivity(), name, code, identity
+                , phone, bank, REQUEST_VERTIFY_SMS);
+    }
+
+    @Override
+    public void onReturnResult(int requestCode, int resultCode, Intent data) {
+        super.onReturnResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_VERTIFY_SMS) {
+            if (resultCode == getActivity().RESULT_OK) {
+                goBack();
+            }
+        }
     }
 }

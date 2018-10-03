@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import com.cardshop.cardshop.Base.BaseActivity;
 
 public class SplashActivity extends BaseActivity {
+
     public static void gotoSplashActivity(Context context) {
         Intent intent = new Intent(context, SplashActivity.class);
         context.startActivity(intent);
@@ -16,5 +17,8 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.finish();
+        LoginActivity.gotoLoginActivity(this);
     }
+
 }

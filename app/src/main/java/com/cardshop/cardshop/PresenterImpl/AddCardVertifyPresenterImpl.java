@@ -64,4 +64,21 @@ public class AddCardVertifyPresenterImpl extends AddCardVertifyContract.Presente
         super.detach();
         RxUtils.isStopCountDown = true;
     }
+
+    @Override
+    public void vertifySms(String code) {
+        mView.showLoading("验证中", "正在验证验证码");
+        UserModule.vertifySms(addCardModule.getPhone(), code, new Callback<ResponseData<BaseModule>>() {
+            @Override
+            public void onResponse(Call<ResponseData<BaseModule>> call, Response<ResponseData<BaseModule>> response) {
+                mView.hideLoading();
+                mView.onAddResulte(response.body().isSuccess(), response.body().getMsg());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData<BaseModule>> call, Throwable t) {
+                mView.hideLoading();
+            }
+        });
+    }
 }

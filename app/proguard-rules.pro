@@ -21,3 +21,18 @@
 #-renamesourcefileattribute SourceFile
 -dontwarn com.qiyukf.**
 -keep class com.qiyukf.** {*;}
+-keep class com.tencent.mm.opensdk.** {
+
+*;
+
+}
+
+-keep class com.tencent.wxop.** {
+
+*;
+
+}
+
+-keep class com.tencent.mm.sdk.** {
+
+*;

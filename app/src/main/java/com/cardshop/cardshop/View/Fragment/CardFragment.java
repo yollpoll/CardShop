@@ -13,14 +13,14 @@ import com.cardshop.cardshop.Adapter.CardAdapter;
 import com.cardshop.cardshop.Base.BaseFragment;
 import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.CardContract;
-import com.cardshop.cardshop.Listener.OnItemClickListener;
 import com.cardshop.cardshop.Module.CardModule;
 import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Activity.AddCardActivity;
+import com.cardshop.cardshop.View.Activity.ManagerCardActivity;
 
 import java.util.List;
 
-public class CardFragment extends BaseFragment implements CardContract.IView, OnItemClickListener {
+public class CardFragment extends BaseFragment implements CardContract.IView, CardAdapter.OnItemClickListener {
     private CardContract.IPresenter presenter;
 
     private RecyclerView rvCard;
@@ -83,12 +83,9 @@ public class CardFragment extends BaseFragment implements CardContract.IView, On
 
     /**
      * recyclerview点击事件
-     *
-     * @param view
-     * @param position
      */
     @Override
-    public void onClick(View view, int position) {
-
+    public void onClick(CardModule cardModule) {
+        ManagerCardActivity.gotoManagerActivity(getActivity(), cardModule);
     }
 }

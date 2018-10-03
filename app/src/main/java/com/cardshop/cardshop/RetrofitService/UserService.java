@@ -35,4 +35,10 @@ public interface UserService {
     @FormUrlEncoded
     @POST(API.VERTIFY_SMS)
     Call<ResponseData<BaseModule>> vertifySms(@Field("phone") String phone, @Field("smsCode") String smsCode);
+
+    @FormUrlEncoded
+    @POST(API.AUTH_LOGIN)
+    Call<ResponseData<UserModule>> authLogin(@Field("openId") String openId, @Field("nickName") String nickName,
+                                             @Field("headImg") String headImg, @Field("authType") String authType);
+
 }

@@ -10,6 +10,14 @@ import com.cardshop.cardshop.View.Fragment.AddCardFragment;
 
 public class AddCardActivity extends SimpleActivity {
 
+    private AddCardFragment mFragment;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mFragment.onReturnResult(requestCode, resultCode, data);
+    }
+
     public static void gotoAddCardActivity(Context context) {
         Intent intent = new Intent(context, AddCardActivity.class);
         context.startActivity(intent);
@@ -18,6 +26,7 @@ public class AddCardActivity extends SimpleActivity {
     @Override
     protected void initData() {
         super.initData();
-        new AddCardPresenterImpl((AddCardContract.IView) loadBaseFragment(AddCardFragment.newInstance()));
+        mFragment = AddCardFragment.newInstance();
+        new AddCardPresenterImpl((AddCardContract.IView) loadBaseFragment(mFragment));
     }
 }

@@ -2,6 +2,7 @@ package com.cardshop.cardshop.Utils;
 
 
 import com.cardshop.cardshop.Module.UserModule;
+import com.cardshop.cardshop.Module.WxUserInfoModule;
 import com.cardshop.framework.Utils.SharePreferencesUtils;
 import com.google.gson.Gson;
 
@@ -10,11 +11,14 @@ import com.google.gson.Gson;
  */
 
 public class SPUtiles {
-//    public static final String TOKEN = "token";
+    //    public static final String TOKEN = "token";
     public static final String USER = "user";
     public static final String LOGIN_PHONE = "login_phone";
     public static final String GESTURE = "gesture";
     public static final String IS_OPEN_GESTURE = "is_open_gesture";
+
+    public static final String IS_LOGIN_VIA_WX = "is_login_via_wx";
+    public static final String WX_USER = "wx_user";
 
 
     //user会空的情况下使用这个
@@ -55,6 +59,32 @@ public class SPUtiles {
             json = "";
         }
         SharePreferencesUtils.putString(getSPKey(USER), json);
+    }
+
+    public static WxUserInfoModule getWxUser() {
+        String json = SharePreferencesUtils.getString(getSPKey(WX_USER));
+        Gson gson = new Gson();
+        WxUserInfoModule userBean = gson.fromJson(json, WxUserInfoModule.class);
+        return userBean;
+    }
+
+    public static void saveWxUser(WxUserInfoModule userInfoModule) {
+        String json;
+        if (null != userInfoModule) {
+            Gson gson = new Gson();
+            json = gson.toJson(userInfoModule);
+        } else {
+            json = "";
+        }
+        SharePreferencesUtils.putString(getSPKey(WX_USER), json);
+    }
+
+    public static boolean isLoginViaWx() {
+        return SharePreferencesUtils.getBoolean(getIdKey(IS_LOGIN_VIA_WX), false);
+    }
+
+    public static void saveIsLoginViaWx(boolean login) {
+        SharePreferencesUtils.putBoolean(getIdKey(IS_LOGIN_VIA_WX), login);
     }
 
     public static boolean isOpenGesture() {

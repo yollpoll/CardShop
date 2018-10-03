@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.View.Fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -69,5 +70,35 @@ public class AddCardVertifyFragment extends BaseFragment implements AddCardVerti
     @Override
     public void showPhoneNum(String phone) {
         tvPhone.setText(phone);
+    }
+
+    @Override
+    public void onAddResulte(boolean result, String message) {
+        if (result) {
+            //修改成功
+            getActivity().setResult(Activity.RESULT_OK);
+            goBack();
+            showToast(message);
+        } else {
+            showSnackerToast(message);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()) {
+            case R.id.btn_ok:
+                vertifySms();
+                break;
+        }
+    }
+
+    private void vertifySms() {
+        if (llVertifyCode.checkInput()) {
+            presenter.vertifySms(llVertifyCode.getPsw());
+        } else {
+            showSnackerToast("请输入完整的验证码");
+        }
     }
 }
