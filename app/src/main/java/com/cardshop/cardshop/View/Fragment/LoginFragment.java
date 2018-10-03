@@ -149,6 +149,11 @@ public class LoginFragment extends BaseFragment implements LoginContract.IView {
     }
 
     @Override
+    public void gotoBindPhone(String openId) {
+        RegisterActivity.gotoRegisterActivity(getActivity(),openId);
+    }
+
+    @Override
     public void showPassword(boolean isShow) {
 
     }

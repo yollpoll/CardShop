@@ -42,13 +42,6 @@ public class LoginPresenterImpl extends LoginContract.IPresenter<LoginContract.I
 //                    }
 //                }
                 afterLogin(response);
-//                if ("1".equals(response.body().getCode())) {
-//                    mView.onLoginResult(false, "用户名密码错误");
-//                } else {
-//                    SPUtiles.saveLoginPhone(userName);
-//                    UserModule.saveToLocal(response.body().getData());
-//                    mView.onLoginResult(true, "登录成功");
-//                }
             }
 
             @Override
@@ -115,7 +108,15 @@ public class LoginPresenterImpl extends LoginContract.IPresenter<LoginContract.I
             UserModule.saveToLocal(response.body().getData());
             mView.onLoginResult(true, response.body().getMsg());
         } else {
-            mView.onLoginResult(false, response.body().getMsg());
+            switch (response.body().getCode()) {
+                case 10001:
+                    mView.showToast(response.body().getMsg());
+                    mView.gotoBindPhone(WxUserInfoModule.getLocalUserInfo().getOpenid());
+                    break;
+                default:
+                    mView.onLoginResult(false, response.body().getMsg());
+            }
+
         }
     }
 }

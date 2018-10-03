@@ -23,5 +23,6 @@ public interface LoginContract {
 
         void initLoginPhone(String phone);
 
+        void gotoBindPhone(String openId);
     }
 }

@@ -16,8 +16,9 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
     private RegisterContract.IView mView;
     private String openId = "";
 
-    public RegisterPresenterImpl(RegisterContract.IView mView) {
+    public RegisterPresenterImpl(RegisterContract.IView mView,String openId) {
         this.mView = mView;
+        this.openId=openId;
         mView.setPresenter(this);
     }
 
@@ -29,22 +30,6 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
 
     @Override
     public void getVertifyCode(String phone) {
-//        FGMsgVertifyModule.getModule(BaseApplication.FG_ACCOUNT, BaseApplication.FG_PSD, VertifyUtils.createVertifyCode(),
-//                phone, BaseApplication.FG_TemplateId, BaseApplication.FG_SignId, new Callback<FGMsgVertifyModule>() {
-//                    @Override
-//                    public void onResponse(Call<FGMsgVertifyModule> call, Response<FGMsgVertifyModule> response) {
-//                        if (FGMsgVertifyModule.ifSuccess(response.body())) {
-//                            mView.showSendVertifyCode("发送成功");
-//                        } else {
-//                            mView.showSendVertifyCode(response.body().getMessage());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<FGMsgVertifyModule> call, Throwable t) {
-//
-//                    }
-//                });
         mView.showLoading("发送验证码", "验证码发送中");
         UserModule.getMsgCode(phone, new Callback<ResponseData<BaseModule>>() {
             @Override
