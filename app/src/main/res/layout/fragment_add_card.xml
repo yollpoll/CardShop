@@ -140,8 +140,8 @@
             android:layout_marginLeft="15dp"
             android:text="开户行:" />
 
-        <EditText
-            android:id="@+id/edt_bank"
+        <TextView
+            android:id="@+id/tv_bank_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -149,7 +149,6 @@
             android:layout_toRightOf="@+id/tv_bank"
             android:background="@color/white"
             android:gravity="center_vertical|left"
-            android:hint="请输入开户行"
             android:textColorHint="@color/colorHint" />
     </RelativeLayout>
 

@@ -32,17 +32,17 @@ public class CardModule extends BaseModule {
      * pdcIdCard : null
      */
 
-    private int pdcId;
-    private int pdcSn;
-    private int pdcMemberId;
+    private long pdcId;
+    private long pdcSn;
+    private long pdcMemberId;
     private String pdcMemberName;
-    private int pdcAmount;
+    private long pdcAmount;
     private String pdcBankName;
     private String pdcBankNo;
     private String pdcBankUser;
-    private int pdcAddTime;
+    private long pdcAddTime;
     private Object pdcPaymentTime;
-    private int pdcPaymentState;
+    private long pdcPaymentState;
     private Object pdcPaymentAdmin;
     private String pdcProvince;
     private String pdcCity;
@@ -56,27 +56,40 @@ public class CardModule extends BaseModule {
         service.getCardList(memberId).enqueue(callback);
     }
 
-    public int getPdcId() {
+    public static void addCard(String memberId, String pdcBankUser, String pdcBankNo, String pdcBankName,
+                               String pdcBankAddress, String idCardNo, String phone, Callback<ResponseData<AddCardModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        CardService service = retrofit.create(CardService.class);
+        service.addCard(memberId, pdcBankUser, pdcBankNo, pdcBankName, pdcBankAddress, idCardNo, phone).enqueue(callback);
+    }
+
+    public static void delCard(String id, Callback<ResponseData<BaseModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        CardService service = retrofit.create(CardService.class);
+        service.delCard(id).enqueue(callback);
+    }
+
+    public long getPdcId() {
         return pdcId;
     }
 
-    public void setPdcId(int pdcId) {
+    public void setPdcId(long pdcId) {
         this.pdcId = pdcId;
     }
 
-    public int getPdcSn() {
+    public long getPdcSn() {
         return pdcSn;
     }
 
-    public void setPdcSn(int pdcSn) {
+    public void setPdcSn(long pdcSn) {
         this.pdcSn = pdcSn;
     }
 
-    public int getPdcMemberId() {
+    public long getPdcMemberId() {
         return pdcMemberId;
     }
 
-    public void setPdcMemberId(int pdcMemberId) {
+    public void setPdcMemberId(long pdcMemberId) {
         this.pdcMemberId = pdcMemberId;
     }
 
@@ -88,11 +101,11 @@ public class CardModule extends BaseModule {
         this.pdcMemberName = pdcMemberName;
     }
 
-    public int getPdcAmount() {
+    public long getPdcAmount() {
         return pdcAmount;
     }
 
-    public void setPdcAmount(int pdcAmount) {
+    public void setPdcAmount(long pdcAmount) {
         this.pdcAmount = pdcAmount;
     }
 
@@ -120,11 +133,11 @@ public class CardModule extends BaseModule {
         this.pdcBankUser = pdcBankUser;
     }
 
-    public int getPdcAddTime() {
+    public long getPdcAddTime() {
         return pdcAddTime;
     }
 
-    public void setPdcAddTime(int pdcAddTime) {
+    public void setPdcAddTime(long pdcAddTime) {
         this.pdcAddTime = pdcAddTime;
     }
 
@@ -136,11 +149,11 @@ public class CardModule extends BaseModule {
         this.pdcPaymentTime = pdcPaymentTime;
     }
 
-    public int getPdcPaymentState() {
+    public long getPdcPaymentState() {
         return pdcPaymentState;
     }
 
-    public void setPdcPaymentState(int pdcPaymentState) {
+    public void setPdcPaymentState(long pdcPaymentState) {
         this.pdcPaymentState = pdcPaymentState;
     }
 

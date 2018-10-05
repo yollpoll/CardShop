@@ -12,24 +12,20 @@ public class HttpTools {
     private static Retrofit retrofit = null;
 
     public Retrofit getRetrofit() {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(API.HEAD_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(getOkHttpClient())
-                    .build();
-        }
+        retrofit = new Retrofit.Builder()
+                .baseUrl(API.HEAD_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(getOkHttpClient())
+                .build();
 //        retrofit.client().interceptors().add(new AddCookieInterceptor());
         return retrofit;
     }
 
     public Retrofit getRetrofit(String baseURl) {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(baseURl)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
+        retrofit = new Retrofit.Builder()
+                .baseUrl(baseURl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 //        retrofit.client().interceptors().add(new AddCookieInterceptor());
         return retrofit;
     }
@@ -46,10 +42,11 @@ public class HttpTools {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(30 * 1000, TimeUnit.MILLISECONDS)
                 .readTimeout(30 * 1000, TimeUnit.MILLISECONDS)
-                .addInterceptor(interceptor)
+//                .addInterceptor(interceptor)
                 .build();
         return client;
     }
+
     public static boolean ifSuccess(String code) {
         return "0".equals(code);
     }

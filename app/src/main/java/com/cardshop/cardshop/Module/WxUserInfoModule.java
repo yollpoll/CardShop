@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.Module;
 
+import com.cardshop.cardshop.Http.API;
 import com.cardshop.cardshop.Http.HttpTools;
 import com.cardshop.cardshop.RetrofitService.WxService;
 import com.cardshop.cardshop.Utils.SPUtiles;
@@ -22,7 +23,7 @@ public class WxUserInfoModule {
     private String unionid;
 
     public static void getWxUserInfo(String token, String openId, Callback<WxUserInfoModule> callback) {
-        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit(API.WX_BASE_URL);
         WxService service = retrofit.create(WxService.class);
         Call<WxUserInfoModule> call = service.getUserInfo(token, openId);
         call.enqueue(callback);

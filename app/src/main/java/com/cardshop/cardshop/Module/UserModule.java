@@ -143,32 +143,32 @@ public class UserModule extends BaseModule {
          * isVerified : null
          */
 
-        private int memberId;
+        private String memberId;
         private String memberName;
         private String memberTruename;
         private String memberAvatar;
         private boolean memberSex;
-        private Object memberBirthday;
+        private String memberBirthday;
         private String memberPasswd;
         private String memberPaypwd;
         private String memberEmail;
         private int memberEmailBind;
         private String memberMobile;
         private int memberMobileBind;
-        private Object memberQq;
-        private Object memberWw;
+        private String memberQq;
+        private String memberWw;
         private int memberLoginNum;
         private String memberTime;
         private String memberLoginTime;
         private String memberOldLoginTime;
         private String memberLoginIp;
         private String memberOldLoginIp;
-        private Object memberQqopenid;
-        private Object memberQqinfo;
-        private Object memberSinaopenid;
-        private Object memberSinainfo;
+        private String memberQqopenid;
+        private String memberQqinfo;
+        private String memberSinaopenid;
+        private String memberSinainfo;
         private String weixinUnionid;
-        private Object weixinInfo;
+        private String weixinInfo;
         private int memberPoints;
         private int availablePredeposit;
         private int freezePredeposit;
@@ -179,25 +179,25 @@ public class UserModule extends BaseModule {
         private boolean isAllowtalk;
         private boolean memberState;
         private int memberSnsvisitnum;
-        private Object memberAreaid;
+        private String memberAreaid;
         private int memberCityid;
         private int memberProvinceid;
         private String memberAreainfo;
-        private Object memberPrivacy;
-        private Object memberQuicklink;
+        private String memberPrivacy;
+        private String memberQuicklink;
         private int memberExppoints;
-        private Object inviterId;
-        private Object memberWxopenid;
+        private String inviterId;
+        private String memberWxopenid;
         private int myGoldBean;
         private String authCode;
-        private Object memberIdCard;
-        private Object isVerified;
+        private String memberIdCard;
+        private String isVerified;
 
-        public int getMemberId() {
+        public String getMemberId() {
             return memberId;
         }
 
-        public void setMemberId(int memberId) {
+        public void setMemberId(String memberId) {
             this.memberId = memberId;
         }
 
@@ -233,11 +233,11 @@ public class UserModule extends BaseModule {
             this.memberSex = memberSex;
         }
 
-        public Object getMemberBirthday() {
+        public String getMemberBirthday() {
             return memberBirthday;
         }
 
-        public void setMemberBirthday(Object memberBirthday) {
+        public void setMemberBirthday(String memberBirthday) {
             this.memberBirthday = memberBirthday;
         }
 
@@ -289,19 +289,19 @@ public class UserModule extends BaseModule {
             this.memberMobileBind = memberMobileBind;
         }
 
-        public Object getMemberQq() {
+        public String getMemberQq() {
             return memberQq;
         }
 
-        public void setMemberQq(Object memberQq) {
+        public void setMemberQq(String memberQq) {
             this.memberQq = memberQq;
         }
 
-        public Object getMemberWw() {
+        public String getMemberWw() {
             return memberWw;
         }
 
-        public void setMemberWw(Object memberWw) {
+        public void setMemberWw(String memberWw) {
             this.memberWw = memberWw;
         }
 
@@ -353,35 +353,35 @@ public class UserModule extends BaseModule {
             this.memberOldLoginIp = memberOldLoginIp;
         }
 
-        public Object getMemberQqopenid() {
+        public String getMemberQqopenid() {
             return memberQqopenid;
         }
 
-        public void setMemberQqopenid(Object memberQqopenid) {
+        public void setMemberQqopenid(String memberQqopenid) {
             this.memberQqopenid = memberQqopenid;
         }
 
-        public Object getMemberQqinfo() {
+        public String getMemberQqinfo() {
             return memberQqinfo;
         }
 
-        public void setMemberQqinfo(Object memberQqinfo) {
+        public void setMemberQqinfo(String memberQqinfo) {
             this.memberQqinfo = memberQqinfo;
         }
 
-        public Object getMemberSinaopenid() {
+        public String getMemberSinaopenid() {
             return memberSinaopenid;
         }
 
-        public void setMemberSinaopenid(Object memberSinaopenid) {
+        public void setMemberSinaopenid(String memberSinaopenid) {
             this.memberSinaopenid = memberSinaopenid;
         }
 
-        public Object getMemberSinainfo() {
+        public String getMemberSinainfo() {
             return memberSinainfo;
         }
 
-        public void setMemberSinainfo(Object memberSinainfo) {
+        public void setMemberSinainfo(String memberSinainfo) {
             this.memberSinainfo = memberSinainfo;
         }
 
@@ -393,11 +393,11 @@ public class UserModule extends BaseModule {
             this.weixinUnionid = weixinUnionid;
         }
 
-        public Object getWeixinInfo() {
+        public String getWeixinInfo() {
             return weixinInfo;
         }
 
-        public void setWeixinInfo(Object weixinInfo) {
+        public void setWeixinInfo(String weixinInfo) {
             this.weixinInfo = weixinInfo;
         }
 
@@ -449,20 +449,20 @@ public class UserModule extends BaseModule {
             this.informAllow = informAllow;
         }
 
-        public boolean isIsBuy() {
+        public boolean isBuy() {
             return isBuy;
         }
 
-        public void setIsBuy(boolean isBuy) {
-            this.isBuy = isBuy;
+        public void setBuy(boolean buy) {
+            isBuy = buy;
         }
 
-        public boolean isIsAllowtalk() {
+        public boolean isAllowtalk() {
             return isAllowtalk;
         }
 
-        public void setIsAllowtalk(boolean isAllowtalk) {
-            this.isAllowtalk = isAllowtalk;
+        public void setAllowtalk(boolean allowtalk) {
+            isAllowtalk = allowtalk;
         }
 
         public boolean isMemberState() {
@@ -481,11 +481,11 @@ public class UserModule extends BaseModule {
             this.memberSnsvisitnum = memberSnsvisitnum;
         }
 
-        public Object getMemberAreaid() {
+        public String getMemberAreaid() {
             return memberAreaid;
         }
 
-        public void setMemberAreaid(Object memberAreaid) {
+        public void setMemberAreaid(String memberAreaid) {
             this.memberAreaid = memberAreaid;
         }
 
@@ -513,19 +513,19 @@ public class UserModule extends BaseModule {
             this.memberAreainfo = memberAreainfo;
         }
 
-        public Object getMemberPrivacy() {
+        public String getMemberPrivacy() {
             return memberPrivacy;
         }
 
-        public void setMemberPrivacy(Object memberPrivacy) {
+        public void setMemberPrivacy(String memberPrivacy) {
             this.memberPrivacy = memberPrivacy;
         }
 
-        public Object getMemberQuicklink() {
+        public String getMemberQuicklink() {
             return memberQuicklink;
         }
 
-        public void setMemberQuicklink(Object memberQuicklink) {
+        public void setMemberQuicklink(String memberQuicklink) {
             this.memberQuicklink = memberQuicklink;
         }
 
@@ -537,19 +537,19 @@ public class UserModule extends BaseModule {
             this.memberExppoints = memberExppoints;
         }
 
-        public Object getInviterId() {
+        public String getInviterId() {
             return inviterId;
         }
 
-        public void setInviterId(Object inviterId) {
+        public void setInviterId(String inviterId) {
             this.inviterId = inviterId;
         }
 
-        public Object getMemberWxopenid() {
+        public String getMemberWxopenid() {
             return memberWxopenid;
         }
 
-        public void setMemberWxopenid(Object memberWxopenid) {
+        public void setMemberWxopenid(String memberWxopenid) {
             this.memberWxopenid = memberWxopenid;
         }
 
@@ -569,19 +569,19 @@ public class UserModule extends BaseModule {
             this.authCode = authCode;
         }
 
-        public Object getMemberIdCard() {
+        public String getMemberIdCard() {
             return memberIdCard;
         }
 
-        public void setMemberIdCard(Object memberIdCard) {
+        public void setMemberIdCard(String memberIdCard) {
             this.memberIdCard = memberIdCard;
         }
 
-        public Object getIsVerified() {
+        public String getIsVerified() {
             return isVerified;
         }
 
-        public void setIsVerified(Object isVerified) {
+        public void setIsVerified(String isVerified) {
             this.isVerified = isVerified;
         }
     }

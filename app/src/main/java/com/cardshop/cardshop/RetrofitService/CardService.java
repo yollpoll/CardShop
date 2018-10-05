@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.RetrofitService;
 
+import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Http.API;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.AddCardModule;
@@ -24,4 +25,8 @@ public interface CardService {
                                               @Field("pdcBankNo") String pdcBankNo, @Field("pdcBankName") String pdcBankName,
                                               @Field("pdcBankAddress") String pdcBankAddress, @Field("idCardNo") String idCardNo,
                                               @Field("phone") String phone);
+
+    @FormUrlEncoded
+    @POST(API.DEL_CARD)
+    Call<ResponseData<BaseModule>> delCard(@Field("pdcId") String pdcId);
 }

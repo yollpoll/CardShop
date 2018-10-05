@@ -12,15 +12,6 @@ import com.cardshop.cardshop.View.Fragment.ManagerCardFragment;
 public class ManagerCardActivity extends SimpleActivity {
     private CardModule cardModule;
 
-    //    public static void gotoManagerActivity(Context context,String bankName,String cardName,String cardCode,
-//                                           String pdcId) {
-//        Intent intent = new Intent(context, ManagerCardActivity.class);
-////        intent.putExtra("bankName",bankName);
-////        intent.putExtra("cardName",cardName);
-////        intent.putExtra("cardCode",cardCode);
-////        intent.putExtra("pdcId",pdcId);
-//        context.startActivity(intent);
-//    }
     public static void gotoManagerActivity(Context context, CardModule cardModule) {
         Intent intent = new Intent(context, ManagerCardActivity.class);
         intent.putExtra("card", cardModule);

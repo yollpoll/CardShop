@@ -1,10 +1,13 @@
 package com.cardshop.cardshop.PresenterImpl;
 
+import android.util.Log;
+
 import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Contract.AddCardVertifyContract;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Listener.CountDownListener;
 import com.cardshop.cardshop.Module.AddCardModule;
+import com.cardshop.cardshop.Module.CardModule;
 import com.cardshop.cardshop.Module.UserModule;
 import com.cardshop.cardshop.Utils.RxUtils;
 
@@ -67,12 +70,18 @@ public class AddCardVertifyPresenterImpl extends AddCardVertifyContract.Presente
 
     @Override
     public void vertifySms(String code) {
-        mView.showLoading("验证中", "正在验证验证码");
+//        mView.showLoading("验证中", "正在验证验证码");
         UserModule.vertifySms(addCardModule.getPhone(), code, new Callback<ResponseData<BaseModule>>() {
             @Override
             public void onResponse(Call<ResponseData<BaseModule>> call, Response<ResponseData<BaseModule>> response) {
-                mView.hideLoading();
-                mView.onAddResulte(response.body().isSuccess(), response.body().getMsg());
+//                mView.hideLoading();
+//                mView.onAddResulte(response.body().isSuccess(), response.body().getMsg());
+                if (!response.body().isSuccess()) {
+                    mView.hideLoading();
+                    mView.showSnackerToast(response.body().getMsg());
+                } else {
+                    addCard();
+                }
             }
 
             @Override
@@ -80,5 +89,22 @@ public class AddCardVertifyPresenterImpl extends AddCardVertifyContract.Presente
                 mView.hideLoading();
             }
         });
+    }
+
+    private void addCard() {
+        CardModule.addCard(UserModule.getCurrentUser().getMember().getMemberId() + "",
+                addCardModule.getName(), addCardModule.getCode(), addCardModule.getBank(), addCardModule.getName(),
+                addCardModule.getIdentity(), addCardModule.getPhone(), new Callback<ResponseData<AddCardModule>>() {
+                    @Override
+                    public void onResponse(Call<ResponseData<AddCardModule>> call, Response<ResponseData<AddCardModule>> response) {
+//                        mView.hideLoading();
+                        Log.e("spq","xxxxxxxxxxx");
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseData<AddCardModule>> call, Throwable t) {
+
+                    }
+                });
     }
 }

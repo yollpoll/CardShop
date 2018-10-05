@@ -31,10 +31,12 @@ public class CardAdapter extends BaseFooterAdapter<List<CardModule>> {
 
     @Override
     protected void onBindContentViewHolder(BaseViewHolder holder, final int position) {
+
         super.onBindContentViewHolder(holder, position);
         ViewHolder viewHolder = (ViewHolder) holder;
         CardModule cardModule = list.get(position);
         viewHolder.tvCardName.setText(cardModule.getPdcBankName());
+        viewHolder.tvCardCode.setText(changeCode(cardModule.getPdcBankNo()));
         viewHolder.rlRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +69,10 @@ public class CardAdapter extends BaseFooterAdapter<List<CardModule>> {
         }
         if (null != drawable)
             viewHolder.rlRoot.setBackground(drawable);
+    }
+
+    private String changeCode(String code) {
+        return code.substring(12);
     }
 
     public static class ViewHolder extends BaseViewHolder {

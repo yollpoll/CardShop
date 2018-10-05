@@ -2,6 +2,8 @@ package com.cardshop.cardshop.Http;
 
 import android.util.Log;
 
+import com.cardshop.cardshop.Utils.LogUtil;
+
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -47,6 +49,7 @@ public class AddTokenInterceptor implements Interceptor {
                     .body(ResponseBody.create(null, resp))
                     .build();
         }
+        LogUtil.Log("xxxxx>"+response.body().string());
         return response;
 //        Request originalRequest = chain.request();
 //        HttpUrl originalHttpUrl = originalRequest.url();

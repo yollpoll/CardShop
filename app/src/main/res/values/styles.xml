@@ -23,18 +23,32 @@
     <style name="StyleBtnLogin">
         <item name="android:background">@drawable/selector_btn_login</item>
     </style>
+
     <style name="WhiteBgRipple">
         <item name="android:background">@drawable/selector_white_bg</item>
     </style>
+
     <style name="MineItem" parent="WhiteBgRipple">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
     </style>
+
     <style name="RechargeBg">
         <item name="android:background">@drawable/shape_recharge</item>
     </style>
+
     <style name="GetMoneyBg">
         <item name="android:background">@drawable/shape_get_money</item>
     </style>
+
     <style name="StyleWhiteRipple"></style>
+
+    <style name="TranslucentTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>

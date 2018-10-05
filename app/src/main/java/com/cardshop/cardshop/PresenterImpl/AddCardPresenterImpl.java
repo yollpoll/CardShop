@@ -3,6 +3,7 @@ package com.cardshop.cardshop.PresenterImpl;
 import android.text.TextUtils;
 
 import com.cardshop.cardshop.Contract.AddCardContract;
+import com.cardshop.cardshop.Module.BankInfoBean;
 
 public class AddCardPresenterImpl extends AddCardContract.Presenter {
     private AddCardContract.IView mView;
@@ -35,7 +36,17 @@ public class AddCardPresenterImpl extends AddCardContract.Presenter {
         }
     }
 
+    @Override
+    public void findBankName(String code) {
+        if (BankInfoBean.checkBankCard(code)) {
+            BankInfoBean bankInfoBean = new BankInfoBean(code);
+            mView.setBankName(bankInfoBean.getBankName());
+        } else {
+
+        }
+    }
+
     public void gotoNext(String name, String code, String identity, String phone, String bank) {
-        mView.gotoNext(name,code,identity,phone,bank);
+        mView.gotoNext(name, code, identity, phone, bank);
     }
 }

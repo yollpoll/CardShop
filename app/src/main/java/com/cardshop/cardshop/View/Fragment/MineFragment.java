@@ -142,6 +142,9 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
             case R.id.rl_service:
                 presenter.gotoCustomerService();
                 break;
+            case R.id.rl_real_msg:
+                presenter.gotoRealName();
+                break;
         }
     }
 }

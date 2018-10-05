@@ -30,8 +30,8 @@
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
-            android:theme="@android:style/Theme.Translucent"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:theme="@style/TranslucentTheme" />
         <activity android:name=".View.Activity.LoginActivity"></activity>
         <activity android:name=".View.Activity.RegisterActivity" />
         <activity android:name=".View.Activity.ForgetPasswordActivity"></activity>
@@ -54,6 +54,7 @@
         <activity android:name=".View.Activity.AddCardActivity" />
         <activity android:name=".View.Activity.AddCardVertifyActivity" />
         <activity android:name=".View.Activity.ManagerCardActivity" />
+        <activity android:name=".View.Activity.RealNameActivity"/>
     </application>
 
 </manifest>

@@ -39,7 +39,6 @@ public class CardPresenterImpl extends CardContract.IPresenter<CardContract.IVie
 
             @Override
             public void onFailure(Call<ResponseData<List<CardModule>>> call, Throwable t) {
-
             }
         });
     }

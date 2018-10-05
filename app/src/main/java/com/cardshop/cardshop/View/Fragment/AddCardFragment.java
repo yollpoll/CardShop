@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.cardshop.cardshop.Base.BaseFragment;
 import com.cardshop.cardshop.Base.BasePresenter;
@@ -20,7 +23,8 @@ public class AddCardFragment extends BaseFragment implements AddCardContract.IVi
     public static final int REQUEST_VERTIFY_SMS = 1;
     private AddCardContract.Presenter presenter;
 
-    private EditText edtName, edtCode, edtIdentity, edtPhone, edtBank;
+    private EditText edtName, edtCode, edtIdentity, edtPhone;
+    private TextView tvBank;
     private Button btnNext;
 
     public static AddCardFragment newInstance() {
@@ -49,6 +53,23 @@ public class AddCardFragment extends BaseFragment implements AddCardContract.IVi
         setTitle("添加银行卡");
         setNoStatusBar();
         showBack();
+
+        edtCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                presenter.findBankName(edtCode.getText().toString());
+            }
+        });
     }
 
     @Override
@@ -58,7 +79,7 @@ public class AddCardFragment extends BaseFragment implements AddCardContract.IVi
         edtCode = view.findViewById(R.id.edt_code);
         edtIdentity = view.findViewById(R.id.edt_identity);
         edtPhone = view.findViewById(R.id.edt_phone);
-        edtBank = view.findViewById(R.id.edt_bank);
+        tvBank = view.findViewById(R.id.tv_bank_name);
         btnNext = view.findViewById(R.id.btn_next);
 
         btnNext.setOnClickListener(this);
@@ -70,7 +91,7 @@ public class AddCardFragment extends BaseFragment implements AddCardContract.IVi
         switch (view.getId()) {
             case R.id.btn_next:
                 presenter.checkInput(edtName.getText().toString(), edtCode.getText().toString(),
-                        edtIdentity.getText().toString(), edtPhone.getText().toString(), edtBank.getText().toString());
+                        edtIdentity.getText().toString(), edtPhone.getText().toString(), tvBank.getText().toString());
                 break;
         }
     }
@@ -79,6 +100,11 @@ public class AddCardFragment extends BaseFragment implements AddCardContract.IVi
     public void gotoNext(String name, String code, String identity, String phone, String bank) {
         AddCardVertifyActivity.gotoAddCardVertifyActivity(getActivity(), name, code, identity
                 , phone, bank, REQUEST_VERTIFY_SMS);
+    }
+
+    @Override
+    public void setBankName(String name) {
+        tvBank.setText(name);
     }
 
     @Override

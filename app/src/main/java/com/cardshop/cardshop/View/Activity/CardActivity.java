@@ -21,12 +21,17 @@ public class CardActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initData();
     }
 
     @Override
     protected void initData() {
         super.initData();
         new CardPresenterImpl((CardContract.IView) loadBaseFragment(CardFragment.newInstance()));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
     }
 }

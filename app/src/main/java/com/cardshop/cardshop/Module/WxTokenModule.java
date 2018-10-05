@@ -2,6 +2,7 @@ package com.cardshop.cardshop.Module;
 
 import com.cardshop.cardshop.Base.BaseApplication;
 import com.cardshop.cardshop.Base.BaseModule;
+import com.cardshop.cardshop.Http.API;
 import com.cardshop.cardshop.Http.HttpTools;
 import com.cardshop.cardshop.RetrofitService.WxService;
 
@@ -18,7 +19,7 @@ public class WxTokenModule extends BaseModule {
     private String unionid;
 
     public static void getToken(String code, Callback<WxTokenModule> callback) {
-        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit(API.WX_BASE_URL);
         WxService service = retrofit.create(WxService.class);
         Call<WxTokenModule> call = service.getWxToken(BaseApplication.APP_ID, BaseApplication.SECRET,
                 code, "authorization_code");
@@ -26,7 +27,7 @@ public class WxTokenModule extends BaseModule {
     }
 
     public static void refreshToken(String refreshToken, Callback<WxTokenModule> callback) {
-        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit(API.WX_BASE_URL);
         WxService service = retrofit.create(WxService.class);
         Call<WxTokenModule> call = service.refreshToken(BaseApplication.APP_ID, "refresh_token",
                 refreshToken);

@@ -8,6 +8,7 @@ import com.qiyukf.unicorn.api.ConsultSource;
 public interface MineContract {
     abstract class IPresenter<V> extends BasePresenter<V> {
         public abstract void gotoCustomerService();
+        public abstract void gotoRealName();
     }
 
     interface IView extends IBaseView<MineContract.IPresenter> {

@@ -9,4 +9,10 @@ public class OrderDingdanPresenterImpl extends OrderDingdanContract.IPresenter<O
         this.mView = mView;
         mView.setPresenter(this);
     }
+
+    @Override
+    public void start() {
+        super.start();
+
+    }
 }
