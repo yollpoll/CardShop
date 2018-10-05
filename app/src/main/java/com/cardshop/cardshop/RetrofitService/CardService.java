@@ -3,7 +3,6 @@ package com.cardshop.cardshop.RetrofitService;
 import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Http.API;
 import com.cardshop.cardshop.Http.ResponseData;
-import com.cardshop.cardshop.Module.AddCardModule;
 import com.cardshop.cardshop.Module.CardModule;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public interface CardService {
 
     @FormUrlEncoded
     @POST(API.ADD_CARD)
-    Call<ResponseData<AddCardModule>> addCard(@Field("memberId") String memberId, @Field("pdcBankUser") String pdcBankUser,
+    Call<ResponseData<String>> addCard(@Field("memberId") String memberId, @Field("pdcBankUser") String pdcBankUser,
                                               @Field("pdcBankNo") String pdcBankNo, @Field("pdcBankName") String pdcBankName,
                                               @Field("pdcBankAddress") String pdcBankAddress, @Field("idCardNo") String idCardNo,
                                               @Field("phone") String phone);

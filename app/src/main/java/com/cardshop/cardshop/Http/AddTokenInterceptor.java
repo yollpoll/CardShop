@@ -1,10 +1,6 @@
 package com.cardshop.cardshop.Http;
 
-import android.util.Log;
-
 import com.cardshop.cardshop.Utils.LogUtil;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -29,40 +25,12 @@ public class AddTokenInterceptor implements Interceptor {
         ResponseBody value = response.body();
         byte[] resp = value.bytes();
         String json = new String(resp, "UTF-8");
-        Log.d("response", json);
-//         判断stateCode值
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            int stateCode = jsonObject.optInt("code");
-//            if (stateCode == 2) {
-//                SPUtiles.saveToken("");
-//                SplashActivity.gotoSplashActivity(BaseApplication.getInstance().getApplicationContext());
-////                LoginActivity.gotoLoginActivity(MyApplication.getInstance().getApplicationContext());
-//            } else {
-//
-//            }
-        } catch (Exception e) {
-            Log.d("spq", "intercept error>>>>>>>" + e);
-        } finally {
-            // 这里值得注意。由于前面value.bytes()把响应流读完并关闭了，所以这里需要重新生成一个response，否则数据就无法正常解析了
-            response = response.newBuilder()
-                    .body(ResponseBody.create(null, resp))
-                    .build();
-        }
-        LogUtil.Log("xxxxx>"+response.body().string());
+        LogUtil.Log("response"+ json);
+        // 这里值得注意。由于前面value.bytes()把响应流读完并关闭了，所以这里需要重新生成一个response，否则数据就无法正常解析了
+        response = response.newBuilder()
+                .body(ResponseBody.create(null, resp))
+                .build();
         return response;
-//        Request originalRequest = chain.request();
-//        HttpUrl originalHttpUrl = originalRequest.url();
-//
-//        HttpUrl url = originalHttpUrl.newBuilder()
-////                .addQueryParameter("token", SPUtiles.getToken())
-//                .build();
-//        Request request = originalRequest.newBuilder()
-//                .url(url)
-//                .method(originalRequest.method(), originalRequest.body())
-//                .build();
-//
-//        return chain.proceed(request);
     }
 
     /**

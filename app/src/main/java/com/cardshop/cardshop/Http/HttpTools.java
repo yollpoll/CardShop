@@ -42,7 +42,7 @@ public class HttpTools {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(30 * 1000, TimeUnit.MILLISECONDS)
                 .readTimeout(30 * 1000, TimeUnit.MILLISECONDS)
-//                .addInterceptor(interceptor)
+                .addInterceptor(interceptor)
                 .build();
         return client;
     }

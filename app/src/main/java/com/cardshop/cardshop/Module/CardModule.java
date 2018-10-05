@@ -57,7 +57,7 @@ public class CardModule extends BaseModule {
     }
 
     public static void addCard(String memberId, String pdcBankUser, String pdcBankNo, String pdcBankName,
-                               String pdcBankAddress, String idCardNo, String phone, Callback<ResponseData<AddCardModule>> callback) {
+                               String pdcBankAddress, String idCardNo, String phone, Callback<ResponseData<String>> callback) {
         Retrofit retrofit = HttpTools.getInstance().getRetrofit();
         CardService service = retrofit.create(CardService.class);
         service.addCard(memberId, pdcBankUser, pdcBankNo, pdcBankName, pdcBankAddress, idCardNo, phone).enqueue(callback);

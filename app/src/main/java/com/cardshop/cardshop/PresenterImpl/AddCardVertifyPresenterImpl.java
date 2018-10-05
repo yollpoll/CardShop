@@ -1,7 +1,5 @@
 package com.cardshop.cardshop.PresenterImpl;
 
-import android.util.Log;
-
 import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Contract.AddCardVertifyContract;
 import com.cardshop.cardshop.Http.ResponseData;
@@ -29,10 +27,12 @@ public class AddCardVertifyPresenterImpl extends AddCardVertifyContract.Presente
     public void start() {
         super.start();
         sendSms();
+        RxUtils.isStopCountDown = false;
         mView.showPhoneNum("请输入" + addCardModule.getPhone() + "收到的验证码");
     }
 
-    private void sendSms() {
+    @Override
+    public void sendSms() {
         mView.showLoading("发送验证码", "正在发送验证码");
         UserModule.getMsgCode(addCardModule.getPhone(), new Callback<ResponseData<BaseModule>>() {
             @Override
@@ -57,7 +57,11 @@ public class AddCardVertifyPresenterImpl extends AddCardVertifyContract.Presente
         RxUtils.startCountDown(60 * 1000, 1000, new CountDownListener() {
             @Override
             public void onCountDown(int count) {
-                mView.showCountDown(count + "秒后重发");
+                if (0 == count) {
+                    mView.onCountDownFinish();
+                } else {
+                    mView.showCountDown(count + "秒后重发");
+                }
             }
         });
     }
@@ -70,12 +74,10 @@ public class AddCardVertifyPresenterImpl extends AddCardVertifyContract.Presente
 
     @Override
     public void vertifySms(String code) {
-//        mView.showLoading("验证中", "正在验证验证码");
+        mView.showLoading("验证中", "正在验证验证码");
         UserModule.vertifySms(addCardModule.getPhone(), code, new Callback<ResponseData<BaseModule>>() {
             @Override
             public void onResponse(Call<ResponseData<BaseModule>> call, Response<ResponseData<BaseModule>> response) {
-//                mView.hideLoading();
-//                mView.onAddResulte(response.body().isSuccess(), response.body().getMsg());
                 if (!response.body().isSuccess()) {
                     mView.hideLoading();
                     mView.showSnackerToast(response.body().getMsg());
@@ -94,16 +96,19 @@ public class AddCardVertifyPresenterImpl extends AddCardVertifyContract.Presente
     private void addCard() {
         CardModule.addCard(UserModule.getCurrentUser().getMember().getMemberId() + "",
                 addCardModule.getName(), addCardModule.getCode(), addCardModule.getBank(), addCardModule.getName(),
-                addCardModule.getIdentity(), addCardModule.getPhone(), new Callback<ResponseData<AddCardModule>>() {
+                addCardModule.getIdentity(), addCardModule.getPhone(), new Callback<ResponseData<String>>() {
                     @Override
-                    public void onResponse(Call<ResponseData<AddCardModule>> call, Response<ResponseData<AddCardModule>> response) {
-//                        mView.hideLoading();
-                        Log.e("spq","xxxxxxxxxxx");
+                    public void onResponse(Call<ResponseData<String>> call, Response<ResponseData<String>> response) {
+                        mView.hideLoading();
+                        if (response.body().isSuccess()) {
+                            mView.onAddResulte(true, response.body().getMsg());
+                        } else {
+                            mView.onAddResulte(false, response.body().getMsg());
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseData<AddCardModule>> call, Throwable t) {
-
+                    public void onFailure(Call<ResponseData<String>> call, Throwable t) {
                     }
                 });
     }

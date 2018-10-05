@@ -51,7 +51,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     protected BaseFragment loadBaseFragment(BaseFragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.rl_root, fragment, FRAGMENT_TAG).commit();
+        fragmentManager.beginTransaction().replace(R.id.rl_root, fragment, FRAGMENT_TAG).commit();
         return fragment;
     }
 }

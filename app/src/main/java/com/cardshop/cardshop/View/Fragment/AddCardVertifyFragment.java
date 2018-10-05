@@ -59,11 +59,14 @@ public class AddCardVertifyFragment extends BaseFragment implements AddCardVerti
         btnOk = view.findViewById(R.id.btn_ok);
         tvCountDown = view.findViewById(R.id.tv_count_down);
 
+        tvCountDown.setOnClickListener(this);
         btnOk.setOnClickListener(this);
     }
 
     @Override
     public void showCountDown(String count) {
+        tvCountDown.setClickable(false);
+        tvCountDown.setTextColor(getActivity().getResources().getColor(R.color.colorHint));
         tvCountDown.setText(count);
     }
 
@@ -85,11 +88,21 @@ public class AddCardVertifyFragment extends BaseFragment implements AddCardVerti
     }
 
     @Override
+    public void onCountDownFinish() {
+        tvCountDown.setTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
+        tvCountDown.setText("重新发送");
+        tvCountDown.setClickable(true);
+    }
+
+    @Override
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.btn_ok:
                 vertifySms();
+                break;
+            case R.id.tv_count_down:
+                presenter.sendSms();
                 break;
         }
     }
