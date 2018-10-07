@@ -1,11 +1,15 @@
 package com.cardshop.cardshop.Module;
 
 import com.cardshop.cardshop.Base.BaseModule;
+import com.cardshop.cardshop.Http.HttpTools;
 import com.cardshop.cardshop.Http.ResponseData;
+import com.cardshop.cardshop.RetrofitService.AddressService;
 
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Retrofit;
 
 public class AddressModule extends BaseModule {
     private String true_name;
@@ -64,10 +68,10 @@ public class AddressModule extends BaseModule {
     }
 
     public static void getAddressList(Callback<ResponseData<List<AddressModule>>> callback) {
-//        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
-//        AddressService service = retrofit.create(AddressService.class);
-//        Call<ResponseData<List<AddressModule>>> call = service.getAddress(SPUtiles.getUser().getMid(),SPUtiles.getToken());
-//        call.enqueue(callback);
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        AddressService service = retrofit.create(AddressService.class);
+        Call<ResponseData<List<AddressModule>>> call = service.getAddress(UserModule.getCurrentUser().getMember().getMemberId());
+        call.enqueue(callback);
     }
 
 }

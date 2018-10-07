@@ -1,6 +1,14 @@
 package com.cardshop.cardshop.Module;
 
 import com.cardshop.cardshop.Base.BaseModule;
+import com.cardshop.cardshop.Http.HttpTools;
+import com.cardshop.cardshop.Http.ResponseData;
+import com.cardshop.cardshop.RetrofitService.OrderService;
+
+import java.util.List;
+
+import retrofit2.Callback;
+import retrofit2.Retrofit;
 
 public class OrderDingdanModule extends BaseModule {
 
@@ -18,6 +26,14 @@ public class OrderDingdanModule extends BaseModule {
     private String sellerName;
     private String totalPrice;
     private String zhuanmaiId;
+
+    public static void getOrderDingDan(String memberId, String pageNum, String pageSize,
+                                       Callback<ResponseData<List<OrderDingdanModule>>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        OrderService service = retrofit.create(OrderService.class);
+        service.getOrderDingdan(memberId, pageNum, pageSize).enqueue(callback);
+
+    }
 
     public String getAddTime() {
         return addTime;

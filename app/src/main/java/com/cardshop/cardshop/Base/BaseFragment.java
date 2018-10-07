@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     protected View rootView;
     protected ProgressDialog mProgressDialog;
     protected ProgressBar mProgressBar;
+    protected View mNoData;
 
 
     @Override
@@ -160,12 +163,38 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     }
 
     public void hideProgressbar() {
-        if (null == mProgressBar)
-            return;
-        mProgressBar.setVisibility(View.GONE);
+        if (null == mProgressBar) {
+            if (null == rootView)
+                return;
+            mProgressBar = rootView.findViewById(R.id.progressBar);
+        }
+        if (null != mPresenter)
+            mProgressBar.setVisibility(View.GONE);
     }
 
-   public void onReturnResult(int requestCode, int resultCode, Intent data) {
+    public void onReturnResult(int requestCode, int resultCode, Intent data) {
 
+    }
+
+    public void showNoData() {
+        if (null == rootView)
+            return;
+        if (null == mNoData) {
+            mNoData = LayoutInflater.from(getActivity()).inflate(R.layout.layout_no_data, null, false);
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            mNoData.setLayoutParams(params);
+            ViewGroup viewGroup = rootView.findViewById(R.id.rl_root);
+            if (null == viewGroup) {
+                return;
+            }
+            viewGroup.addView(mNoData);
+        }
+        mNoData.setVisibility(View.VISIBLE);
+    }
+
+    public void hideNoData() {
+        if (null == mNoData)
+            return;
+        mNoData.setVisibility(View.GONE);
     }
 }

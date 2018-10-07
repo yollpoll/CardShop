@@ -27,5 +27,7 @@ public interface IBaseView<T extends BasePresenter> {
 
     void onReturnResult(int requestCode, int resultCode, Intent data);
 
+    void showNoData();
+
 
 }

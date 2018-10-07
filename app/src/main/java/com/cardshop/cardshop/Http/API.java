@@ -25,11 +25,13 @@ public class API {
     public static final String VERTIFY_SMS = "ktt/api/verifySmsCode";
     public static final String AUTH_LOGIN = "ktt/api/member/authLogin";
     //address
-    public static final String ADDRESS = "mobile/index.php?act=goods&op=address_infos";
+    public static final String ADDRESS = "ktt/api/address/list";
     //card
     public static final String CARDS = "ktt/api/bankcard/list";
     public static final String ADD_CARD = "ktt/api/bankcard/add";
     public static final String DEL_CARD = "ktt/api/bankcard/unbinding";
     //realname
     public static final String REAL_NAME = "ktt/api/member/verified";
+    //order
+    public static final String ORDER_DINGDAN="ktt/api/order/list";
 }

@@ -55,6 +55,7 @@
         <activity android:name=".View.Activity.AddCardVertifyActivity" />
         <activity android:name=".View.Activity.ManagerCardActivity" />
         <activity android:name=".View.Activity.RealNameActivity"/>
+        <activity android:name=".View.Activity.AddAddressActivity"/>
     </application>
 
 </manifest>

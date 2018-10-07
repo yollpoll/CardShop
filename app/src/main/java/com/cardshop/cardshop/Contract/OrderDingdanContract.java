@@ -8,9 +8,16 @@ import java.util.List;
 
 public interface OrderDingdanContract {
     abstract class IPresenter<V> extends BasePresenter<V> {
+        public abstract void loadMore();
+
+        public abstract void refresh();
     }
 
     interface IView extends IBaseView<IPresenter> {
-        public void initRv(List<OrderDingdanModule> list);
+        void initRv(List<OrderDingdanModule> list);
+
+        void refresh();
+
+        void loadMore(int position,int count);
     }
 }

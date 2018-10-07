@@ -17,6 +17,7 @@ import com.cardshop.cardshop.Contract.AddressChooseContract;
 import com.cardshop.cardshop.Listener.OnItemClickListener;
 import com.cardshop.cardshop.Module.AddressModule;
 import com.cardshop.cardshop.R;
+import com.cardshop.cardshop.View.Activity.AddAddressActivity;
 
 import java.util.List;
 
@@ -59,6 +60,12 @@ public class AddressChooseFragment extends BaseFragment implements AddressChoose
         setNoStatusBar();
         setTitle("我的地址");
         showBack();
+        setHeadRightIv(R.mipmap.icon_add, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddAddressActivity.gotoAddAddressActivity(getActivity());
+            }
+        });
     }
 
     @Override
