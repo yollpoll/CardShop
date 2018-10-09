@@ -9,6 +9,7 @@ public interface MineContract {
     abstract class IPresenter<V> extends BasePresenter<V> {
         public abstract void gotoCustomerService();
         public abstract void gotoRealName();
+        public abstract void updateUserInfo();
     }
 
     interface IView extends IBaseView<MineContract.IPresenter> {

@@ -89,4 +89,9 @@ public class SetPayPassword2Fragment extends BaseFragment implements SetPayPassw
             tvTips.setText(tip);
         }
     }
+
+    @Override
+    public void onSuccess() {
+        goBack();
+    }
 }

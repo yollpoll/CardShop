@@ -73,7 +73,8 @@ public class UserModule extends BaseModule {
         call.enqueue(callback);
 
     }
-    public static void getUserInfo(Callback<ResponseData<UserModule>> callback){
+
+    public static void getUserInfo(Callback<ResponseData<UserModule>> callback) {
         Retrofit retrofit = HttpTools.getInstance().getRetrofit();
         UserService service = retrofit.create(UserService.class);
         Call<ResponseData<UserModule>> call = service.getUserInfo(getCurrentUser().getMember().getMemberId());
@@ -86,6 +87,13 @@ public class UserModule extends BaseModule {
 
     public static UserModule getCurrentUser() {
         return null != SPUtiles.getUser() ? SPUtiles.getUser() : new UserModule();
+    }
+
+    public static void setPayPsw(String payPsw, Callback<ResponseData<UserModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+        Call<ResponseData<UserModule>> call = service.setPayPsw(getCurrentUser().getMember().getMemberId(), payPsw);
+        call.enqueue(callback);
     }
 
     public int getCardNum() {

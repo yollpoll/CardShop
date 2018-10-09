@@ -51,4 +51,8 @@ public interface UserService {
 
     @GET(API.USER_INFO)
     Call<ResponseData<UserModule>> getUserInfo(@Query("memberId") String memberId);
+
+    @FormUrlEncoded
+    @POST(API.SET_PAY_PASSWORD)
+    Call<ResponseData<UserModule>> setPayPsw(@Field("memberId") String memberId,@Field("payPsw") String payPsw);
 }

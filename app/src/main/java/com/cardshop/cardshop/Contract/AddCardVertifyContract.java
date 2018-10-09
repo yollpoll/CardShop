@@ -10,11 +10,11 @@ public interface AddCardVertifyContract {
     }
 
     interface IView extends IBaseView<AddCardVertifyContract.Presenter> {
-        void showCountDown(String count);
-
         void showPhoneNum(String phone);
 
         void onAddResulte(boolean result, String message);
+
+        void showCountDown(String count);
 
         void onCountDownFinish();
     }

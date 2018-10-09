@@ -61,6 +61,12 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.updateUserInfo();
+    }
+
+    @Override
     protected void initView(View view) {
         super.initView(view);
         mAppBarLayout = view.findViewById(R.id.app_bar);

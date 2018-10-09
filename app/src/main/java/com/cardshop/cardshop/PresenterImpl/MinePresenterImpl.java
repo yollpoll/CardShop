@@ -38,7 +38,7 @@ public class MinePresenterImpl extends MineContract.IPresenter<MineContract.IVie
         userModule = UserModule.getCurrentUser();
         mView.setUserData(userModule);
         initQiyu();
-        updateUserInfo();
+//        updateUserInfo();
     }
 
     @Override
@@ -75,7 +75,8 @@ public class MinePresenterImpl extends MineContract.IPresenter<MineContract.IVie
         Unicorn.updateOptions(ysfOptions);
     }
 
-    private void updateUserInfo() {
+    @Override
+    public void updateUserInfo() {
         UserModule.getUserInfo(new Callback<ResponseData<UserModule>>() {
             @Override
             public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {

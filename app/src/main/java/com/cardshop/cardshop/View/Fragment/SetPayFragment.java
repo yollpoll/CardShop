@@ -20,7 +20,7 @@ import com.cardshop.cardshop.Widget.PasswordEditLayout;
 public class SetPayFragment extends BaseFragment implements PayPasswordContract.IView {
     private PayPasswordContract.IPresenter presenter;
 
-    private TextView tvPhone;
+    private TextView tvPhone, tvGetSms;
     private LinearLayout llPassword;
     private Button btnOk;
     private PasswordEditLayout elPassword;
@@ -52,9 +52,11 @@ public class SetPayFragment extends BaseFragment implements PayPasswordContract.
         llPassword = view.findViewById(R.id.ll_password);
         btnOk = view.findViewById(R.id.btn_ok);
         elPassword = view.findViewById(R.id.el_password);
+        tvGetSms = view.findViewById(R.id.tv_get_sms);
 
         btnOk.setOnClickListener(this);
         llPassword.setOnClickListener(this);
+        tvGetSms.setOnClickListener(this);
         elPassword.setOnInputCompleteListener(onInputCompleteListener);
     }
 
@@ -77,8 +79,32 @@ public class SetPayFragment extends BaseFragment implements PayPasswordContract.
         super.onClick(view);
         switch (view.getId()) {
             case R.id.btn_ok:
-                SetPayPassword2Activity.gotoSetPayPassword2Activity(getActivity());
+                presenter.vertifySms(elPassword.getPsw());
+//                SetPayPassword2Activity.gotoSetPayPassword2Activity(getActivity());
+                break;
+            case R.id.tv_get_sms:
+                presenter.sendSms();
                 break;
         }
+    }
+
+    @Override
+    public void showCountDown(String count) {
+        tvGetSms.setClickable(false);
+        tvGetSms.setTextColor(getActivity().getResources().getColor(R.color.colorHint));
+        tvGetSms.setText(count);
+    }
+
+    @Override
+    public void onCountDownFinish() {
+        tvGetSms.setTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
+        tvGetSms.setText("重新发送");
+        tvGetSms.setClickable(true);
+    }
+
+    @Override
+    public void onVertifySuccess() {
+        SetPayPassword2Activity.gotoSetPayPassword2Activity(getActivity());
+        goBack();
     }
 }

@@ -14,5 +14,7 @@ public interface SetPayPassword2Contract {
         void onFirstInput(boolean result, String tip);
 
         void onConfirmInput(boolean result, String tip);
+
+        void onSuccess();
     }
 }
