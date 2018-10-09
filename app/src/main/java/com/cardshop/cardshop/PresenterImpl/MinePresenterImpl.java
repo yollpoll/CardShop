@@ -3,6 +3,7 @@ package com.cardshop.cardshop.PresenterImpl;
 import android.content.Context;
 
 import com.cardshop.cardshop.Contract.MineContract;
+import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.UserModule;
 import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Activity.RealNameActivity;
@@ -10,6 +11,10 @@ import com.qiyukf.unicorn.api.ConsultSource;
 import com.qiyukf.unicorn.api.UICustomization;
 import com.qiyukf.unicorn.api.Unicorn;
 import com.qiyukf.unicorn.api.YSFOptions;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MinePresenterImpl extends MineContract.IPresenter<MineContract.IView> {
     public static final String SERVICE_URL = "com.cardshop.cardshop.PresenterImpl";
@@ -33,6 +38,7 @@ public class MinePresenterImpl extends MineContract.IPresenter<MineContract.IVie
         userModule = UserModule.getCurrentUser();
         mView.setUserData(userModule);
         initQiyu();
+        updateUserInfo();
     }
 
     @Override
@@ -54,6 +60,7 @@ public class MinePresenterImpl extends MineContract.IPresenter<MineContract.IVie
         }
     }
 
+
     /**
      * 初始化客服
      */
@@ -66,5 +73,24 @@ public class MinePresenterImpl extends MineContract.IPresenter<MineContract.IVie
         uiCustomization.titleBarStyle = 0;
         ysfOptions.uiCustomization = uiCustomization;
         Unicorn.updateOptions(ysfOptions);
+    }
+
+    private void updateUserInfo() {
+        UserModule.getUserInfo(new Callback<ResponseData<UserModule>>() {
+            @Override
+            public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
+                if (response.body().isSuccess()) {
+                    UserModule.saveToLocal(response.body().getData());
+                    mView.setUserData(response.body().getData());
+                } else {
+                    mView.showSnackerToast(response.body().getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData<UserModule>> call, Throwable t) {
+
+            }
+        });
     }
 }

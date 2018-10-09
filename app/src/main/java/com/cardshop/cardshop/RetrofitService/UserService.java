@@ -8,7 +8,9 @@ import com.cardshop.cardshop.Module.UserModule;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface UserService {
     @FormUrlEncoded
@@ -41,4 +43,12 @@ public interface UserService {
     Call<ResponseData<UserModule>> authLogin(@Field("openId") String openId, @Field("nickName") String nickName,
                                              @Field("headImg") String headImg, @Field("authType") String authType);
 
+
+    @FormUrlEncoded
+    @POST(API.CHANGE_NAME)
+    Call<ResponseData<BaseModule>> changeName(@Field("memberId") String memberId, @Field("memberName") String memberName);
+
+
+    @GET(API.USER_INFO)
+    Call<ResponseData<UserModule>> getUserInfo(@Query("memberId") String memberId);
 }

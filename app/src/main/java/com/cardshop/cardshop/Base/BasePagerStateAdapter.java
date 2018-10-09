@@ -2,15 +2,16 @@ package com.cardshop.cardshop.Base;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 
 import java.util.List;
 
-public class BasePagerAdapter extends FragmentPagerAdapter {
+public class BasePagerStateAdapter extends FragmentStatePagerAdapter {
     protected List<Fragment> list;
     protected List<String> title;
 
-    public BasePagerAdapter(FragmentManager fm, List<Fragment> list, List<String> title) {
+    public BasePagerStateAdapter(FragmentManager fm, List<Fragment> list, List<String> title) {
         super(fm);
         this.list = list;
         this.title = title;
@@ -32,10 +33,9 @@ public class BasePagerAdapter extends FragmentPagerAdapter {
         return title.get(position);
     }
 
-//    @Override
-//    public int getItemPosition(Object object) {
-//        // TODO Auto-generated method stub
-//        return PagerAdapter.POSITION_NONE;
-//    }
-
+    @Override
+    public int getItemPosition(Object object) {
+        // TODO Auto-generated method stub
+        return PagerAdapter.POSITION_NONE;
+    }
 }

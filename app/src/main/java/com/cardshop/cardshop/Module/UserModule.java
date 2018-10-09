@@ -66,6 +66,20 @@ public class UserModule extends BaseModule {
 
     }
 
+    public static void changeUserName(String userName, Callback<ResponseData<BaseModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+        Call<ResponseData<BaseModule>> call = service.changeName(getCurrentUser().getMember().getMemberId(), userName);
+        call.enqueue(callback);
+
+    }
+    public static void getUserInfo(Callback<ResponseData<UserModule>> callback){
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+        Call<ResponseData<UserModule>> call = service.getUserInfo(getCurrentUser().getMember().getMemberId());
+        call.enqueue(callback);
+    }
+
     public static void saveToLocal(UserModule userModule) {
         SPUtiles.saveUser(userModule);
     }

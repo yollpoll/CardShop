@@ -24,6 +24,8 @@ public class API {
     public static final String CHANGE_PASSWORD = "ktt/api/member/modifyPsw";
     public static final String VERTIFY_SMS = "ktt/api/verifySmsCode";
     public static final String AUTH_LOGIN = "ktt/api/member/authLogin";
+    public static final String CHANGE_NAME = "ktt/api/member/modifyName";
+    public static final String USER_INFO = "/ktt/api/member/info";
     //address
     public static final String ADDRESS = "ktt/api/address/list";
     public static final String ADD_ADDRESS = "ktt/api/address/save";

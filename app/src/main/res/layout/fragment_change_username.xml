@@ -13,6 +13,7 @@
         android:background="@color/white"
         android:gravity="left|center_vertical"
         android:hint="请输入用户名"
+        android:id="@+id/edt_username"
         android:paddingLeft="15dp"
         android:textColorHint="@color/colorHint" />
 

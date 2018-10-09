@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cardshop.cardshop.Adapter.FragmentPagerAdapter;
 import com.cardshop.cardshop.Base.BaseFragment;
+import com.cardshop.cardshop.Base.BaseFragmentStatePagerAdapter;
 import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.ChooseAreaContract;
 import com.cardshop.cardshop.R;
@@ -24,7 +24,7 @@ public class ChooseAreaFragment extends BaseFragment implements ChooseAreaContra
     private ChooseAreaContract.IPresenter presenter;
     private ViewPager mViewPager;
     private TabLayout mTablayout;
-    private FragmentPagerAdapter mAdapter;
+    private BaseFragmentStatePagerAdapter mAdapter;
     private int currentPager = 0;
 
     public static ChooseAreaFragment newInstance() {
@@ -64,7 +64,7 @@ public class ChooseAreaFragment extends BaseFragment implements ChooseAreaContra
 
     @Override
     public void initVP(List<Fragment> list, List<String> titles) {
-        mAdapter = new FragmentPagerAdapter(getChildFragmentManager(), list, titles);
+        mAdapter = new BaseFragmentStatePagerAdapter(getChildFragmentManager(), list, titles);
         mViewPager.setAdapter(mAdapter);
         mTablayout.setupWithViewPager(mViewPager);
 

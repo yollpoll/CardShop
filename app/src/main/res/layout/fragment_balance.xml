@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_msg"
             android:layout_centerHorizontal="true"
-            android:text="3600000"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="36sp" />
     </RelativeLayout>

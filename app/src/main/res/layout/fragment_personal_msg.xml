@@ -54,13 +54,15 @@
             android:layout_marginLeft="15dp"
             android:text="用户名" />
 
-        <ImageView
+        <TextView
+            android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@mipmap/icon_right_arrow" />
+            android:drawableRight="@mipmap/icon_right_arrow"
+            android:gravity="right" />
 
         <View
             android:layout_width="match_parent"
@@ -118,13 +120,15 @@
             android:layout_marginLeft="15dp"
             android:text="微信" />
 
-        <ImageView
+        <TextView
+            android:id="@+id/tv_wx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@mipmap/icon_right_arrow" />
+            android:drawableRight="@mipmap/icon_right_arrow"
+            android:gravity="right" />
 
         <View
             android:layout_width="match_parent"
@@ -146,13 +150,15 @@
             android:layout_marginLeft="15dp"
             android:text="QQ" />
 
-        <ImageView
+        <TextView
+            android:id="@+id/tv_qq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@mipmap/icon_right_arrow" />
+            android:drawableRight="@mipmap/icon_right_arrow"
+            android:gravity="right" />
 
         <View
             android:layout_width="match_parent"

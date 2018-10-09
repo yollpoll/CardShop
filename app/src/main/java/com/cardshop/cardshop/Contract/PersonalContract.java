@@ -14,5 +14,11 @@ public interface PersonalContract {
         void setPhone(String phone);
 
         void getVertifyPswResult(boolean result);
+
+        void setUserName(String userName);
+
+        void setWx(String wx);
+
+        void setQQ(String qq);
     }
 }

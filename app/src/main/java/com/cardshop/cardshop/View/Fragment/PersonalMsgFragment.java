@@ -1,6 +1,8 @@
 package com.cardshop.cardshop.View.Fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,9 +24,11 @@ import com.cardshop.cardshop.Widget.PasswordEditLayout;
 import com.cardshop.framework.Utils.ImageUtils;
 
 public class PersonalMsgFragment extends BaseFragment implements PersonalContract.IView, PasswordEditLayout.OnInputCompleteListener {
+    public static final int REQUEST_USERNAME = 1;
+
     private PersonalContract.IPresenter presenter;
     private RelativeLayout rlUsername, rlAvatar, rlPhone, rlWechat, rlQQ;
-    private TextView tvPhone;
+    private TextView tvPhone, tvUsername, tvWx, tvQQ;
     private ImageView ivAvatar;
     private Dialog payPasswordDialog;
 
@@ -66,6 +70,9 @@ public class PersonalMsgFragment extends BaseFragment implements PersonalContrac
         rlQQ = view.findViewById(R.id.rl_qq);
         ivAvatar = view.findViewById(R.id.iv_avatar);
         tvPhone = view.findViewById(R.id.tv_phone);
+        tvUsername = view.findViewById(R.id.tv_username);
+        tvWx = view.findViewById(R.id.tv_wx);
+        tvQQ = view.findViewById(R.id.tv_qq);
 
         rlUsername.setOnClickListener(this);
         rlAvatar.setOnClickListener(this);
@@ -80,7 +87,7 @@ public class PersonalMsgFragment extends BaseFragment implements PersonalContrac
         super.onClick(view);
         switch (view.getId()) {
             case R.id.rl_username:
-                ChangeUserNameActivity.gotoChangeUserNameActivity(getActivity());
+                ChangeUserNameActivity.gotoChangeUserNameActivity(getActivity(),REQUEST_USERNAME);
                 break;
             case R.id.rl_phone:
                 changePhone();
@@ -107,8 +114,23 @@ public class PersonalMsgFragment extends BaseFragment implements PersonalContrac
         }
     }
 
+    @Override
+    public void setUserName(String userName) {
+        tvUsername.setText(userName);
+    }
+
+    @Override
+    public void setWx(String wx) {
+        tvWx.setText(wx);
+    }
+
+    @Override
+    public void setQQ(String qq) {
+        tvQQ.setText(qq);
+    }
+
     private void changePhone() {
-        payPasswordDialog=DialogUtils.showPayPasswordDialog(getActivity(), this);
+        payPasswordDialog = DialogUtils.showPayPasswordDialog(getActivity(), this);
     }
 
 
@@ -119,8 +141,21 @@ public class PersonalMsgFragment extends BaseFragment implements PersonalContrac
      */
     @Override
     public void onComplete(String psw) {
-        if(null!=payPasswordDialog)
+        if (null != payPasswordDialog)
             payPasswordDialog.dismiss();
         presenter.vertifyPayPassword(psw);
+    }
+
+    @Override
+    public void onReturnResult(int requestCode, int resultCode, Intent data) {
+        super.onReturnResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_USERNAME:
+                if (resultCode == Activity.RESULT_OK) {
+                    String name = data.getStringExtra("name");
+                    tvUsername.setText(name);
+                }
+                break;
+        }
     }
 }

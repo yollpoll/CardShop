@@ -12,9 +12,17 @@ import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Fragment.PersonalMsgFragment;
 
 public class PersonalMsgActivity extends BaseActivity {
+    private PersonalMsgFragment mFragment;
+
     public static void gotoPersonalMsgActivity(Context context) {
         Intent intent = new Intent(context, PersonalMsgActivity.class);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mFragment.onReturnResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -27,6 +35,7 @@ public class PersonalMsgActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        new PersonalMsgContractImpl((PersonalContract.IView) loadBaseFragment(PersonalMsgFragment.newInstance()));
+        mFragment = PersonalMsgFragment.newInstance();
+        new PersonalMsgContractImpl((PersonalContract.IView) loadBaseFragment(mFragment));
     }
 }

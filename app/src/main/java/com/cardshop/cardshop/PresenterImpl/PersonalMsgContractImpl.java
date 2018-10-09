@@ -16,6 +16,9 @@ public class PersonalMsgContractImpl extends PersonalContract.IPresenter<Persona
         super.start();
         mView.setAvatar(UserModule.getCurrentUser().getMember().getMemberAvatar());
         mView.setPhone(UserModule.getCurrentUser().getMember().getMemberMobile());
+        mView.setUserName(UserModule.getCurrentUser().getMember().getMemberName());
+        mView.setWx(UserModule.getCurrentUser().getMember().getWeixinInfo());
+        mView.setQQ(UserModule.getCurrentUser().getMember().getMemberQq());
     }
 
     @Override

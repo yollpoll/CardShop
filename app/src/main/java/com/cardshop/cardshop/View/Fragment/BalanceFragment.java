@@ -76,4 +76,9 @@ public class BalanceFragment extends BaseFragment implements BalanceContract.IVi
                 break;
         }
     }
+
+    @Override
+    public void setBalance(String balance) {
+        tvBalance.setText(balance);
+    }
 }

@@ -8,5 +8,6 @@ public interface BalanceContract {
     }
 
     interface IView extends IBaseView<BalanceContract.IPresenter> {
+        void setBalance(String balance);
     }
 }
