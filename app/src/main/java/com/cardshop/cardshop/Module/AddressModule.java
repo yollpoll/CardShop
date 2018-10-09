@@ -12,27 +12,39 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 
 public class AddressModule extends BaseModule {
-    private String true_name;
-    private String area_info;
+    private String trueName;
+    private String areaInfo;
     private String address;
-    private String mob_phone;
-    private String is_default;
-    private String address_id;
+    private String mobPhone;
+    private String isDefault;
+    private String addressId;
+    private String memberId;
+    private String areaId;
+    private String cityId;
+    private String telPhone;
 
-    public String getTrue_name() {
-        return true_name;
+    public String getTelPhone() {
+        return telPhone;
     }
 
-    public void setTrue_name(String true_name) {
-        this.true_name = true_name;
+    public void setTelPhone(String telPhone) {
+        this.telPhone = telPhone;
     }
 
-    public String getArea_info() {
-        return area_info;
+    public String getTrueName() {
+        return trueName;
     }
 
-    public void setArea_info(String area_info) {
-        this.area_info = area_info;
+    public void setTrueName(String trueName) {
+        this.trueName = trueName;
+    }
+
+    public String getAreaInfo() {
+        return areaInfo;
+    }
+
+    public void setAreaInfo(String areaInfo) {
+        this.areaInfo = areaInfo;
     }
 
     public String getAddress() {
@@ -43,28 +55,52 @@ public class AddressModule extends BaseModule {
         this.address = address;
     }
 
-    public String getMob_phone() {
-        return mob_phone;
+    public String getMobPhone() {
+        return mobPhone;
     }
 
-    public void setMob_phone(String mob_phone) {
-        this.mob_phone = mob_phone;
+    public void setMobPhone(String mobPhone) {
+        this.mobPhone = mobPhone;
     }
 
-    public String getIs_default() {
-        return is_default;
+    public String getIsDefault() {
+        return isDefault;
     }
 
-    public void setIs_default(String is_default) {
-        this.is_default = is_default;
+    public void setIsDefault(String isDefault) {
+        this.isDefault = isDefault;
     }
 
-    public String getAddress_id() {
-        return address_id;
+    public String getAddressId() {
+        return addressId;
     }
 
-    public void setAddress_id(String address_id) {
-        this.address_id = address_id;
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
     }
 
     public static void getAddressList(Callback<ResponseData<List<AddressModule>>> callback) {
@@ -72,6 +108,23 @@ public class AddressModule extends BaseModule {
         AddressService service = retrofit.create(AddressService.class);
         Call<ResponseData<List<AddressModule>>> call = service.getAddress(UserModule.getCurrentUser().getMember().getMemberId());
         call.enqueue(callback);
+    }
+
+    public static void addAddress(String name, String phone, String area, String address, boolean isDefault,
+                                  Callback<ResponseData<AddressModule>> callback) {
+
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        AddressService service = retrofit.create(AddressService.class);
+        String memberId = UserModule.getCurrentUser().getMember().getMemberId();
+        service.addAddress(name, phone, area, address, isDefault ? "1" : "0", memberId).enqueue(callback);
+    }
+
+    public static void changeAddress(String addressId, String name, String phone, String area, String address, boolean isDefault,
+                                     Callback<ResponseData<AddressModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        AddressService service = retrofit.create(AddressService.class);
+        String memberId = UserModule.getCurrentUser().getMember().getMemberId();
+        service.changeAddress(addressId, name, phone, area, address, isDefault ? "1" : "0", memberId).enqueue(callback);
     }
 
 }

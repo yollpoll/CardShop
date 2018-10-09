@@ -83,10 +83,15 @@ public class AddressChooseFragment extends BaseFragment implements AddressChoose
         mAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void gotoEditAddress(AddressModule addressModule) {
+        AddAddressActivity.gotoChangeAddressActivity(getActivity(), addressModule);
+    }
+
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {
         @Override
         public void onClick(View view, int position) {
-
+            presenter.onItemClick(position);
         }
     };
 }

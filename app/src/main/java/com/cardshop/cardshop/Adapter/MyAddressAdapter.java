@@ -12,26 +12,28 @@ import com.cardshop.cardshop.Listener.OnItemClickListener;
 import com.cardshop.cardshop.Module.AddressModule;
 import com.cardshop.cardshop.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyAddressAdapter extends BaseFooterAdapter<List<AddressModule>> {
-    private List<AddressModule> list;
+    private List<AddressModule> list=new ArrayList<>();
     private Context context;
     private OnItemClickListener onItemClickListener;
 
     public MyAddressAdapter(List<AddressModule> addressModules, OnItemClickListener onItemClickListener) {
         super(addressModules);
         this.onItemClickListener = onItemClickListener;
+        this.list=addressModules;
     }
 
     @Override
     protected void onBindContentViewHolder(final BaseViewHolder holder,  int position) {
         AddressModule item = list.get(position);
         ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.tvName.setText(item.getTrue_name());
-        viewHolder.tvPhone.setText(item.getMob_phone());
-        viewHolder.tvAddress.setText(item.getArea_info() + " " + item.getAddress());
-        if ("0".equals(item.getIs_default())) {
+        viewHolder.tvName.setText(item.getTrueName());
+        viewHolder.tvPhone.setText(item.getMobPhone());
+        viewHolder.tvAddress.setText(item.getAreaInfo() + " " + item.getAddress());
+        if ("0".equals(item.getIsDefault())) {
             viewHolder.tvDefault.setVisibility(View.GONE);
         } else {
             viewHolder.tvDefault.setVisibility(View.VISIBLE);
@@ -69,7 +71,7 @@ public class MyAddressAdapter extends BaseFooterAdapter<List<AddressModule>> {
     @Override
     protected BaseViewHolder onCreateContentViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_address, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_address, parent, false);
         return new ViewHolder(view);
     }
 

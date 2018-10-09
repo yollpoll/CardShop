@@ -35,7 +35,8 @@ public class AddressChoosePresenterImpl extends AddressChooseContract.Presenter<
             public void onResponse(Call<ResponseData<List<AddressModule>>> call, Response<ResponseData<List<AddressModule>>> response) {
                 mView.hideProgressbar();
                 if (response.body().isSuccess()) {
-                    mView.hideProgressbar();
+                    list.clear();
+                    list.addAll(response.body().getData());
                     mView.refreshRecyclerView();
                 }
             }
@@ -45,5 +46,10 @@ public class AddressChoosePresenterImpl extends AddressChooseContract.Presenter<
                 mView.showSnackerToast("加载出错");
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        mView.gotoEditAddress(list.get(position));
     }
 }

@@ -26,6 +26,7 @@ public class API {
     public static final String AUTH_LOGIN = "ktt/api/member/authLogin";
     //address
     public static final String ADDRESS = "ktt/api/address/list";
+    public static final String ADD_ADDRESS = "ktt/api/address/save";
     //card
     public static final String CARDS = "ktt/api/bankcard/list";
     public static final String ADD_CARD = "ktt/api/bankcard/add";
@@ -33,5 +34,5 @@ public class API {
     //realname
     public static final String REAL_NAME = "ktt/api/member/verified";
     //order
-    public static final String ORDER_DINGDAN="ktt/api/order/list";
+    public static final String ORDER_DINGDAN = "ktt/api/order/list";
 }

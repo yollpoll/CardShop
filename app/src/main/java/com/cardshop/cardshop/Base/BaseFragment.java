@@ -33,6 +33,8 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         super.onCreate(savedInstanceState);
         this.mImmersionBar = ((BaseActivity) getActivity()).getmImmersionBar();
         mPresenter = createPresenter();
+        if(null==mPresenter)
+            return;
         mPresenter.attach((V) this);
     }
 

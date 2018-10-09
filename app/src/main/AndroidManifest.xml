@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
 
     <application
         android:name=".Base.BaseApplication"
@@ -54,8 +56,9 @@
         <activity android:name=".View.Activity.AddCardActivity" />
         <activity android:name=".View.Activity.AddCardVertifyActivity" />
         <activity android:name=".View.Activity.ManagerCardActivity" />
-        <activity android:name=".View.Activity.RealNameActivity"/>
-        <activity android:name=".View.Activity.AddAddressActivity"/>
+        <activity android:name=".View.Activity.RealNameActivity" />
+        <activity android:name=".View.Activity.AddAddressActivity" />
+        <activity android:name=".View.Activity.ChooseAreaActivity" />
     </application>
 
 </manifest>
