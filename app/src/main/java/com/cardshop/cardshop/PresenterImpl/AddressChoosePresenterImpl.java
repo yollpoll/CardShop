@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.PresenterImpl;
 
+import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Contract.AddressChooseContract;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.AddressModule;
@@ -14,9 +15,11 @@ import retrofit2.Response;
 public class AddressChoosePresenterImpl extends AddressChooseContract.Presenter<AddressChooseContract.IView> {
     private AddressChooseContract.IView mView;
     private List<AddressModule> list = new ArrayList<>();
+    private int actionMode;
 
-    public AddressChoosePresenterImpl(AddressChooseContract.IView mView) {
+    public AddressChoosePresenterImpl(AddressChooseContract.IView mView, int actionMode) {
         this.mView = mView;
+        this.actionMode = actionMode;
         mView.setPresenter(this);
     }
 
@@ -24,6 +27,7 @@ public class AddressChoosePresenterImpl extends AddressChooseContract.Presenter<
     public void start() {
         super.start();
         refreshData();
+        mView.initActionMode(actionMode);
         mView.initRecyclerView(list);
     }
 
@@ -51,5 +55,26 @@ public class AddressChoosePresenterImpl extends AddressChooseContract.Presenter<
     @Override
     public void onItemClick(int position) {
         mView.gotoEditAddress(list.get(position));
+    }
+
+    @Override
+    public void delAddress(int position) {
+        mView.showLoading("删除中", "正在删除,请稍等");
+        AddressModule.delAddress(list.get(position).getAddressId(), new Callback<ResponseData<BaseModule>>() {
+            @Override
+            public void onResponse(Call<ResponseData<BaseModule>> call, Response<ResponseData<BaseModule>> response) {
+                mView.hideLoading();
+                if (response.body().isSuccess()) {
+                    refreshData();
+                } else {
+                    mView.showSnackerToast(response.body().getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData<BaseModule>> call, Throwable t) {
+                mView.hideLoading();
+            }
+        });
     }
 }

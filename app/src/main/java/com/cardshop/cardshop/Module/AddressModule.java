@@ -127,4 +127,10 @@ public class AddressModule extends BaseModule {
         service.changeAddress(addressId, name, phone, area, address, isDefault ? "1" : "0", memberId).enqueue(callback);
     }
 
+    public static void delAddress(String addressId, Callback<ResponseData<BaseModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        AddressService service = retrofit.create(AddressService.class);
+        service.delAddress(addressId).enqueue(callback);
+    }
+
 }

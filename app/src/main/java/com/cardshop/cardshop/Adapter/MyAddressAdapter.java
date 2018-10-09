@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cardshop.cardshop.Base.BaseViewHolder;
 import com.cardshop.cardshop.Listener.OnItemClickListener;
+import com.cardshop.cardshop.Listener.OnItemLongClickListener;
 import com.cardshop.cardshop.Module.AddressModule;
 import com.cardshop.cardshop.R;
 
@@ -16,18 +18,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyAddressAdapter extends BaseFooterAdapter<List<AddressModule>> {
-    private List<AddressModule> list=new ArrayList<>();
+    private List<AddressModule> list = new ArrayList<>();
     private Context context;
     private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
+    private boolean isShowArrow = false;
 
-    public MyAddressAdapter(List<AddressModule> addressModules, OnItemClickListener onItemClickListener) {
+    public MyAddressAdapter(List<AddressModule> addressModules, OnItemClickListener onItemClickListener, boolean isShowArrow) {
         super(addressModules);
         this.onItemClickListener = onItemClickListener;
-        this.list=addressModules;
+        this.isShowArrow = isShowArrow;
+        this.list = addressModules;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
     }
 
     @Override
-    protected void onBindContentViewHolder(final BaseViewHolder holder,  int position) {
+    protected void onBindContentViewHolder(final BaseViewHolder holder, final int position) {
         AddressModule item = list.get(position);
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.tvName.setText(item.getTrueName());
@@ -44,29 +53,23 @@ public class MyAddressAdapter extends BaseFooterAdapter<List<AddressModule>> {
                 onItemClickListener.onClick(view, holder.getAdapterPosition());
             }
         });
+        if (isShowArrow) {
+            viewHolder.ivArrow.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.ivArrow.setVisibility(View.GONE);
+        }
+        if (null != onItemLongClickListener) {
+            viewHolder.rlRoot.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    onItemLongClickListener.onLongClick(view,position);
+                    return true;
+                }
+            });
+        }
+
     }
 
-//    @Override
-//    protected void onBindFooterViewHolder(BaseViewHolder holder, int position) {
-//        NoMoreHolder holder1 = (NoMoreHolder) holder;
-//        switch (getStatus()) {
-//            case FOOTER_TYPE_NOMORE:
-//                holder1.tvNoMore.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        if (null != onNoMoreCliclListener)
-//                            onNoMoreCliclListener.onClick();
-//                    }
-//                });
-//                holder1.tvNoMore.setVisibility(View.VISIBLE);
-//                holder1.progressBar.setVisibility(View.GONE);
-//                break;
-//            case FOOTER_TYPE_LOADING:
-//                holder1.progressBar.setVisibility(View.VISIBLE);
-//                holder1.tvNoMore.setVisibility(View.GONE);
-//                break;
-//        }
-//    }
 
     @Override
     protected BaseViewHolder onCreateContentViewHolder(ViewGroup parent, int viewType) {
@@ -75,15 +78,10 @@ public class MyAddressAdapter extends BaseFooterAdapter<List<AddressModule>> {
         return new ViewHolder(view);
     }
 
-//    @Override
-//    protected BaseViewHolder onCreateFooterViewHolder(ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_adapter, parent, false);
-//        return new BaseViewHolder(view);
-//    }
-
     public static class ViewHolder extends BaseViewHolder {
         TextView tvName, tvPhone, tvDefault, tvAddress;
         RelativeLayout rlRoot;
+        ImageView ivArrow;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -92,6 +90,7 @@ public class MyAddressAdapter extends BaseFooterAdapter<List<AddressModule>> {
             tvDefault = itemView.findViewById(R.id.tv_default);
             tvAddress = itemView.findViewById(R.id.tv_address);
             rlRoot = itemView.findViewById(R.id.rl_root);
+            ivArrow = itemView.findViewById(R.id.iv_arrow);
         }
     }
 }

@@ -12,8 +12,11 @@ import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Fragment.AddressChooseFragment;
 
 public class AddressChooseActivity extends BaseActivity {
-    public static void gotoAddressChooseActivity(Context context) {
+    int actionMode = AddressChooseFragment.MODE_CHOOSE;
+
+    public static void gotoAddressChooseActivity(Context context, int actionMode) {
         Intent intent = new Intent(context, AddressChooseActivity.class);
+        intent.putExtra("actionMode", actionMode);
         context.startActivity(intent);
     }
 
@@ -32,6 +35,7 @@ public class AddressChooseActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        new AddressChoosePresenterImpl((AddressChooseContract.IView) loadBaseFragment(AddressChooseFragment.newInstance()));
+        actionMode = getIntent().getIntExtra("actionMode", AddressChooseFragment.MODE_CHOOSE);
+        new AddressChoosePresenterImpl((AddressChooseContract.IView) loadBaseFragment(AddressChooseFragment.newInstance()), actionMode);
     }
 }

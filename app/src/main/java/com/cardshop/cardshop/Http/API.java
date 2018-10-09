@@ -27,6 +27,7 @@ public class API {
     //address
     public static final String ADDRESS = "ktt/api/address/list";
     public static final String ADD_ADDRESS = "ktt/api/address/save";
+    public static final String DEL_ADDRESS = "ktt/api/address/delete";
     //card
     public static final String CARDS = "ktt/api/bankcard/list";
     public static final String ADD_CARD = "ktt/api/bankcard/add";

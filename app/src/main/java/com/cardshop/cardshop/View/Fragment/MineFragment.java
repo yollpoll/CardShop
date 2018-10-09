@@ -110,8 +110,8 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
     public void setUserData(UserModule userData) {
         tvUserName.setText(userData.getMember().getMemberName());
         tvPhone.setText(userData.getMember().getMemberMobile());
-        tvBalance.setText(userData.getMember().getAvailableRcBalance()+"");
-        tvCard.setText(userData.getCardNum()+"");
+        tvBalance.setText(userData.getMember().getAvailableRcBalance() + "");
+        tvCard.setText(userData.getCardNum() + "");
         ImageUtils.loadCycleImage(userData.getMember().getMemberAvatar(), ivAvatar, getActivity());
     }
 
@@ -125,7 +125,7 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.rl_address:
-                AddressChooseActivity.gotoAddressChooseActivity(getActivity());
+                AddressChooseActivity.gotoAddressChooseActivity(getActivity(), AddressChooseFragment.MODE_EDIT);
                 break;
             case R.id.iv_setting:
                 SettingActivity.gotoSettingActivity(getActivity());

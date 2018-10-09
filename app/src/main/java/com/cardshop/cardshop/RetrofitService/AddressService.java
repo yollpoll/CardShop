@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.RetrofitService;
 
+import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Http.API;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.AddressModule;
@@ -29,4 +30,8 @@ public interface AddressService {
                                                     @Field("mobPhone") String mobPhone, @Field("areaInfo") String areaInfo,
                                                     @Field("address") String address, @Field("isDefault") String isDefault,
                                                     @Field("memberId") String memberId);
+
+    @FormUrlEncoded
+    @POST(API.DEL_ADDRESS)
+    Call<ResponseData<BaseModule>> delAddress(@Field("addressId") String addressId);
 }

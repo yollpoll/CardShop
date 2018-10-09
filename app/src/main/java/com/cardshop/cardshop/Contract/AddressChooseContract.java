@@ -11,6 +11,8 @@ public interface AddressChooseContract {
         public abstract void refreshData();
 
         public abstract void onItemClick(int position);
+
+        public abstract void delAddress(int position);
     }
 
     interface IView extends IBaseView<AddressChooseContract.Presenter> {
@@ -19,5 +21,7 @@ public interface AddressChooseContract {
         void refreshRecyclerView();
 
         void gotoEditAddress(AddressModule addressModule);
+
+        void initActionMode(int actionMode);
     }
 }
