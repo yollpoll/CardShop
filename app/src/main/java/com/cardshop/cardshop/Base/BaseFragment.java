@@ -26,6 +26,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     protected ProgressDialog mProgressDialog;
     protected ProgressBar mProgressBar;
     protected View mNoData;
+    protected View mError;
 
 
     @Override
@@ -33,7 +34,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         super.onCreate(savedInstanceState);
         this.mImmersionBar = ((BaseActivity) getActivity()).getmImmersionBar();
         mPresenter = createPresenter();
-        if(null==mPresenter)
+        if (null == mPresenter)
             return;
         mPresenter.attach((V) this);
     }
@@ -185,11 +186,11 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
             mNoData = LayoutInflater.from(getActivity()).inflate(R.layout.layout_no_data, null, false);
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             mNoData.setLayoutParams(params);
-            ViewGroup viewGroup = rootView.findViewById(R.id.rl_root);
+            ViewGroup viewGroup = rootView.findViewById(R.id.root);
             if (null == viewGroup) {
                 return;
             }
-            viewGroup.addView(mNoData);
+            viewGroup.addView(mNoData, 0);
         }
         mNoData.setVisibility(View.VISIBLE);
     }
@@ -198,5 +199,28 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         if (null == mNoData)
             return;
         mNoData.setVisibility(View.GONE);
+    }
+
+    public void showError() {
+        hideNoData();
+        if (null == rootView)
+            return;
+        if (null == mError) {
+            mError = LayoutInflater.from(getActivity()).inflate(R.layout.layout_error, null, false);
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            mError.setLayoutParams(params);
+            ViewGroup viewGroup = rootView.findViewById(R.id.root);
+            if (null == viewGroup) {
+                return;
+            }
+            viewGroup.addView(mError, 0);
+        }
+        mError.setVisibility(View.VISIBLE);
+    }
+
+    public void hideError() {
+        if (null == mError)
+            return;
+        mError.setVisibility(View.GONE);
     }
 }

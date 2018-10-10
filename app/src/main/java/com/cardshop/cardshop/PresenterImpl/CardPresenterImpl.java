@@ -35,10 +35,17 @@ public class CardPresenterImpl extends CardContract.IPresenter<CardContract.IVie
                 list.clear();
                 list.addAll(response.body().getData());
                 mView.refreshRv();
+                if (list.size() == 0) {
+                    mView.showNoData();
+                } else {
+                    mView.hideNoData();
+                }
+                mView.hideError();
             }
 
             @Override
             public void onFailure(Call<ResponseData<List<CardModule>>> call, Throwable t) {
+                mView.showError();
             }
         });
     }

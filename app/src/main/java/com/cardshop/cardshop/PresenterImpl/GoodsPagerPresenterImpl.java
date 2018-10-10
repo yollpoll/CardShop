@@ -56,6 +56,7 @@ public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContr
             @Override
             public void onResponse(Call<ResponseData<List<GoodsModule>>> call, Response<ResponseData<List<GoodsModule>>> response) {
                 mView.hideProgressbar();
+                mView.hideError();
                 int loadMorePosition = list.size();
                 if (null != response.body()) {
                     if (response.body().isSuccess()) {
@@ -67,6 +68,11 @@ public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContr
                         } else {
                             mView.loadMore(loadMorePosition, response.body().getData().size());
                         }
+                        if (0 == list.size()) {
+                            mView.showNoData();
+                        } else {
+                            mView.hideNoData();
+                        }
                         isRefresh = false;
                     }
                 }
@@ -75,6 +81,7 @@ public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContr
             @Override
             public void onFailure(Call<ResponseData<List<GoodsModule>>> call, Throwable t) {
                 isRefresh = false;
+                mView.showError();
             }
         });
     }

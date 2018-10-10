@@ -42,12 +42,19 @@ public class AddressChoosePresenterImpl extends AddressChooseContract.Presenter<
                     list.clear();
                     list.addAll(response.body().getData());
                     mView.refreshRecyclerView();
+                    if (list.size() == 0) {
+                        mView.showNoData();
+                    } else {
+                        mView.hideNoData();
+                    }
+                    mView.hideError();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseData<List<AddressModule>>> call, Throwable t) {
                 mView.showSnackerToast("加载出错");
+                mView.showError();
             }
         });
     }

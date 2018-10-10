@@ -29,5 +29,9 @@ public interface IBaseView<T extends BasePresenter> {
 
     void showNoData();
 
+    void hideNoData();
 
+    void showError();
+
+    void hideError();
 }

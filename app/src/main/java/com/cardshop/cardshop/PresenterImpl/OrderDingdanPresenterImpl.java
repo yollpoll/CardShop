@@ -42,14 +42,18 @@ public class OrderDingdanPresenterImpl extends OrderDingdanContract.IPresenter<O
                         if (isRefrsh) {
                             list.clear();
                             list.addAll(response.body().getData());
-                            if (0 == list.size())
-                                mView.showNoData();
                             mView.refresh();
                         } else {
                             int loadMorePosition = list.size();
                             list.addAll(response.body().getData());
                             mView.loadMore(loadMorePosition, response.body().getData().size());
                         }
+                        if (0 == list.size()) {
+                            mView.showNoData();
+                        } else {
+                            mView.hideNoData();
+                        }
+                        mView.hideError();
                         isRefrsh = false;
                     }
 
@@ -57,6 +61,7 @@ public class OrderDingdanPresenterImpl extends OrderDingdanContract.IPresenter<O
                     public void onFailure(Call<ResponseData<List<OrderDingdanModule>>> call, Throwable t) {
                         mView.hideProgressbar();
                         isRefrsh = false;
+                        mView.showError();
                         mView.showSnackerToast(t.getMessage());
                     }
                 });
