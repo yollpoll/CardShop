@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.Base;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,10 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
 
     @Override
     protected void onDestroy() {
@@ -28,6 +33,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         this.mImmersionBar = ImmersionBar.with(this);
     }
@@ -53,5 +59,13 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.rl_root, fragment, FRAGMENT_TAG).commit();
         return fragment;
+    }
+
+    public void setNoStatusBar() {
+        mImmersionBar
+                .transparentBar()
+                .fitsSystemWindows(false)
+                .navigationBarEnable(false)
+                .init();
     }
 }

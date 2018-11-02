@@ -146,4 +146,19 @@ public class OrderDingdanModule extends BaseModule {
     public void setZhuanmaiId(String zhuanmaiId) {
         this.zhuanmaiId = zhuanmaiId;
     }
+
+    public static String getStatusName(String status) {
+        switch (status) {
+            case "0":
+                return "已取消";
+            case "10":
+                return "未付款";
+            case "20":
+                return "已付款";
+            case "30":
+                return "交易完成";
+            default:
+                return "未知";
+        }
+    }
 }

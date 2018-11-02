@@ -1,6 +1,6 @@
 package com.cardshop.cardshop.View.Activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 
 import com.cardshop.cardshop.Base.SimpleActivity;
@@ -11,10 +11,10 @@ import com.cardshop.cardshop.View.Fragment.ChangePhoneFragment;
 public class ChangePhoneActivity extends SimpleActivity {
     private String phone;
 
-    public static void gotoChangePhoneActivity(Context context, String phone) {
+    public static void gotoChangePhoneActivity(Activity context, String phone, int requestCode) {
         Intent intent = new Intent(context, ChangePhoneActivity.class);
         intent.putExtra("phone", phone);
-        context.startActivity(intent);
+        context.startActivityForResult(intent,requestCode);
     }
 
     @Override

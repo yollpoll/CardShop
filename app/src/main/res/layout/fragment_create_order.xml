@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/layout_title" />
+
+
+    <TextView
+        android:id="@+id/tv_seller"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_below="@+id/rl_title"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="卖家"
+        android:textColor="@color/colorGray"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/tv_seller"
+        android:background="@color/colorLine" />
+
+    <ImageView
+        android:id="@+id/iv_card"
+        android:layout_width="89dp"
+        android:layout_height="54dp"
+        android:layout_below="@+id/tv_seller"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="22dp"
+        android:src="@mipmap/icon_detail_yidong" />
+
+    <TextView
+        android:id="@+id/tv_card_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_card"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/iv_card"
+        android:text=""
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_card_name"
+        android:layout_below="@+id/tv_card_name"
+        android:layout_marginTop="18dp"
+        android:text=""
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/tv_last_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_price"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/tv_price"
+        android:gravity="right"
+        android:text="剩余数量"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_purchase_num_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_card"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="40dp"
+        android:text="购买数量"
+        android:textSize="12sp" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_purchase"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_last_num"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/shape_purchase_num"
+        android:orientation="horizontal">
+
+
+        <com.cardshop.cardshop.Widget.ReduceTextView
+            android:id="@+id/tv_reduce"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@color/colorLine"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_choose_num"
+            android:layout_width="32dp"
+            android:layout_height="20dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@color/colorLine"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_choose_wey"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/ll_purchase"
+        android:layout_marginTop="10dp"
+        android:background="@color/background"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="请选择支付方式"
+        android:textColor="@color/colorGray"
+        android:textSize="12sp" />
+
+    <RadioGroup
+        android:id="@+id/rg_buy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_choose_wey"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:checked="true"
+            android:drawableLeft="@mipmap/icon_balance"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="账户余额:" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/colorLine" />
+
+        <!--<android.support.v7.widget.AppCompatRadioButton-->
+        <!--android:id="@+id/rb_wechatpay"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:drawableLeft="@mipmap/icon_wechat_pay"-->
+        <!--android:drawablePadding="10dp"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:text="微信" />-->
+
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0.5dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:background="@color/colorLine" />-->
+
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_alipay"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@mipmap/icon_alipay"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="支付宝" />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_price"
+        android:layout_below="@+id/rg_buy"
+        android:background="@color/background" />
+
+    <RelativeLayout
+        android:id="@+id/rl_price"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true">
+
+
+        <TextView
+            android:id="@+id/tv_all_price_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="充值金额:" />
+
+        <TextView
+            android:id="@+id/tv_all_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/tv_all_price_left"
+            android:text="¥95.00"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tv_purchase"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="购买"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</RelativeLayout>

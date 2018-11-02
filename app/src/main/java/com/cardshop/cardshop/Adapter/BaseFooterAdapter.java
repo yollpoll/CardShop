@@ -57,6 +57,6 @@ public class BaseFooterAdapter<D extends List> extends FooterAdapter<D, BaseView
     @Override
     protected BaseViewHolder onCreateFooterViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_adapter, parent, false);
-        return new BaseViewHolder(view);
+        return new NoMoreHolder(view);
     }
 }

@@ -1,5 +1,7 @@
 package com.cardshop.cardshop.View.Fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,6 +53,7 @@ public class ChangePhoneFragment extends BaseFragment implements ChangePhonContr
         llVertifyCode = view.findViewById(R.id.ll_vertifycode);
         btnOk = view.findViewById(R.id.btn_ok);
 
+        tvCountDown.setOnClickListener(this);
         btnOk.setOnClickListener(this);
     }
 
@@ -63,12 +66,43 @@ public class ChangePhoneFragment extends BaseFragment implements ChangePhonContr
     }
 
     @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()) {
+            case R.id.tv_count_down:
+                presenter.sendSms();
+                break;
+            case R.id.btn_ok:
+                presenter.vertifySms(llVertifyCode.getPsw());
+                break;
+        }
+    }
+
+    @Override
     public void showCountDown(String count) {
+        tvCountDown.setClickable(false);
+        tvCountDown.setTextColor(getActivity().getResources().getColor(R.color.colorHint));
         tvCountDown.setText(count);
     }
 
     @Override
     public void setNewPhone(String phone) {
         tvPhone.setText(phone);
+    }
+
+    @Override
+    public void onCountDownFinsh() {
+        tvCountDown.setTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
+        tvCountDown.setText("重新发送");
+        tvCountDown.setClickable(true);
+    }
+
+    @Override
+    public void onVertifySuccess(String phone) {
+        showToast("修改成功");
+        Intent intent = getActivity().getIntent();
+        intent.putExtra("phone", phone);
+        getActivity().setResult(Activity.RESULT_OK, intent);
+        goBack();
     }
 }

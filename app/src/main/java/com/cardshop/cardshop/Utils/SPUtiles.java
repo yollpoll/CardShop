@@ -16,6 +16,7 @@ public class SPUtiles {
     public static final String LOGIN_PHONE = "login_phone";
     public static final String GESTURE = "gesture";
     public static final String IS_OPEN_GESTURE = "is_open_gesture";
+    public static final String MD5_PSW = "md5_psw";
 
     public static final String IS_LOGIN_VIA_WX = "is_login_via_wx";
     public static final String WX_USER = "wx_user";
@@ -112,4 +113,11 @@ public class SPUtiles {
 //        SharePreferencesUtils.putString(TOKEN, token);
 //    }
 
+    public static void saveMd5Psw(String psw) {
+        SharePreferencesUtils.putString(getIdKey(IS_OPEN_GESTURE), psw);
+    }
+
+    public static String getMd5Psw() {
+        return SharePreferencesUtils.getString(getIdKey(IS_OPEN_GESTURE));
+    }
 }

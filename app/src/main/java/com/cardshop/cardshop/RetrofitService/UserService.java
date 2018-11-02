@@ -5,11 +5,14 @@ import com.cardshop.cardshop.Http.API;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.UserModule;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface UserService {
@@ -54,5 +57,17 @@ public interface UserService {
 
     @FormUrlEncoded
     @POST(API.SET_PAY_PASSWORD)
-    Call<ResponseData<UserModule>> setPayPsw(@Field("memberId") String memberId,@Field("payPsw") String payPsw);
+    Call<ResponseData<UserModule>> setPayPsw(@Field("memberId") String memberId, @Field("payPsw") String payPsw);
+
+    @Multipart
+    @POST(API.SET_AVATAR)
+    Call<ResponseData<BaseModule>> setAvarar(@Part MultipartBody.Part image, @Part("memberId") int memberId);
+
+    @FormUrlEncoded
+    @POST(API.VERTIFY_PAY_PASSWORD)
+    Call<ResponseData<BaseModule>> vertifyPayPsw(@Field("payPsw") String payPsw, @Field("memberId") String memberId);
+
+    @FormUrlEncoded
+    @POST(API.CHANGE_PHONE)
+    Call<ResponseData<BaseModule>> changePhone(@Field("memberId") String memberId, @Field("phone") String phone);
 }

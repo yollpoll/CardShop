@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
     </style>
     <style name="StyleBtnLogin">
         <item name="android:background">@drawable/ripple_btn_login</item>
@@ -55,5 +56,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:windowBackground">@color/transparentsmll_bg</item>
         <item name="android:windowIsFloating">true</item>
+    </style>
+    <!--欢迎页面主题-->
+    <style name="splash" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@mipmap/icon_splash</item>
     </style>
 </resources>

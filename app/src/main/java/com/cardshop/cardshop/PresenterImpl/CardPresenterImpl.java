@@ -32,6 +32,7 @@ public class CardPresenterImpl extends CardContract.IPresenter<CardContract.IVie
         CardModule.getCardList(UserModule.getCurrentUser().getMember().getMemberId() + "", new Callback<ResponseData<List<CardModule>>>() {
             @Override
             public void onResponse(Call<ResponseData<List<CardModule>>> call, Response<ResponseData<List<CardModule>>> response) {
+                mView.hideProgressbar();
                 list.clear();
                 list.addAll(response.body().getData());
                 mView.refreshRv();
@@ -45,6 +46,7 @@ public class CardPresenterImpl extends CardContract.IPresenter<CardContract.IVie
 
             @Override
             public void onFailure(Call<ResponseData<List<CardModule>>> call, Throwable t) {
+                mView.hideProgressbar();
                 mView.showError();
             }
         });

@@ -15,7 +15,7 @@ import retrofit2.Response;
 public class OrderDingdanPresenterImpl extends OrderDingdanContract.IPresenter<OrderDingdanContract.IView> {
     private OrderDingdanContract.IView mView;
     private String pageSize = "20";
-    private int pageNum = 0;
+    private int pageNum = 1;
     private boolean isRefrsh = false;
     private boolean isLoadMore = false;
     private List<OrderDingdanModule> list = new ArrayList<>();
@@ -29,10 +29,17 @@ public class OrderDingdanPresenterImpl extends OrderDingdanContract.IPresenter<O
     public void start() {
         super.start();
         mView.initRv(list);
+//        refresh();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         refresh();
     }
 
     private void getData() {
+        mView.showProgressbar();
         OrderDingdanModule.getOrderDingDan(UserModule.getCurrentUser().getMember().getMemberId(),
                 pageNum + "", pageSize, new Callback<ResponseData<List<OrderDingdanModule>>>() {
                     @Override
@@ -76,7 +83,7 @@ public class OrderDingdanPresenterImpl extends OrderDingdanContract.IPresenter<O
 
     @Override
     public void refresh() {
-        pageNum = 0;
+        pageNum = 1;
         isRefrsh = true;
         getData();
     }

@@ -13,7 +13,6 @@ public interface MainContract {
 
         public abstract void startScrollBanner();
 
-        public abstract void getAnnounceMentData();
 
         public abstract void startScrollAnnouncement();
 
@@ -21,7 +20,6 @@ public interface MainContract {
 
         public abstract void stopScrollAnnouncement();
 
-        public abstract void getGoodsData();
 
     }
 

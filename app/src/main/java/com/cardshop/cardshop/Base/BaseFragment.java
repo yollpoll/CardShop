@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.Base;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,18 +34,37 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mImmersionBar = ((BaseActivity) getActivity()).getmImmersionBar();
-        mPresenter = createPresenter();
-        if (null == mPresenter)
-            return;
-        mPresenter.attach((V) this);
+        initPresenter();
     }
+
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        if (null != mPresenter) {
+//            outState.putSerializable("presenter", mPresenter);
+//        }
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        if (null != savedInstanceState) {
+//            P savePresenter = (P) savedInstanceState.getSerializable("presenter");
+//            if (null != savePresenter) {
+//                mPresenter = savePresenter;
+//            }
+//        }
+//        this.mImmersionBar = ((BaseActivity) getActivity()).getmImmersionBar();
         rootView = view;
         initView(view);
         initData();
+    }
+
+    private void initPresenter() {
+        mPresenter = createPresenter();
+        if (null == mPresenter)
+            return;
+        mPresenter.attach((V) this);
     }
 
     @Override
@@ -69,6 +89,12 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
 //        if (mImmersionBar != null)
 //            mImmersionBar.destroy();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.onResume();
     }
 
     protected void initData() {
@@ -111,6 +137,7 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
         mImmersionBar
                 .transparentBar()
                 .fitsSystemWindows(false)
+                .navigationBarEnable(false)
                 .init();
     }
 
@@ -161,18 +188,19 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
                 return;
             mProgressBar = rootView.findViewById(R.id.progressBar);
         }
-        if (null != mPresenter)
+        if (null != mProgressBar)
             mProgressBar.setVisibility(View.VISIBLE);
     }
 
     public void hideProgressbar() {
-        if (null == mProgressBar) {
-            if (null == rootView)
-                return;
-            mProgressBar = rootView.findViewById(R.id.progressBar);
-        }
-        if (null != mPresenter)
+//        if (null == mProgressBar) {
+        if (null == rootView)
+            return;
+        mProgressBar = rootView.findViewById(R.id.progressBar);
+//        }
+        if (null != mProgressBar) {
             mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     public void onReturnResult(int requestCode, int resultCode, Intent data) {
@@ -182,45 +210,57 @@ public abstract class BaseFragment<V, P extends BasePresenter<V>>
     public void showNoData() {
         if (null == rootView)
             return;
-        if (null == mNoData) {
-            mNoData = LayoutInflater.from(getActivity()).inflate(R.layout.layout_no_data, null, false);
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            mNoData.setLayoutParams(params);
-            ViewGroup viewGroup = rootView.findViewById(R.id.root);
-            if (null == viewGroup) {
-                return;
-            }
-            viewGroup.addView(mNoData, 0);
-        }
-        mNoData.setVisibility(View.VISIBLE);
+        ViewGroup viewGroup = rootView.findViewById(R.id.root);
+        if (null == viewGroup)
+            return;
+        if (null != mNoData)
+            viewGroup.removeView(mNoData);
+        mNoData = LayoutInflater.from(rootView.getContext()).inflate(R.layout.layout_no_data, null, false);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mNoData.setLayoutParams(params);
+        viewGroup.addView(mNoData, 0);
     }
 
     public void hideNoData() {
         if (null == mNoData)
             return;
-        mNoData.setVisibility(View.GONE);
+        ViewGroup viewGroup = rootView.findViewById(R.id.root);
+        if (null == viewGroup)
+            return;
+        viewGroup.removeView(mNoData);
+        mNoData = null;
     }
 
     public void showError() {
         hideNoData();
         if (null == rootView)
             return;
-        if (null == mError) {
-            mError = LayoutInflater.from(getActivity()).inflate(R.layout.layout_error, null, false);
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            mError.setLayoutParams(params);
-            ViewGroup viewGroup = rootView.findViewById(R.id.root);
-            if (null == viewGroup) {
-                return;
-            }
-            viewGroup.addView(mError, 0);
-        }
-        mError.setVisibility(View.VISIBLE);
+        ViewGroup viewGroup = rootView.findViewById(R.id.root);
+        if (null == viewGroup)
+            return;
+        if (null != mError)
+            viewGroup.removeView(mError);
+        mError = LayoutInflater.from(getActivity()).inflate(R.layout.layout_error, null, false);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mError.setLayoutParams(params);
+        viewGroup.addView(mError, 0);
     }
 
     public void hideError() {
         if (null == mError)
             return;
-        mError.setVisibility(View.GONE);
+        ViewGroup viewGroup = rootView.findViewById(R.id.root);
+        if (null == viewGroup)
+            return;
+        viewGroup.removeView(mError);
+        mError = null;
+    }
+
+    public Activity getmContext() {
+        return getActivity();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

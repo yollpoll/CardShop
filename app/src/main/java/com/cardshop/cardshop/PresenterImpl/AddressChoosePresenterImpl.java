@@ -4,6 +4,7 @@ import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Contract.AddressChooseContract;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.AddressModule;
+import com.cardshop.cardshop.View.Fragment.AddressChooseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,16 @@ public class AddressChoosePresenterImpl extends AddressChooseContract.Presenter<
 
     @Override
     public void onItemClick(int position) {
-        mView.gotoEditAddress(list.get(position));
+        switch (actionMode) {
+            case AddressChooseFragment.MODE_CHOOSE:
+                //choose
+                mView.onChooseAddress(list.get(position));
+                break;
+            default:
+                //edit
+                mView.gotoEditAddress(list.get(position));
+                break;
+        }
     }
 
     @Override

@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="京东实体购物卡"
-                android:textSize="18sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_price"
@@ -45,7 +45,7 @@
                 android:layout_marginTop="8dp"
                 android:text="¥80"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_discount"
@@ -58,6 +58,7 @@
                 android:background="@drawable/shape_discount"
                 android:gravity="center"
                 android:text="0.8折"
+                android:textSize="8sp"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
@@ -70,7 +71,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@+id/tv_buy"
                 android:text="xxxx 出售"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/tv_buy"

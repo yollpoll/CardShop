@@ -23,5 +23,7 @@ public interface AddressChooseContract {
         void gotoEditAddress(AddressModule addressModule);
 
         void initActionMode(int actionMode);
+
+        void onChooseAddress(AddressModule addressModule);
     }
 }

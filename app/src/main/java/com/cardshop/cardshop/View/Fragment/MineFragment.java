@@ -37,6 +37,7 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
             rlHelp, rlUserMsg;
 
     private int avatarSize = 0;
+    private float appBarScrollRange=ALL_OFFSET;
 
 
     public static MineFragment newInstance() {
@@ -102,13 +103,16 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                float rate = 1 - ((-verticalOffset) / ALL_OFFSET);
+                appBarScrollRange=mAppBarLayout.getTotalScrollRange();
+                float rate = 1 - ((-verticalOffset) / Math.abs(appBarScrollRange));
                 ViewGroup.LayoutParams params = ivAvatar.getLayoutParams();
                 params.width = (int) (avatarSize * rate);
                 params.height = (int) (avatarSize * rate);
                 ivAvatar.setLayoutParams(params);
                 rlUserMsg.setAlpha(rate);
+
             }
+
         });
     }
 
@@ -118,7 +122,7 @@ public class MineFragment extends BaseFragment implements MineContract.IView {
         tvPhone.setText(userData.getMember().getMemberMobile());
         tvBalance.setText(userData.getMember().getAvailableRcBalance() + "");
         tvCard.setText(userData.getCardNum() + "");
-        ImageUtils.loadCycleImage(userData.getMember().getMemberAvatar(), ivAvatar, getActivity());
+        ImageUtils.loadCycleImage(userData.getMember().getMemberAvatar(), ivAvatar,R.mipmap.icon_default_avatar, ivAvatar.getContext());
     }
 
     @Override

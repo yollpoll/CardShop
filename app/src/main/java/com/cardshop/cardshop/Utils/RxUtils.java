@@ -115,12 +115,13 @@ public class RxUtils {
      * @param space 时间间隔
      */
     public static void startCountDown(int time, final int space, final CountDownListener listener) {
+        isStopCountDown = false;
         final int count = time / space;
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) {
                 int allCount = count;
-                while (allCount >= 0&&!isStopCountDown) {
+                while (allCount >= 0 && !isStopCountDown) {
                     emitter.onNext(allCount);
                     allCount--;
                     try {
@@ -129,7 +130,7 @@ public class RxUtils {
                         e.printStackTrace();
                     }
                 }
-                Log.d("spq","停止倒计时");
+                Log.d("spq", "停止倒计时");
                 emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io())

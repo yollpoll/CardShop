@@ -9,6 +9,13 @@ import com.cardshop.cardshop.PresenterImpl.WithdrawPresenterImpl;
 import com.cardshop.cardshop.View.Fragment.WithdrawFragment;
 
 public class WithdrawActivity extends SimpleActivity {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mFragment.onReturnResult(requestCode, resultCode, data);
+    }
+
+    private WithdrawFragment mFragment;
 
     public static void gotoWithDrawActivity(Context context) {
         Intent intent = new Intent(context, WithdrawActivity.class);
@@ -18,6 +25,7 @@ public class WithdrawActivity extends SimpleActivity {
     @Override
     protected void initData() {
         super.initData();
-        new WithdrawPresenterImpl((WithdrawContract.IView) loadBaseFragment(WithdrawFragment.newInstance()));
+        mFragment = WithdrawFragment.newInstance();
+        new WithdrawPresenterImpl((WithdrawContract.IView) loadBaseFragment(mFragment));
     }
 }

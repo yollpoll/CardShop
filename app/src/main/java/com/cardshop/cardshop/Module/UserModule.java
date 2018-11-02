@@ -6,6 +6,11 @@ import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.RetrofitService.UserService;
 import com.cardshop.cardshop.Utils.SPUtiles;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -96,6 +101,42 @@ public class UserModule extends BaseModule {
         call.enqueue(callback);
     }
 
+    public static void setAvatar(File file, Callback<ResponseData<BaseModule>> callback) {
+
+//        RequestBody requestBody = HttpTools.getRequestBody(file);
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part part1 = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+
+        service.setAvarar(part1, Integer.parseInt(UserModule.getCurrentUser().getMember().getMemberId()))
+                .enqueue(callback);
+    }
+
+    public static String getAvatarName() {
+        String avatar = getCurrentUser().getMember().getMemberAvatar();
+        return avatar.substring(avatar.lastIndexOf('/'));
+    }
+
+    public static void vertifyPayPassword(String psw, Callback<ResponseData<BaseModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+        service.vertifyPayPsw(psw, UserModule.getCurrentUser().getMember().getMemberId())
+                .enqueue(callback);
+    }
+
+    public static void changePhone(String phone, Callback<ResponseData<BaseModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        UserService service = retrofit.create(UserService.class);
+        service.changePhone(getCurrentUser().getMember().getMemberId(), phone)
+                .enqueue(callback);
+    }
+
+    public static void logout() {
+        SPUtiles.saveUser(null);
+    }
+
     public int getCardNum() {
         return cardNum;
     }
@@ -174,12 +215,12 @@ public class UserModule extends BaseModule {
         private String memberPasswd;
         private String memberPaypwd;
         private String memberEmail;
-        private int memberEmailBind;
+        private String memberEmailBind;
         private String memberMobile;
-        private int memberMobileBind;
+        private String memberMobileBind;
         private String memberQq;
         private String memberWw;
-        private int memberLoginNum;
+        private String memberLoginNum;
         private String memberTime;
         private String memberLoginTime;
         private String memberOldLoginTime;
@@ -191,26 +232,26 @@ public class UserModule extends BaseModule {
         private String memberSinainfo;
         private String weixinUnionid;
         private String weixinInfo;
-        private int memberPoints;
-        private int availablePredeposit;
-        private int freezePredeposit;
-        private int availableRcBalance;
-        private int freezeRcBalance;
+        private String memberPoints;
+        private String availablePredeposit;
+        private String freezePredeposit;
+        private double availableRcBalance;
+        private double freezeRcBalance;
         private boolean informAllow;
         private boolean isBuy;
         private boolean isAllowtalk;
         private boolean memberState;
-        private int memberSnsvisitnum;
+        private String memberSnsvisitnum;
         private String memberAreaid;
-        private int memberCityid;
-        private int memberProvinceid;
+        private String memberCityid;
+        private String memberProvinceid;
         private String memberAreainfo;
         private String memberPrivacy;
         private String memberQuicklink;
-        private int memberExppoints;
+        private String memberExppoints;
         private String inviterId;
         private String memberWxopenid;
-        private int myGoldBean;
+        private String myGoldBean;
         private String authCode;
         private String memberIdCard;
         private String isVerified;
@@ -287,11 +328,11 @@ public class UserModule extends BaseModule {
             this.memberEmail = memberEmail;
         }
 
-        public int getMemberEmailBind() {
+        public String getMemberEmailBind() {
             return memberEmailBind;
         }
 
-        public void setMemberEmailBind(int memberEmailBind) {
+        public void setMemberEmailBind(String memberEmailBind) {
             this.memberEmailBind = memberEmailBind;
         }
 
@@ -303,11 +344,11 @@ public class UserModule extends BaseModule {
             this.memberMobile = memberMobile;
         }
 
-        public int getMemberMobileBind() {
+        public String getMemberMobileBind() {
             return memberMobileBind;
         }
 
-        public void setMemberMobileBind(int memberMobileBind) {
+        public void setMemberMobileBind(String memberMobileBind) {
             this.memberMobileBind = memberMobileBind;
         }
 
@@ -327,11 +368,11 @@ public class UserModule extends BaseModule {
             this.memberWw = memberWw;
         }
 
-        public int getMemberLoginNum() {
+        public String getMemberLoginNum() {
             return memberLoginNum;
         }
 
-        public void setMemberLoginNum(int memberLoginNum) {
+        public void setMemberLoginNum(String memberLoginNum) {
             this.memberLoginNum = memberLoginNum;
         }
 
@@ -423,31 +464,31 @@ public class UserModule extends BaseModule {
             this.weixinInfo = weixinInfo;
         }
 
-        public int getMemberPoints() {
+        public String getMemberPoints() {
             return memberPoints;
         }
 
-        public void setMemberPoints(int memberPoints) {
+        public void setMemberPoints(String memberPoints) {
             this.memberPoints = memberPoints;
         }
 
-        public int getAvailablePredeposit() {
+        public String getAvailablePredeposit() {
             return availablePredeposit;
         }
 
-        public void setAvailablePredeposit(int availablePredeposit) {
+        public void setAvailablePredeposit(String availablePredeposit) {
             this.availablePredeposit = availablePredeposit;
         }
 
-        public int getFreezePredeposit() {
+        public String getFreezePredeposit() {
             return freezePredeposit;
         }
 
-        public void setFreezePredeposit(int freezePredeposit) {
+        public void setFreezePredeposit(String freezePredeposit) {
             this.freezePredeposit = freezePredeposit;
         }
 
-        public int getAvailableRcBalance() {
+        public double getAvailableRcBalance() {
             return availableRcBalance;
         }
 
@@ -455,7 +496,7 @@ public class UserModule extends BaseModule {
             this.availableRcBalance = availableRcBalance;
         }
 
-        public int getFreezeRcBalance() {
+        public double getFreezeRcBalance() {
             return freezeRcBalance;
         }
 
@@ -495,11 +536,11 @@ public class UserModule extends BaseModule {
             this.memberState = memberState;
         }
 
-        public int getMemberSnsvisitnum() {
+        public String getMemberSnsvisitnum() {
             return memberSnsvisitnum;
         }
 
-        public void setMemberSnsvisitnum(int memberSnsvisitnum) {
+        public void setMemberSnsvisitnum(String memberSnsvisitnum) {
             this.memberSnsvisitnum = memberSnsvisitnum;
         }
 
@@ -511,19 +552,19 @@ public class UserModule extends BaseModule {
             this.memberAreaid = memberAreaid;
         }
 
-        public int getMemberCityid() {
+        public String getMemberCityid() {
             return memberCityid;
         }
 
-        public void setMemberCityid(int memberCityid) {
+        public void setMemberCityid(String memberCityid) {
             this.memberCityid = memberCityid;
         }
 
-        public int getMemberProvinceid() {
+        public String getMemberProvinceid() {
             return memberProvinceid;
         }
 
-        public void setMemberProvinceid(int memberProvinceid) {
+        public void setMemberProvinceid(String memberProvinceid) {
             this.memberProvinceid = memberProvinceid;
         }
 
@@ -551,11 +592,11 @@ public class UserModule extends BaseModule {
             this.memberQuicklink = memberQuicklink;
         }
 
-        public int getMemberExppoints() {
+        public String getMemberExppoints() {
             return memberExppoints;
         }
 
-        public void setMemberExppoints(int memberExppoints) {
+        public void setMemberExppoints(String memberExppoints) {
             this.memberExppoints = memberExppoints;
         }
 
@@ -575,11 +616,11 @@ public class UserModule extends BaseModule {
             this.memberWxopenid = memberWxopenid;
         }
 
-        public int getMyGoldBean() {
+        public String getMyGoldBean() {
             return myGoldBean;
         }
 
-        public void setMyGoldBean(int myGoldBean) {
+        public void setMyGoldBean(String myGoldBean) {
             this.myGoldBean = myGoldBean;
         }
 

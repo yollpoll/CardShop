@@ -1,6 +1,8 @@
 package com.cardshop.cardshop.Base;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 
 public interface IBaseView<T extends BasePresenter> {
     void setPresenter(T presenter);
@@ -34,4 +36,8 @@ public interface IBaseView<T extends BasePresenter> {
     void showError();
 
     void hideError();
+
+    Activity getmContext();
+
+    void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults);
 }

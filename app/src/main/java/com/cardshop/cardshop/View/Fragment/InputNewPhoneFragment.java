@@ -1,5 +1,7 @@
 package com.cardshop.cardshop.View.Fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -86,9 +88,17 @@ public class InputNewPhoneFragment extends BaseFragment implements InputNewPhone
     @Override
     public void onCheckInput(boolean result, String message) {
         if (result) {
-            ChangePhoneActivity.gotoChangePhoneActivity(getContext(), edtPhone.getText().toString());
+            ChangePhoneActivity.gotoChangePhoneActivity(getActivity(), edtPhone.getText().toString(), PersonalMsgFragment.REQUEST_PHONE);
+//            goBack();
         } else {
             showSnackerToast(message);
         }
+    }
+
+    @Override
+    public void onReturnResult(int requestCode, int resultCode, Intent data) {
+        super.onReturnResult(requestCode, resultCode, data);
+        getActivity().setResult(Activity.RESULT_OK, data);
+        goBack();
     }
 }

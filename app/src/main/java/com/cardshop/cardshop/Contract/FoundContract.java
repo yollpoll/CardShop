@@ -9,11 +9,12 @@ import java.util.List;
 public interface FoundContract {
     abstract class IPresenter<V> extends BasePresenter<V> {
         public abstract void refreshData();
+        public abstract void onItemClick(int position);
     }
 
     interface IView extends IBaseView<FoundContract.IPresenter> {
         void refresh();
 
-        void initGames(List<FoundGameModule.Entity> list);
+        void initGames(List<FoundGameModule> list);
     }
 }

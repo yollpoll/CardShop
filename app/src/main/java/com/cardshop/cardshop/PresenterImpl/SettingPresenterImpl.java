@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.cardshop.cardshop.Contract.SettingContract;
+import com.cardshop.cardshop.Module.UserModule;
 import com.cardshop.cardshop.Utils.SPUtiles;
 import com.cardshop.framework.glide.GlideCacheUtil;
 
@@ -19,9 +20,14 @@ public class SettingPresenterImpl extends SettingContract.IPresenter<SettingCont
     @Override
     public void start(Context context) {
         super.start();
-        mView.openGesture(SPUtiles.isOpenGesture());
         mView.setCache(GlideCacheUtil.getInstance().getCacheSize(context));
-        this.context=context;
+        this.context = context;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mView.openGesture(SPUtiles.isOpenGesture());
     }
 
     @Override
@@ -38,6 +44,11 @@ public class SettingPresenterImpl extends SettingContract.IPresenter<SettingCont
                 updateCache();
             }
         });
+    }
+
+    @Override
+    public void logout() {
+        UserModule.logout();
     }
 
     private void updateCache() {

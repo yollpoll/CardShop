@@ -13,20 +13,26 @@ import com.cardshop.cardshop.R;
 
 import java.util.List;
 
-public class FoundGamesAdapter extends FooterAdapter<List<FoundGameModule.Entity>, BaseViewHolder> {
-    private List<FoundGameModule.Entity> list;
+public class FoundGamesAdapter extends FooterAdapter<List<FoundGameModule>, BaseViewHolder> {
+    private List<FoundGameModule> list;
     private OnItemClickListener onItemClickListener;
     private Context context;
 
-    public FoundGamesAdapter(List<FoundGameModule.Entity> foundGameModules, OnItemClickListener onItemClickListener) {
+    public FoundGamesAdapter(List<FoundGameModule> foundGameModules, OnItemClickListener onItemClickListener) {
         super(foundGameModules);
         this.list = foundGameModules;
         this.onItemClickListener = onItemClickListener;
     }
 
     @Override
-    protected void onBindContentViewHolder(BaseViewHolder holder, int position) {
-
+    protected void onBindContentViewHolder(BaseViewHolder holder, final int position) {
+        ViewHolder viewHolder = (ViewHolder) holder;
+        viewHolder.ivFound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.onClick(view, position);
+            }
+        });
     }
 
     @Override

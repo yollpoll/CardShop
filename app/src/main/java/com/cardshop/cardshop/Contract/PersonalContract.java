@@ -1,11 +1,19 @@
 package com.cardshop.cardshop.Contract;
 
+import android.content.Intent;
+
 import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Base.IBaseView;
 
 public interface PersonalContract {
     abstract class IPresenter<V> extends BasePresenter<V> {
         public abstract void vertifyPayPassword(String psw);
+
+        public abstract void dealFromCamera(Intent intent);
+
+        public abstract void dealFromPhote(Intent intent);
+
+        public abstract void checkAvatarPermisstion();
     }
 
     interface IView extends IBaseView<PersonalContract.IPresenter> {
@@ -20,5 +28,7 @@ public interface PersonalContract {
         void setWx(String wx);
 
         void setQQ(String qq);
+
+        void showAvatarDialog();
     }
 }

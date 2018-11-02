@@ -7,14 +7,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 
 import com.cardshop.cardshop.Base.BaseActivity;
+import com.cardshop.cardshop.Module.GoodsModule;
 import com.cardshop.cardshop.PresenterImpl.GoodsDetailPresenterImpl;
 import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Fragment.GoodsDetailFragment;
 
 public class GoodsDetailActivity extends BaseActivity {
+    private GoodsModule goodsModule;
 
-    public static void gotoGoodsDetailActivity(Context context) {
+    public static void gotoGoodsDetailActivity(Context context, GoodsModule goodsModule) {
         Intent intent = new Intent(context, GoodsDetailActivity.class);
+        intent.putExtra("goods", goodsModule);
         context.startActivity(intent);
     }
 
@@ -34,6 +37,7 @@ public class GoodsDetailActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        goodsModule = (GoodsModule) getIntent().getSerializableExtra("goods");
         FragmentManager fragmentManager = getSupportFragmentManager();
         GoodsDetailFragment fragment = (GoodsDetailFragment) fragmentManager.findFragmentByTag(FRAGMENT_TAG);
         if (fragment == null) {
@@ -41,6 +45,6 @@ public class GoodsDetailActivity extends BaseActivity {
             fragmentManager.beginTransaction().add(R.id.rl_root, fragment, FRAGMENT_TAG).commit();
         }
         //初始化presenter
-        new GoodsDetailPresenterImpl(fragment);
+        new GoodsDetailPresenterImpl(fragment,goodsModule);
     }
 }

@@ -3,6 +3,7 @@ package com.cardshop.cardshop.RetrofitService;
 import com.cardshop.cardshop.Http.API;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.AnnouncementModule;
+import com.cardshop.cardshop.Module.BannerAndAnnouncementModule;
 import com.cardshop.cardshop.Module.BannerModule;
 import com.cardshop.cardshop.Module.GoodsModule;
 import com.cardshop.cardshop.Module.GoodsTypeModule;
@@ -21,6 +22,9 @@ public interface MainService {
 
     @GET(API.ANNOUNCEMENT)
     Call<ResponseData<AnnouncementModule>> getAnnoucement();
+
+    @GET(API.BANNER_ANNOUNCEMENT)
+    Call<ResponseData<BannerAndAnnouncementModule>> getBannerAneAnnouncement();
 
     @FormUrlEncoded
     @POST(API.GOODS)

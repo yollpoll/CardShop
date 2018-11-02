@@ -3,8 +3,7 @@ package com.cardshop.cardshop.PresenterImpl;
 import com.cardshop.cardshop.Contract.MainContract;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Listener.OnRxScrollListener;
-import com.cardshop.cardshop.Module.AnnouncementModule;
-import com.cardshop.cardshop.Module.BannerModule;
+import com.cardshop.cardshop.Module.BannerAndAnnouncementModule;
 import com.cardshop.cardshop.Module.GoodsTypeModule;
 import com.cardshop.cardshop.Utils.RxUtils;
 
@@ -34,8 +33,7 @@ public class MainPresenterImpl extends MainContract.MainPresenter<MainContract.M
     public void start() {
         mView.initBanner(listBanner, null);
         getGoodsType();
-//        getBannerData();
-//        getAnnounceMentData();
+        getBannerData();
     }
 
     @Override
@@ -67,19 +65,39 @@ public class MainPresenterImpl extends MainContract.MainPresenter<MainContract.M
 
     @Override
     public void getBannerData() {
-        BannerModule.getBannerModule(new Callback<ResponseData<BannerModule>>() {
+//        BannerModule.getBannerModule(new Callback<ResponseData<BannerModule>>() {
+//            @Override
+//            public void onResponse(Call<ResponseData<BannerModule>> call, Response<ResponseData<BannerModule>> response) {
+//                if (response.body().isSuccess()) {
+//                    listBanner.clear();
+//                    listBanner.addAll(response.body().getData().getBanner());
+//                    mView.refreshBanner();
+//                    startScrollBanner();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseData<BannerModule>> call, Throwable t) {
+//
+//            }
+//        });
+        BannerAndAnnouncementModule.getBannerAndAnnouncement(new Callback<ResponseData<BannerAndAnnouncementModule>>() {
             @Override
-            public void onResponse(Call<ResponseData<BannerModule>> call, Response<ResponseData<BannerModule>> response) {
+            public void onResponse(Call<ResponseData<BannerAndAnnouncementModule>> call, Response<ResponseData<BannerAndAnnouncementModule>> response) {
                 if (response.body().isSuccess()) {
                     listBanner.clear();
                     listBanner.addAll(response.body().getData().getBanner());
                     mView.refreshBanner();
                     startScrollBanner();
+
+                    listAnnouncement.clear();
+                    listAnnouncement.add(response.body().getData().getBulletion());
+                    startScrollAnnouncement();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseData<BannerModule>> call, Throwable t) {
+            public void onFailure(Call<ResponseData<BannerAndAnnouncementModule>> call, Throwable t) {
 
             }
         });
@@ -88,6 +106,7 @@ public class MainPresenterImpl extends MainContract.MainPresenter<MainContract.M
 
     @Override
     public void startScrollBanner() {
+        RxUtils.isScrollBanner=true;
         RxUtils.StartScrollBanner(listBanner, new OnRxScrollListener() {
             @Override
             public void onScroll(int position) {
@@ -101,25 +120,10 @@ public class MainPresenterImpl extends MainContract.MainPresenter<MainContract.M
         RxUtils.stopScrollBanner();
     }
 
-    @Override
-    public void getAnnounceMentData() {
-        AnnouncementModule.getModule(new Callback<ResponseData<AnnouncementModule>>() {
-            @Override
-            public void onResponse(Call<ResponseData<AnnouncementModule>> call, Response<ResponseData<AnnouncementModule>> response) {
-                listAnnouncement.clear();
-                listAnnouncement.addAll(response.body().getData().getHome_notice());
-                startScrollAnnouncement();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseData<AnnouncementModule>> call, Throwable t) {
-
-            }
-        });
-    }
 
     @Override
     public void startScrollAnnouncement() {
+        RxUtils.isScrollAnnouncement=true;
         RxUtils.StartScroll(listAnnouncement, new OnRxScrollListener() {
             @Override
             public void onScroll(int position) {
@@ -133,8 +137,4 @@ public class MainPresenterImpl extends MainContract.MainPresenter<MainContract.M
         RxUtils.stopScrollAnnouncement();
     }
 
-    @Override
-    public void getGoodsData() {
-
-    }
 }

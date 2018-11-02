@@ -8,6 +8,6 @@ public interface GoodsDetailPagerContract {
     }
 
     interface IView extends IBaseView<GoodsDetailPagerContract.IPresenter> {
-
+        void initDetail(int id);
     }
 }

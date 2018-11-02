@@ -14,6 +14,7 @@ public class InputNewPhonePresenterImpl extends InputNewPhoneContract.IPresenter
         mView.setPresenter(this);
     }
 
+
     @Override
     public void start() {
         super.start();

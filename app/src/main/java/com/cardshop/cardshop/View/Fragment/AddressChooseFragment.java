@@ -1,7 +1,9 @@
 package com.cardshop.cardshop.View.Fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -114,6 +116,14 @@ public class AddressChooseFragment extends BaseFragment implements AddressChoose
                 });
                 break;
         }
+    }
+
+    @Override
+    public void onChooseAddress(AddressModule addressModule) {
+        Intent intent = getActivity().getIntent();
+        intent.putExtra("address", addressModule);
+        getActivity().setResult(Activity.RESULT_OK, intent);
+        goBack();
     }
 
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {

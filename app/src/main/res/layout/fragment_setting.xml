@@ -40,7 +40,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:text="登陆密码" />
+                    android:text="登录密码" />
 
                 <ImageView
                     android:layout_width="wrap_content"

@@ -10,6 +10,7 @@ public interface SettingContract {
         public abstract void openGesture(boolean open);
 
         public abstract void clearCache(Context context);
+        public abstract void logout();
     }
 
     interface IView extends IBaseView<SettingContract.IPresenter> {

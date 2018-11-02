@@ -29,16 +29,17 @@
             android:textSize="18sp" />
 
         <EditText
+            android:id="@+id/edt_money"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="15dp"
             android:layout_toRightOf="@+id/tv_rmb"
             android:background="@color/white"
             android:gravity="left|center_vertical"
-            android:inputType="number"
-            android:layout_marginLeft="5dp"
-            android:layout_centerVertical="true"
-            android:text="1000"
+            android:text=""
+            android:inputType="numberDecimal"
             android:textSize="36sp" />
 
         <View
@@ -70,27 +71,27 @@
     <RadioGroup
         android:id="@+id/rg_buy"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/rb_wechatpay"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:checked="true"
-            android:drawableLeft="@mipmap/icon_wechat_pay"
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:text="微信" />
+        <!--<android.support.v7.widget.AppCompatRadioButton-->
+        <!--android:id="@+id/rb_wechatpay"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:checked="true"-->
+        <!--android:drawableLeft="@mipmap/icon_wechat_pay"-->
+        <!--android:drawablePadding="10dp"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:text="微信" />-->
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="15dp"
-            android:background="@color/colorLine" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0.5dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:background="@color/colorLine" />-->
 
 
         <android.support.v7.widget.AppCompatRadioButton
@@ -98,6 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
+            android:checked="true"
             android:drawableLeft="@mipmap/icon_alipay"
             android:drawablePadding="10dp"
             android:paddingLeft="10dp"

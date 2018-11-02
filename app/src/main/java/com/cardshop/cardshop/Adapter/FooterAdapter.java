@@ -21,7 +21,7 @@ public abstract class FooterAdapter<DATA extends List, VH extends RecyclerView.V
     public DATA data;
     private int mFooterStatus = 0;//0隐藏，1加载中，2没有更多
     private Object objectFooter;
-    private Context mContext;
+    protected Context mContext;
 
     public FooterAdapter(DATA data) {
         this.data = data;
@@ -102,6 +102,7 @@ public abstract class FooterAdapter<DATA extends List, VH extends RecyclerView.V
             notifyItemRemoved(data.size());
         }
     }
+
 
     /**
      * @return 0隐藏，1加载中，2没有更多

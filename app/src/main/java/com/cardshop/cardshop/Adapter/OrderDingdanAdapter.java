@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.Adapter;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import com.cardshop.cardshop.Base.BaseViewHolder;
 import com.cardshop.cardshop.Listener.OnItemClickListener;
 import com.cardshop.cardshop.Module.OrderDingdanModule;
 import com.cardshop.cardshop.R;
+import com.cardshop.cardshop.Utils.DateUtils;
+import com.cardshop.framework.Utils.ImageUtils;
 
 import java.util.List;
 
@@ -32,6 +35,18 @@ public class OrderDingdanAdapter extends BaseFooterAdapter<List<OrderDingdanModu
     @Override
     protected void onBindContentViewHolder(BaseViewHolder holder, int position) {
         super.onBindContentViewHolder(holder, position);
+        OrderDingdanModule dingdanModule = data.get(position);
+        ViewHolder viewHolder = (ViewHolder) holder;
+        viewHolder.tvOrgPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        viewHolder.tvOrgPrice.setText(dingdanModule.getGoodsPrice());
+        viewHolder.tvCardName.setText(dingdanModule.getGoodsName());
+        viewHolder.tvDate.setText(DateUtils.getDate(Long.parseLong(dingdanModule.getAddTime())*1000));
+        viewHolder.tvState.setText(OrderDingdanModule.getStatusName(dingdanModule.getCardStatus()));
+        viewHolder.tvNowPrice.setText(dingdanModule.getAllPrice());
+        viewHolder.tvNum.setText("x" + dingdanModule.getGoodsNum());
+        viewHolder.tvOrderId.setText(dingdanModule.getOrderSn());
+        viewHolder.tvAllPrice.setText("合计: ¥" + dingdanModule.getTotalPrice());
+        ImageUtils.loadImage(dingdanModule.getGoodsImage(), viewHolder.ivCard, mContext);
     }
 
     public static class ViewHolder extends BaseViewHolder {

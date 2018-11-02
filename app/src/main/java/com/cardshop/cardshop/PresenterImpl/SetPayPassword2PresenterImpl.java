@@ -57,6 +57,7 @@ public class SetPayPassword2PresenterImpl extends SetPayPassword2Contract.IPrese
                     //设置成功
                     mView.onSuccess();
                 } else {
+                    password = "";
                     mView.onConfirmInput(false, "请设置6位数字支付密码");
                     mView.showSnackerToast(response.body().getMsg());
                 }

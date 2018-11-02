@@ -61,6 +61,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:visibility="gone"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
@@ -81,6 +82,7 @@
                     android:id="@+id/iv_avater"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
+                    android:src="@mipmap/icon_default_avatar"
                     android:layout_centerHorizontal="true"
                     />
 
@@ -331,10 +333,17 @@
                     android:layout_marginRight="15dp"
                     android:src="@mipmap/icon_right_arrow" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorLine" />
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_help"
+                android:visibility="gone"
                 style="@style/MineItem">
 
                 <View

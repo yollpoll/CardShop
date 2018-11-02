@@ -1,9 +1,13 @@
 package com.cardshop.cardshop.Http;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -45,6 +49,25 @@ public class HttpTools {
                 .addInterceptor(interceptor)
                 .build();
         return client;
+    }
+
+    /**
+     * 根据文件创建requestbody
+     *
+     * @param file
+     * @return
+     */
+    public static RequestBody getRequestBody(File file) {
+        // 创建 RequestBody，用于封装构建RequestBody
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("image/*"), file);
+        return requestFile;
+    }
+
+    public static MultipartBody.Part getPart(String name, File file) {
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("name", file.getName(), requestFile);
+        return body;
     }
 
     public static boolean ifSuccess(String code) {

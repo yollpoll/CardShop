@@ -12,6 +12,8 @@ import android.support.v4.content.ContextCompat;
 
 public class PermissionUtils {
     public static String WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;//SD 卡读写
+    public static String READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE;
+    public static String CAMERA = Manifest.permission.CAMERA;
 
     /**
      * 检查权限
@@ -26,6 +28,22 @@ public class PermissionUtils {
         } else {
             return true;
         }
+    }
+
+
+    /**
+     * 检查权限
+     *
+     * @param activity
+     * @param permission
+     * @return
+     */
+    public static boolean checkPermission(Activity activity, String[] permission) {
+        for (int i = 0; i < permission.length; i++) {
+            if (!checkPermission(activity, permission[i]))
+                return false;
+        }
+        return true;
     }
 
     /**
@@ -55,6 +73,27 @@ public class PermissionUtils {
                 onExplainPermission.onExplain();
             }
             requestPermissions(activity, new String[]{permission}, requestCode);
+        } else {
+            onPermissionGet.onGet();
+        }
+    }
+
+    /**
+     * 检查同时申请
+     *
+     * @param activity
+     * @param permission
+     * @param requestCode
+     */
+    public static void checkAndRequestPermission(Activity activity, String[] permission, int requestCode,
+                                                 OnPermissionGet onPermissionGet) {
+        if (!checkPermission(activity, permission)) {
+            //需要申请权限
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+//                //需要解释权限
+//                onExplainPermission.onExplain();
+//            }
+            requestPermissions(activity, permission, requestCode);
         } else {
             onPermissionGet.onGet();
         }

@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.View.Activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,12 @@ public class AddressChooseActivity extends BaseActivity {
         Intent intent = new Intent(context, AddressChooseActivity.class);
         intent.putExtra("actionMode", actionMode);
         context.startActivity(intent);
+    }
+
+    public static void gotoChooseActivity(Activity context, int requestCode) {
+        Intent intent = new Intent(context, AddressChooseActivity.class);
+        intent.putExtra("actionMode", AddressChooseFragment.MODE_CHOOSE);
+        context.startActivityForResult(intent, requestCode);
     }
 
     @Override

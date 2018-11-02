@@ -1,6 +1,6 @@
 package com.cardshop.cardshop.View.Activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 
 import com.cardshop.cardshop.Base.SimpleActivity;
@@ -9,15 +9,24 @@ import com.cardshop.cardshop.PresenterImpl.InputNewPhonePresenterImpl;
 import com.cardshop.cardshop.View.Fragment.InputNewPhoneFragment;
 
 public class InputNewPhoneActivity extends SimpleActivity {
-    public static void gotoInputNewActivity(Context context) {
+    private InputNewPhoneFragment mFragment;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mFragment.onReturnResult(requestCode, resultCode, data);
+    }
+
+    public static void gotoInputNewActivity(Activity context, int requestCode) {
         Intent intent = new Intent(context, InputNewPhoneActivity.class);
-        context.startActivity(intent);
+        context.startActivityForResult(intent, requestCode);
     }
 
     @Override
     protected void initData() {
         super.initData();
-        new InputNewPhonePresenterImpl((InputNewPhoneContract.IView) loadBaseFragment(InputNewPhoneFragment.newInstance()));
+        mFragment = InputNewPhoneFragment.newInstance();
+        new InputNewPhonePresenterImpl((InputNewPhoneContract.IView) loadBaseFragment(mFragment));
     }
 
 

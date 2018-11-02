@@ -11,6 +11,10 @@ public interface GoodsContract {
         public abstract void refreshData();
 
         public abstract void loadMore();
+
+        public abstract void onClick(int position);
+
+        public abstract void onBuyClick(int position);
     }
 
     interface IView extends IBaseView<GoodsContract.IPresenter> {
@@ -18,6 +22,8 @@ public interface GoodsContract {
 
         void refresh();
 
-        void loadMore(int position,int count);
+        void loadMore(int position, int count);
+
+        void onClick(GoodsModule goodsModule);
     }
 }

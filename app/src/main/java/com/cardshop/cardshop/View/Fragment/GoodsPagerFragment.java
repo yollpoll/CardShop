@@ -65,7 +65,7 @@ public class GoodsPagerFragment extends BaseFragment implements GoodsContract.IV
 
     @Override
     public void initGoods(List<GoodsModule> list) {
-        mAdapter = new HomeGoodsAdapter(list, onItemClickListener);
+        mAdapter = new HomeGoodsAdapter(list, onItemClickListener, onBuyClickListener);
         rvGoods.setAdapter(mAdapter);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         rvGoods.setLayoutManager(gridLayoutManager);
@@ -99,7 +99,15 @@ public class GoodsPagerFragment extends BaseFragment implements GoodsContract.IV
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {
         @Override
         public void onClick(View view, int position) {
-            GoodsDetailActivity.gotoGoodsDetailActivity(getActivity());
+            presenter.onClick(position);
+//            GoodsDetailActivity.gotoGoodsDetailActivity(getActivity(),position);
+        }
+    };
+
+    private HomeGoodsAdapter.OnBuyClickListener onBuyClickListener = new HomeGoodsAdapter.OnBuyClickListener() {
+        @Override
+        public void onClick(int position) {
+            presenter.onBuyClick(position);
         }
     };
 
@@ -118,6 +126,11 @@ public class GoodsPagerFragment extends BaseFragment implements GoodsContract.IV
         if (count == 0)
             mAdapter.setNomore();
         isLoadingMore = false;
+    }
+
+    @Override
+    public void onClick(GoodsModule goodsModule) {
+        GoodsDetailActivity.gotoGoodsDetailActivity(getActivity(), goodsModule);
     }
 
     @Override

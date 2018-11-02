@@ -25,8 +25,8 @@ public class LoginPresenterImpl extends LoginContract.IPresenter<LoginContract.I
     }
 
     @Override
-    public void login(final String userName, String password) {
-        mView.showLoading("登录中", "正在登陆，请稍等...");
+    public void login(final String userName, final String password) {
+        mView.showLoading("登录中", "正在登录，请稍等...");
         UserModule.login(userName, password, new Callback<ResponseData<UserModule>>() {
             @Override
             public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
@@ -78,7 +78,7 @@ public class LoginPresenterImpl extends LoginContract.IPresenter<LoginContract.I
         if (!SPUtiles.isLoginViaWx())
             return;
         final WxUserInfoModule wxUserInfoModule = WxUserInfoModule.getLocalUserInfo();
-        mView.showLoading("登录中", "正在登陆，请稍等...");
+        mView.showLoading("登录中", "正在登录，请稍等...");
         UserModule.authLogin(wxUserInfoModule.getOpenid(), wxUserInfoModule.getNickname(), wxUserInfoModule.getHeadimgurl(),
                 "1", new Callback<ResponseData<UserModule>>() {
                     @Override

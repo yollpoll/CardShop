@@ -60,11 +60,12 @@ public class FoundFragment extends BaseFragment implements FoundContract.IView, 
 
     @Override
     public void refresh() {
+        swipeRefresh.setRefreshing(false);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void initGames(List<FoundGameModule.Entity> list) {
+    public void initGames(List<FoundGameModule> list) {
         mAdapter = new FoundGamesAdapter(list, onItemClickListener);
         rvFound.setAdapter(mAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -86,7 +87,7 @@ public class FoundFragment extends BaseFragment implements FoundContract.IView, 
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {
         @Override
         public void onClick(View view, int position) {
-
+            presenter.onItemClick(position);
         }
     };
 }

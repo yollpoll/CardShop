@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.View.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,8 +16,11 @@ import com.cardshop.cardshop.Base.BaseFragment;
 import com.cardshop.cardshop.Base.BasePresenter;
 import com.cardshop.cardshop.Contract.SettingContract;
 import com.cardshop.cardshop.R;
+import com.cardshop.cardshop.View.Activity.AboutUsActivity;
 import com.cardshop.cardshop.View.Activity.ForgetPasswordActivity;
 import com.cardshop.cardshop.View.Activity.GestureActivity;
+import com.cardshop.cardshop.View.Activity.LoginActivity;
+import com.cardshop.cardshop.View.Activity.ProtocolActivity;
 import com.cardshop.cardshop.View.Activity.SetPayPasswordActivity;
 
 public class SettingFragment extends BaseFragment implements SettingContract.IView {
@@ -70,7 +74,6 @@ public class SettingFragment extends BaseFragment implements SettingContract.IVi
         rlServiceProtocol.setOnClickListener(this);
         rlClearCache.setOnClickListener(this);
         rlLogout.setOnClickListener(this);
-        switchGesture.setOnCheckedChangeListener(onCheckedChangeListener);
     }
 
     @Override
@@ -85,13 +88,13 @@ public class SettingFragment extends BaseFragment implements SettingContract.IVi
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            if (init) {
-                init = false;
-                return;
-            }
+//            if (init) {
+//                init = false;
+//                return;
+//            }
             if (b) {
                 //开启
-                GestureActivity.gotoGestureActivity(getActivity());
+                GestureActivity.gotoGestureActivity(getActivity(), true);
             } else {
                 presenter.openGesture(false);
             }
@@ -111,12 +114,26 @@ public class SettingFragment extends BaseFragment implements SettingContract.IVi
             case R.id.rl_clear_cache:
                 presenter.clearCache(getActivity());
                 break;
+            case R.id.rl_about_us:
+                AboutUsActivity.gotoAboutUs(getActivity());
+                break;
+            case R.id.rl_logout:
+                presenter.logout();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                getActivity().startActivity(intent);
+                goBack();
+                break;
+            case R.id.rl_service_protocol:
+                ProtocolActivity.gotoProtocolActivity(getActivity(),"服务协议",R.raw.service_protocol);
+                break;
         }
     }
 
     @Override
     public void openGesture(boolean open) {
         switchGesture.setChecked(open);
+        switchGesture.setOnCheckedChangeListener(onCheckedChangeListener);
     }
 
     @Override

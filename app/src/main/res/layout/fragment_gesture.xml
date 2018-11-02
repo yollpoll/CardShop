@@ -30,4 +30,14 @@
         android:layout_height="240dp"
         android:layout_marginTop="50dp"
         android:background="@color/white"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="账号密码登录"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/tv_login"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        />
 </LinearLayout>

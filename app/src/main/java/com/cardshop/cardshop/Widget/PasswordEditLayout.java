@@ -60,10 +60,12 @@ public class PasswordEditLayout extends LinearLayout {
             return;
         for (int i = 0; i < PSWNUM; i++) {
             TextView tvPsw = new TextView(getContext());
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ScreenUtils.calculateDpToPx(54, getContext()),
-                    ScreenUtils.calculateDpToPx(54, getContext()));
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ScreenUtils.calculateDpToPx(45, getContext()),
+                    ScreenUtils.calculateDpToPx(45, getContext()));
             tvPsw.setLayoutParams(params);
             tvPsw.setGravity(Gravity.CENTER);
+            tvPsw.setFocusable(true);
+            tvPsw.setFocusableInTouchMode(true);
             tvPsw.setTextSize(15);
             tvPsw.setBackground(getContext().getResources().getDrawable(R.drawable.shape_paypassword));
             tvPsw.setId(i);

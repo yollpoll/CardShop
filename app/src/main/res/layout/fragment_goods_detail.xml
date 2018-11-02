@@ -27,11 +27,12 @@
 
                 <ImageView
                     android:id="@+id/iv_goods"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="326dp"
+                    android:layout_height="195dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
-                    android:src="@mipmap/icon_detail_yidong" />
+                    android:scaleType="fitXY"
+                    />
 
                 <TextView
                     android:id="@+id/tv_goods"
@@ -55,8 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabIndicatorColor="@color/colorPrimary" />
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/colorPrimary" />
         </android.support.design.widget.AppBarLayout>
 
 
@@ -75,8 +76,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorLine"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:background="@color/colorLine" />
 
         <TextView
             android:id="@+id/tv_price"
@@ -96,6 +97,7 @@
             android:layout_toRightOf="@+id/tv_price" />
 
         <TextView
+            android:id="@+id/tv_purchase"
             android:layout_width="110dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

@@ -13,6 +13,16 @@
         android:layout_marginTop="15dp"
         android:background="@color/colorLine" />
 
+    <TextView
+        android:id="@+id/tv_no_card"
+        style="@style/WhiteBgRipple"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="暂无银行卡"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/rl_card_msg"
         style="@style/WhiteBgRipple"
@@ -109,7 +119,7 @@
                 android:inputType="number"
                 android:maxLength="10"
                 android:singleLine="true"
-                android:text="10"
+                android:text=""
                 android:textSize="36sp" />
 
         </RelativeLayout>
@@ -139,8 +149,8 @@
             android:layout_alignBaseline="@+id/tv_balance"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
-            android:text="全部提现"
             android:background="?attr/selectableItemBackground"
+            android:text="全部提现"
             android:textColor="@color/colorPrimary" />
     </RelativeLayout>
 

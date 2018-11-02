@@ -3,6 +3,7 @@ package com.cardshop.cardshop.PresenterImpl;
 import com.cardshop.cardshop.Contract.GoodsContract;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.GoodsModule;
+import com.cardshop.cardshop.View.Activity.CreateOrderActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContr
     public static final int STATUS_JD = 3;
 
     private GoodsContract.IView mView;
-    private int pageNum = 0;
+    private int pageNum = 1;
 
     private List<GoodsModule> list = new ArrayList<>();
     private String gcName;
@@ -35,13 +36,14 @@ public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContr
     public GoodsPagerPresenterImpl(GoodsContract.IView mView, String gcName) {
         this.mView = mView;
         this.gcName = gcName;
+
         mView.setPresenter(this);
     }
 
     @Override
     public void refreshData() {
         isRefresh = true;
-        pageNum = 0;
+        pageNum = 1;
         getData();
     }
 
@@ -49,6 +51,16 @@ public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContr
     public void loadMore() {
         pageNum++;
         getData();
+    }
+
+    @Override
+    public void onClick(int position) {
+        mView.onClick(list.get(position));
+    }
+
+    @Override
+    public void onBuyClick(int position) {
+        CreateOrderActivity.gotoCreateOrderActivity(mContext, list.get(position));
     }
 
     private void getData() {

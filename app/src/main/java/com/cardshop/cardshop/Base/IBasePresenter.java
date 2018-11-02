@@ -10,5 +10,7 @@ public interface IBasePresenter {
 
     void stop();
 
+    void onResume();
+
     void onReturnResult(int requestCode, int resultCode, Intent data);
 }

@@ -3,9 +3,11 @@ package com.cardshop.cardshop.Base;
 import android.content.Context;
 import android.content.Intent;
 
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 
-public abstract class BasePresenter<V> implements IBasePresenter {
+public abstract class BasePresenter<V> implements IBasePresenter,Serializable {
+    protected Context mContext;
 
     @Override
     public void start() {
@@ -14,6 +16,7 @@ public abstract class BasePresenter<V> implements IBasePresenter {
 
     @Override
     public void start(Context context) {
+        this.mContext = context;
     }
 
     @Override
@@ -45,6 +48,11 @@ public abstract class BasePresenter<V> implements IBasePresenter {
 
     @Override
     public void onReturnResult(int requestCode, int resultCode, Intent data) {
+
+    }
+
+    @Override
+    public void onResume() {
 
     }
 }
