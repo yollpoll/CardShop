@@ -49,8 +49,10 @@ public class OrderTihuoAdapter extends BaseFooterAdapter<List<OrderTihuoModule>>
     }
 
     private String getStatus(OrderTihuoModule tihuoModule) {
-        if (tihuoModule.isShoppingCard()) {
+        if (!isShopingCard) {
             switch (tihuoModule.getCardStatus()) {
+                case "10":
+                    return "充值中";
                 case "20":
                     return "充值中";
                 case "30":

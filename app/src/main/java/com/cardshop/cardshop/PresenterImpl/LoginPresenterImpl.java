@@ -102,6 +102,8 @@ public class LoginPresenterImpl extends LoginContract.IPresenter<LoginContract.I
 
     private void afterLogin(Response<ResponseData<UserModule>> response) {
         mView.hideLoading();
+        if (ResponseData.showError(response, mView))
+            return;
         if (response.body().isSuccess()) {
             SPUtiles.saveLoginPhone(response.body().getData().getMember().getMemberMobile());
             UserModule.saveToLocal(response.body().getData());

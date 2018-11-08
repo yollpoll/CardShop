@@ -5,7 +5,9 @@ import android.text.TextUtils;
 import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Contract.ForgetPasswordContract;
 import com.cardshop.cardshop.Http.ResponseData;
+import com.cardshop.cardshop.Listener.CountDownListener;
 import com.cardshop.cardshop.Module.UserModule;
+import com.cardshop.cardshop.Utils.RxUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,12 +36,12 @@ public class ForgetPasswordPresenterImpl extends ForgetPasswordContract.Presente
             @Override
             public void onResponse(Call<ResponseData<BaseModule>> call, Response<ResponseData<BaseModule>> response) {
                 mView.hideLoading();
+                if (!response.isSuccessful())
+                    return;
                 mView.showSnackerToast(response.body().getMsg());
-//                if (response.body().isSuccess()) {
-//                    mView.showSnackerToast("发送成功");
-//                } else {
-//                    mView.showSnackerToast("发送失败");
-//                }
+                if (response.body().isSuccess()) {
+                    startCountDown();
+                }
             }
 
             @Override
@@ -103,6 +105,31 @@ public class ForgetPasswordPresenterImpl extends ForgetPasswordContract.Presente
             public void onFailure(Call<ResponseData<UserModule>> call, Throwable t) {
                 mView.hideLoading();
                 mView.showSnackerToast("修改失败");
+            }
+        });
+    }
+
+    @Override
+    public void attach(Object view) {
+        super.attach(view);
+        RxUtils.isStopCountDown = false;
+    }
+
+    @Override
+    public void detach() {
+        super.detach();
+        RxUtils.isStopCountDown = true;
+    }
+
+    private void startCountDown() {
+        RxUtils.startCountDown(60 * 1000, 1000, new CountDownListener() {
+            @Override
+            public void onCountDown(int count) {
+                if (0 == count) {
+                    mView.onCountDownFinish();
+                } else {
+                    mView.showCountDown(count + "秒后重发");
+                }
             }
         });
     }

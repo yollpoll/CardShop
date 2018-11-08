@@ -9,6 +9,7 @@ public class API {
     public static final String WX_GET_TOKEN = "sns/oauth2/access_token";
     public static final String WX_REFRESH_TOKEN = "sns/oauth2/refresh_token";
     public static final String WX_USER_INFO = "sns/userinfo";
+    public static final String WX_BIND = "ktt/api/member/wxBind";
 
     //APP
     public static final String HEAD_URL = "http://106.14.184.148:8080/";

@@ -14,6 +14,8 @@ public interface PersonalContract {
         public abstract void dealFromPhote(Intent intent);
 
         public abstract void checkAvatarPermisstion();
+
+        public abstract void bindWechat();
     }
 
     interface IView extends IBaseView<PersonalContract.IPresenter> {
@@ -30,5 +32,7 @@ public interface PersonalContract {
         void setQQ(String qq);
 
         void showAvatarDialog();
+
+        void setCanBindWx(boolean canBindWx);
     }
 }

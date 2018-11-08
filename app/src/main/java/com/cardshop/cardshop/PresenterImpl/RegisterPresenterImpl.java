@@ -5,7 +5,9 @@ import android.text.TextUtils;
 import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Contract.RegisterContract;
 import com.cardshop.cardshop.Http.ResponseData;
+import com.cardshop.cardshop.Listener.CountDownListener;
 import com.cardshop.cardshop.Module.UserModule;
+import com.cardshop.cardshop.Utils.RxUtils;
 import com.cardshop.cardshop.Utils.VertifyUtils;
 
 import retrofit2.Call;
@@ -16,9 +18,9 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
     private RegisterContract.IView mView;
     private String openId = "";
 
-    public RegisterPresenterImpl(RegisterContract.IView mView,String openId) {
+    public RegisterPresenterImpl(RegisterContract.IView mView, String openId) {
         this.mView = mView;
-        this.openId=openId;
+        this.openId = openId;
         mView.setPresenter(this);
     }
 
@@ -36,6 +38,7 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
             public void onResponse(Call<ResponseData<BaseModule>> call, Response<ResponseData<BaseModule>> response) {
                 mView.hideLoading();
                 if (response.body().isSuccess()) {
+                    startCountDown();
                     mView.showSnackerToast("发送成功");
                 } else {
                     mView.showSnackerToast("发送失败");
@@ -100,5 +103,31 @@ public class RegisterPresenterImpl extends RegisterContract.IPresenter<RegisterC
 
     public boolean vertifyPsd(String psd, String confirmPsd) {
         return psd.equals(confirmPsd) ? true : false;
+    }
+
+
+    @Override
+    public void attach(RegisterContract.IView view) {
+        super.attach(view);
+        RxUtils.isStopCountDown = false;
+    }
+
+    @Override
+    public void detach() {
+        super.detach();
+        RxUtils.isStopCountDown = true;
+    }
+
+    private void startCountDown() {
+        RxUtils.startCountDown(60 * 1000, 1000, new CountDownListener() {
+            @Override
+            public void onCountDown(int count) {
+                if (0 == count) {
+                    mView.onCountDownFinish();
+                } else {
+                    mView.showCountDown(count + "秒后重发");
+                }
+            }
+        });
     }
 }

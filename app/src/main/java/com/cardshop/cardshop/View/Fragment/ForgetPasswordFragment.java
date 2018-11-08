@@ -77,4 +77,18 @@ public class ForgetPasswordFragment extends BaseFragment implements ForgetPasswo
                 break;
         }
     }
+
+    @Override
+    public void showCountDown(String count) {
+        tvGetVertifyCode.setClickable(false);
+        tvGetVertifyCode.setTextColor(getActivity().getResources().getColor(R.color.colorHint));
+        tvGetVertifyCode.setText(count);
+    }
+
+    @Override
+    public void onCountDownFinish() {
+        tvGetVertifyCode.setTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
+        tvGetVertifyCode.setText("重新发送");
+        tvGetVertifyCode.setClickable(true);
+    }
 }

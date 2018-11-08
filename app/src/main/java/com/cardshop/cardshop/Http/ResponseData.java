@@ -1,5 +1,9 @@
 package com.cardshop.cardshop.Http;
 
+import com.cardshop.cardshop.Base.IBaseView;
+
+import retrofit2.Response;
+
 /**
  * Created by 鹏祺 on 2017/9/20.
  */
@@ -39,5 +43,12 @@ public class ResponseData<T extends Object> {
 
     public boolean isSuccess() {
         return SUCCESS == code;
+    }
+
+    public static boolean showError(Response response, IBaseView view) {
+        if (null == response.errorBody())
+            return false;
+        view.showSnackerToast("接口出错");
+        return true;
     }
 }

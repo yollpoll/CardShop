@@ -3,6 +3,7 @@ package com.cardshop.cardshop.PresenterImpl;
 import com.cardshop.cardshop.Contract.GoodsContract;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.GoodsModule;
+import com.cardshop.cardshop.Module.UserModule;
 import com.cardshop.cardshop.View.Activity.CreateOrderActivity;
 
 import java.util.ArrayList;
@@ -55,12 +56,20 @@ public class GoodsPagerPresenterImpl extends GoodsContract.IPresenter<GoodsContr
 
     @Override
     public void onClick(int position) {
-        mView.onClick(list.get(position));
+        if ((list.get(position).getMemberId() + "").equalsIgnoreCase(UserModule.getCurrentUser().getMember().getMemberId())) {
+            mView.showSnackerToast("不能购买自己的商品");
+        } else {
+            mView.onClick(list.get(position));
+        }
     }
 
     @Override
     public void onBuyClick(int position) {
-        CreateOrderActivity.gotoCreateOrderActivity(mContext, list.get(position));
+        if ((list.get(position).getMemberId() + "").equalsIgnoreCase(UserModule.getCurrentUser().getMember().getMemberId())) {
+            mView.showSnackerToast("不能购买自己的商品");
+        } else {
+            CreateOrderActivity.gotoCreateOrderActivity(mContext, list.get(position));
+        }
     }
 
     private void getData() {

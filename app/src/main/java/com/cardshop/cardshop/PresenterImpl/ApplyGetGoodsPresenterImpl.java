@@ -114,8 +114,8 @@ public class ApplyGetGoodsPresenterImpl extends ApplyGetGoodsContact.Presenter {
 
     @Override
     public void checkInput(String phone) {
-        if (TextUtils.isEmpty(phone) && isRecharge) {
-            mView.showSnackerToast("请输入手机号");
+        if (phone.length()<11 && isRecharge) {
+            mView.showSnackerToast("请输入正确的手机号");
             return;
         }
         if (TextUtils.isEmpty(addressModule.getAreaInfo()) && !isRecharge) {

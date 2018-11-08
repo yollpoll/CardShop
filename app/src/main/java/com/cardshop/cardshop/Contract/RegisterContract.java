@@ -28,5 +28,9 @@ public interface RegisterContract {
         void showSendVertifyCode(String result);
 
         void registerResult(boolean result, String content);
+
+        void showCountDown(String count);
+
+        void onCountDownFinish();
     }
 }

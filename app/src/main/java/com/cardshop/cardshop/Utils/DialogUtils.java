@@ -3,6 +3,8 @@ package com.cardshop.cardshop.Utils;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Display;
@@ -11,11 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cardshop.cardshop.R;
 import com.cardshop.cardshop.View.Activity.ForgetPasswordActivity;
 import com.cardshop.cardshop.Widget.PasswordEditLayout;
+import com.cardshop.cardshop.Widget.PswDialog;
+
 
 /**
  * Created by 鹏祺 on 2018/4/3.
@@ -40,6 +46,16 @@ public class DialogUtils {
 
     public static Dialog showDialog(Context context, int layoutId) {
         Dialog dialog = new Dialog(context);
+        View view = LayoutInflater.from(context).inflate(layoutId, null);
+        dialog.setContentView(view);
+        dialog.show();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        return dialog;
+    }
+
+    public static Dialog showDialog(Context context, int layoutId, int style) {
+        Dialog dialog = new Dialog(context, style);
         View view = LayoutInflater.from(context).inflate(layoutId, null);
         dialog.setContentView(view);
         dialog.show();
@@ -87,10 +103,12 @@ public class DialogUtils {
 
     public static Dialog showPayPasswordDialog(final Activity context,
                                                final PasswordEditLayout.OnInputCompleteListener onInputCompleteListener) {
-        final Dialog dialog = DialogUtils.showDialog(context, R.layout.layout_dialog_pay_password);
-//        DialogUtils.setDialog(context, dialog, ScreenUtils.calculateDpToPx(370, context)
-//                , ScreenUtils.calculateDpToPx(205, context));
-        PasswordEditLayout passwordEditLayout = dialog.findViewById(R.id.ll_password);
+        final PswDialog dialog = new PswDialog(context, R.style.PswDialog);
+        final View view = LayoutInflater.from(context).inflate(R.layout.layout_dialog_pay_password, null);
+        dialog.setContentView(view);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        final PasswordEditLayout passwordEditLayout = dialog.findViewById(R.id.ll_password);
         passwordEditLayout.setOnInputCompleteListener(new PasswordEditLayout.OnInputCompleteListener() {
             @Override
             public void onComplete(String psw) {
@@ -99,14 +117,47 @@ public class DialogUtils {
             }
         });
         TextView tvChangePsw = dialog.findViewById(R.id.tv_forgetpswd);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        passwordEditLayout.requestFocus();
         tvChangePsw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ForgetPasswordActivity.gotoForgetPasswordActivity(context, "忘记密码");
             }
         });
-        dialog.setCanceledOnTouchOutside(false);
+        final Handler handler = new Handler();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showKeyboard(passwordEditLayout, context);
+                    }
+                }, 300);
+            }
+        });
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
         return dialog;
+    }
+
+    public static void showKeyboard(EditText editText, Context context) {
+        //其中editText为dialog中的输入框的 EditText
+        if (editText != null) {
+            //设置可获得焦点
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            //请求获得焦点
+            editText.requestFocus();
+            //调用系统输入法
+            InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showSoftInput(editText, 0);
+        }
+    }
+
+    public static void closeKeyBoard(EditText editText, Context context) {
+        InputMethodManager imm = (InputMethodManager) context.
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 }

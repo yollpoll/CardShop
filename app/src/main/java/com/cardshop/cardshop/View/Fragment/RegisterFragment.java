@@ -105,6 +105,20 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.I
         }
     }
 
+    @Override
+    public void showCountDown(String count) {
+        tvVertifyCode.setClickable(false);
+        tvVertifyCode.setTextColor(getActivity().getResources().getColor(R.color.colorHint));
+        tvVertifyCode.setText(count);
+    }
+
+    @Override
+    public void onCountDownFinish() {
+        tvVertifyCode.setTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
+        tvVertifyCode.setText("重新发送");
+        tvVertifyCode.setClickable(true);
+    }
+
 
     private void getVertifyCode() {
         if (presenter.checkPhone(edtPhone.getText().toString())) {

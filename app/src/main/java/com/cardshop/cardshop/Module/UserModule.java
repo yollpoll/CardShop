@@ -4,6 +4,7 @@ import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Http.HttpTools;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.RetrofitService.UserService;
+import com.cardshop.cardshop.RetrofitService.WxService;
 import com.cardshop.cardshop.Utils.SPUtiles;
 
 import java.io.File;
@@ -131,6 +132,13 @@ public class UserModule extends BaseModule {
         UserService service = retrofit.create(UserService.class);
         service.changePhone(getCurrentUser().getMember().getMemberId(), phone)
                 .enqueue(callback);
+    }
+
+    public static void bindWx(WxUserInfoModule wxUserInfoModule, Callback<ResponseData<BaseModule>> callback) {
+        Retrofit retrofit = HttpTools.getInstance().getRetrofit();
+        WxService service = retrofit.create(WxService.class);
+        service.bindWx(wxUserInfoModule.getOpenid(), wxUserInfoModule.getNickname(), wxUserInfoModule.getHeadimgurl(),
+                UserModule.getCurrentUser().getMember().getMemberId()).enqueue(callback);
     }
 
     public static void logout() {

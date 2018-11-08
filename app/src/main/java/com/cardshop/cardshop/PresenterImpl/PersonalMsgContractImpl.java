@@ -3,14 +3,20 @@ package com.cardshop.cardshop.PresenterImpl;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 
+import com.cardshop.cardshop.Base.BaseApplication;
 import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Contract.PersonalContract;
 import com.cardshop.cardshop.Http.ResponseData;
 import com.cardshop.cardshop.Module.UserModule;
+import com.cardshop.cardshop.Module.WxUserInfoModule;
 import com.cardshop.cardshop.Utils.FileUtils;
 import com.cardshop.cardshop.Utils.PermissionUtils;
+import com.cardshop.cardshop.Utils.SPUtiles;
 import com.cardshop.cardshop.Utils.Tools;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
 
 import java.io.File;
 
@@ -37,8 +43,11 @@ public class PersonalMsgContractImpl extends PersonalContract.IPresenter<Persona
         mView.setAvatar(UserModule.getCurrentUser().getMember().getMemberAvatar());
         mView.setPhone(UserModule.getCurrentUser().getMember().getMemberMobile());
         mView.setUserName(UserModule.getCurrentUser().getMember().getMemberName());
-        mView.setWx(UserModule.getCurrentUser().getMember().getWeixinInfo());
+        mView.setWx(TextUtils.isEmpty(UserModule.getCurrentUser().getMember().getMemberWxopenid()) ? "未绑定" : "已绑定");
+//        mView.setWx(UserModule.getCurrentUser().getMember().getWeixinInfo());
         mView.setQQ(UserModule.getCurrentUser().getMember().getMemberQq());
+
+        mView.setCanBindWx(!TextUtils.isEmpty(UserModule.getCurrentUser().getMember().getMemberWxopenid()));
     }
 
     @Override
@@ -82,6 +91,18 @@ public class PersonalMsgContractImpl extends PersonalContract.IPresenter<Persona
                 REQUEST_AVARAR, onPermissionGet);
     }
 
+    @Override
+    public void bindWechat() {
+        // send oauth request
+        IWXAPI api = ((BaseApplication) BaseApplication.getInstance()).getIwxapi();
+        if (null == api)
+            return;
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "wechat_sdk_demo_test";
+        api.sendReq(req);
+    }
+
     private void uploadAvatar(File file) {
         mView.showLoading("上传头像", "上传头像中,请稍等");
         UserModule.setAvatar(file, new Callback<ResponseData<BaseModule>>() {
@@ -104,6 +125,35 @@ public class PersonalMsgContractImpl extends PersonalContract.IPresenter<Persona
                 mView.showSnackerToast(t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!SPUtiles.isLoginViaWx())
+            return;
+        final WxUserInfoModule wxUserInfoModule = WxUserInfoModule.getLocalUserInfo();
+        if (null == wxUserInfoModule)
+            return;
+        mView.showLoading("绑定微信", "绑定微信中,请稍等");
+        UserModule.bindWx(wxUserInfoModule, new Callback<ResponseData<BaseModule>>() {
+            @Override
+            public void onResponse(Call<ResponseData<BaseModule>> call, Response<ResponseData<BaseModule>> response) {
+                if (response.body().isSuccess()) {
+                    mView.setWx("已绑定");
+                    mView.setCanBindWx(true);
+                } else {
+                    mView.showSnackerToast(response.body().getMsg());
+                }
+                mView.hideLoading();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseData<BaseModule>> call, Throwable t) {
+                mView.hideLoading();
+            }
+        });
+        SPUtiles.saveIsLoginViaWx(false);
     }
 
     private PermissionUtils.OnPermissionGet onPermissionGet = new PermissionUtils.OnPermissionGet() {

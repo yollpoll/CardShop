@@ -1,5 +1,6 @@
 package com.cardshop.cardshop.Module;
 
+import com.cardshop.cardshop.Base.BaseModule;
 import com.cardshop.cardshop.Http.API;
 import com.cardshop.cardshop.Http.HttpTools;
 import com.cardshop.cardshop.RetrofitService.WxService;
@@ -11,7 +12,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 
-public class WxUserInfoModule {
+public class WxUserInfoModule extends BaseModule {
     private String openid;
     private String nickname;
     private String sex;

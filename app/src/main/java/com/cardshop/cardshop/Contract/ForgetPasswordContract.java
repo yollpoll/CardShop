@@ -13,5 +13,8 @@ public interface ForgetPasswordContract {
     }
 
     interface IView extends IBaseView<Presenter> {
+        void showCountDown(String count);
+
+        void onCountDownFinish();
     }
 }

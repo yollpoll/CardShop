@@ -114,6 +114,9 @@ public class PersonalMsgFragment extends BaseFragment implements PersonalContrac
                 presenter.checkAvatarPermisstion();
 //                Tools.showChoosePicDialog(getActivity());
                 break;
+            case R.id.rl_wechat:
+                presenter.bindWechat();
+                break;
         }
     }
 
@@ -130,7 +133,7 @@ public class PersonalMsgFragment extends BaseFragment implements PersonalContrac
     @Override
     public void getVertifyPswResult(boolean result) {
         if (result) {
-            InputNewPhoneActivity.gotoInputNewActivity(getActivity(),REQUEST_PHONE);
+            InputNewPhoneActivity.gotoInputNewActivity(getActivity(), REQUEST_PHONE);
         } else {
             showSnackerToast("验证密码失败");
         }
@@ -154,6 +157,11 @@ public class PersonalMsgFragment extends BaseFragment implements PersonalContrac
     @Override
     public void showAvatarDialog() {
         Tools.showChoosePicDialog(getActivity());
+    }
+
+    @Override
+    public void setCanBindWx(boolean canBindWx) {
+        rlWechat.setClickable(canBindWx);
     }
 
     private void changePhone() {
@@ -205,8 +213,10 @@ public class PersonalMsgFragment extends BaseFragment implements PersonalContrac
 //                file = new File(path);
                 break;
             case REQUEST_PHONE:
-                String phone = data.getStringExtra("phone");
-                tvPhone.setText(phone);
+                if (resultCode == Activity.RESULT_OK) {
+                    String phone = data.getStringExtra("phone");
+                    tvPhone.setText(phone);
+                }
                 break;
         }
     }
