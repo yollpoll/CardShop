@@ -80,6 +80,8 @@ public class MinePresenterImpl extends MineContract.IPresenter<MineContract.IVie
         UserModule.getUserInfo(new Callback<ResponseData<UserModule>>() {
             @Override
             public void onResponse(Call<ResponseData<UserModule>> call, Response<ResponseData<UserModule>> response) {
+                if(null==response)
+                    return;
                 if (response.body().isSuccess()) {
                     UserModule.saveToLocal(response.body().getData());
                     mView.setUserData(response.body().getData());
