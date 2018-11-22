@@ -20,7 +20,7 @@ android {
     aaptOptions.useNewCruncher = false
     signingConfigs {
         debug {
-            storeFile file("C:\\Android\\workspace\\CardShop\\cardshop.jks")//keystore的路径
+            storeFile file("F:\\Development\\Android\\workspace\\CardShop\\cardshop.jks")//keystore的路径
             storePassword "11111111"
             keyAlias "cardshop"
             keyPassword "11111111"

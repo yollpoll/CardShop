@@ -55,7 +55,7 @@ public class OrderDingdanPresenterImpl extends OrderDingdanContract.IPresenter<O
                             list.addAll(response.body().getData());
                             mView.loadMore(loadMorePosition, response.body().getData().size());
                         }
-                        if (0 == list.size()) {
+                        if (0 == list.size()&&isRefrsh) {
                             mView.showNoData();
                         } else {
                             mView.hideNoData();
